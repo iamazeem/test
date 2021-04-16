@@ -16,14 +16,13 @@ jobs:
       - name: Run a one-line script
         run: |
           echo Testing!
-          exit 1
 
       - uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
           author_name: ${{ github.actor }}
           fields: all
-          mention: here
+          mention: ${{ github.actor }}
           if_mention: success,failure
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
