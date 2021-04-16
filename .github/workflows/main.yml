@@ -18,12 +18,11 @@ jobs:
           echo Testing!
 
       - uses: 8398a7/action-slack@v3
+        if: github.ref == 'refs/heads/main'
         with:
           status: ${{ job.status }}
           author_name: ${{ github.actor }}
           fields: all
-          mention: ${{ github.actor }}
           if_mention: success,failure
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        if: always()
