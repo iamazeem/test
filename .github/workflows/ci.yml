@@ -27,7 +27,6 @@ jobs:
         run: |
           which ccache
           ccache --version
-          #export PATH="/usr/lib/ccache:$PATH"
           echo '/usr/lib/ccache' >> $GITHUB_PATH
           which gcc
           echo '--- [DONE] ---'
@@ -40,6 +39,7 @@ jobs:
         run: |
           echo 'Testing...'
           which gcc
+          which g++
           go env
           which ld
           whereis ld
