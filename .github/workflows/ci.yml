@@ -27,9 +27,8 @@ jobs:
         run: |
           which ccache
           ccache --version
-          export PATH="/usr/lib/ccache:$PATH"
-          #echo '/usr/lib/ccache' >> $GITHUB_PATH
-          #echo '/usr/local/opt/ccache/libexec' >> $GITHUB_PATH
+          #export PATH="/usr/lib/ccache:$PATH"
+          echo '/usr/lib/ccache' >> $GITHUB_PATH
           which gcc
           echo '--- [DONE] ---'
 
