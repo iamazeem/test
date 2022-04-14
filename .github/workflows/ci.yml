@@ -39,6 +39,7 @@ jobs:
       - name: Run script
         run: |
           echo 'Testing...'
+          which gcc
           go env
           which ld
           whereis ld
