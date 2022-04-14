@@ -26,4 +26,5 @@ jobs:
           go env
           which ld
           whereis ld
+          realpath /usr/bin/ld
           echo '--- [DONE] ---'
