@@ -11,6 +11,11 @@ on:
       - main
     paths-ignore:
       - '**.md'
+  create:
+    branches:
+      - main
+    tags:
+      - '*'
 
 jobs:
 
