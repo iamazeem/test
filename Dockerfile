@@ -23,12 +23,7 @@ RUN \
 
 RUN \
     wget -q http://ftp.debian.org/debian/pool/main/a/automake-1.15/automake_1.15-3_all.deb && \
-    dpkg -i automake_1.15-3_all.deb && \
-    wget -q http://sourceforge.net/projects/boost/files/boost/1.60.0/boost_1_60_0.tar.gz && \
-    tar -xzf boost_1_60_0.tar.gz && \
-    cd boost_1_60_0 && \
-    ./bootstrap.sh && \
-    ./b2 install
+    apt-get install -y ./automake_1.15-3_all.deb
 
 RUN \
     export VERSION="0.15.0" && \
@@ -44,4 +39,4 @@ RUN \
     make && \
     make install
 
-CMD [ "/usr/bin/bash" ]
+CMD [ "/bin/bash" ]
