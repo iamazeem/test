@@ -22,10 +22,6 @@ RUN \
         python-dev
 
 RUN \
-    wget -q http://ftp.debian.org/debian/pool/main/a/automake-1.15/automake_1.15-3_all.deb && \
-    apt-get install -y ./automake_1.15-3_all.deb
-
-RUN \
     export VERSION="0.15.0" && \
     export DIR_NAME="thrift-$VERSION" && \
     export ARCHIVE_NAME="$DIR_NAME.tar.gz" && \
