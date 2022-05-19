@@ -4,6 +4,19 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN \
     apt-get update && \
+    apt-get install -y --no-install-recommends \
+        ca-certificates \
+        lsb-release \
+        wget && \
+    export OS_NAME="$(lsb_release --id --short | tr '[[:upper:]]' '[[:lower:]]')" && \
+    export OS_CODENAME="$(lsb_release --codename --short)" && \
+    export APACHE_ARROW_PKG_NAME="apache-arrow-apt-source-latest-$OS_CODENAME.deb" && \
+    wget -q "https://apache.jfrog.io/artifactory/arrow/$OS_NAME/apache-arrow-apt-source-latest-$OS_CODENAME.deb" && \
+    apt-get install -y ./$APACHE_ARROW_PKG_NAME && \
+    rm $APACHE_ARROW_PKG_NAME
+
+RUN \
+    apt-get update && \
     apt-get install -y --no-install-recommends --fix-missing \
         automake \
         bison \
@@ -34,5 +47,8 @@ RUN \
     ./configure && \
     make && \
     make install
+
+RUN \
+    gem install --backtrace red-arrow
 
 CMD [ "/bin/bash" ]
