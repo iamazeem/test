@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM rubylang/ruby:2.6.3-bionic
 
 ARG DEBIAN_FRONTEND=noninteractive
 
