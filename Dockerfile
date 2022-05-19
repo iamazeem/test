@@ -1,4 +1,4 @@
-FROM ruby:2.6.3
+FROM ubuntu:18.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
