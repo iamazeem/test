@@ -1,4 +1,4 @@
-FROM rubylang/ruby:2.6.3-bionic
+FROM ruby:2.6.3
 
 ARG DEBIAN_FRONTEND=noninteractive
 
