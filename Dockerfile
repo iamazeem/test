@@ -1,23 +1,26 @@
-FROM ubuntu:18.04
+FROM ruby:2.6.3
 
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN \
     apt-get update && \
-    apt-get install -y --no-install-recommends \
+    apt-get install -y \
         ca-certificates \
         lsb-release \
         wget && \
-    export OS_NAME="$(lsb_release --id --short | tr '[[:upper:]]' '[[:lower:]]')" && \
-    export OS_CODENAME="$(lsb_release --codename --short)" && \
-    export APACHE_ARROW_PKG_NAME="apache-arrow-apt-source-latest-$OS_CODENAME.deb" && \
-    wget -q "https://apache.jfrog.io/artifactory/arrow/$OS_NAME/apache-arrow-apt-source-latest-$OS_CODENAME.deb" && \
-    apt-get install -y ./$APACHE_ARROW_PKG_NAME && \
-    rm $APACHE_ARROW_PKG_NAME
+    wget -q https://apache.jfrog.io/artifactory/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb && \
+    apt-get install -y ./apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb && \
+    apt-get update && \
+    apt-get install -y \
+        libarrow-dev \
+        libarrow-glib-dev \
+        libparquet-dev \
+        libparquet-glib-dev && \
+    rm apache-arrow-apt-source-latest-*.deb
 
 RUN \
     apt-get update && \
-    apt-get install -y --no-install-recommends --fix-missing \
+    apt-get install -y \
         automake \
         bison \
         flex \
@@ -28,11 +31,7 @@ RUN \
         libssl-dev \
         libtool \
         make \
-        pkg-config \
-        wget \
-        tar \
-        ruby-dev \
-        python-dev
+        pkg-config
 
 RUN \
     export VERSION="0.15.0" && \
@@ -43,12 +42,15 @@ RUN \
     rm "$ARCHIVE_NAME" && \
     cd "$DIR_NAME" && \
     ./bootstrap.sh && \
-    ./configure --help && \
-    ./configure && \
+    ./configure \
+        --disable-debug \
+        --disable-tests \
+        --disable-tutorial \
+        --disable-dependency-tracking \
+        --without-python \
+        --without-py3 \
+        --without-go && \
     make && \
     make install
-
-RUN \
-    gem install --backtrace red-arrow
 
 CMD [ "/bin/bash" ]
