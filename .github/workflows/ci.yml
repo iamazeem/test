@@ -27,7 +27,11 @@ jobs:
 
     steps:
       - name: STEP (${{ env.TEST }})
-        run: echo "testing..."
+        env:
+          TEST1: $TEST
+        run: |
+          echo "TEST: $TEST"
+          echo "TEST1: $TEST1"
 
 #       - uses: actions/checkout@v2
 
