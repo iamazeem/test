@@ -24,7 +24,7 @@ jobs:
     
     env:
       TEST: test-var
-      TEST123: ${{ env.TEST }}123
+      TEST123: ${{ github.ref_name }}
 
     steps:
       - name: STEP (${{ env.TEST }})
