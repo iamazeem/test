@@ -26,9 +26,9 @@ jobs:
       TEST: test-var
 
     steps:
-      - name: STEP ($TEST)
+      - name: STEP (${{ env.TEST }})
         env:
-          TEST1: $TEST
+          TEST1: ${{ env.TEST }}
         run: |
           echo "TEST: $TEST"
           echo "TEST1: $TEST1"
