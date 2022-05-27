@@ -24,14 +24,17 @@ jobs:
     
     env:
       TEST: test-var
+      TEST123: ${{ env.TEST }}123
 
     steps:
       - name: STEP (${{ env.TEST }})
         env:
           TEST1: ${{ env.TEST }}
+          TEST123: ${{ env.TEST123 }}
         run: |
           echo "TEST: $TEST"
           echo "TEST1: $TEST1"
+          echo "TEST123: $TEST123"
 
 #       - uses: actions/checkout@v2
 
