@@ -21,9 +21,15 @@ jobs:
 
   ci:
     runs-on: ubuntu-18.04
+    
+    env:
+      TEST: test-var
 
     steps:
-      - uses: actions/checkout@v2
+      - name: STEP (${{ env.TEST }})
+        run: echo "testing..."
+
+#       - uses: actions/checkout@v2
 
       # - name: Set up ccache
       #   uses: hendrikmuhs/ccache-action@v1.2
@@ -71,6 +77,6 @@ jobs:
       #     files: |
       #       artifact.txt
 
-      - name: Build docker image
-        run: |
-          docker build . -t ruby-thrift:latest
+#       - name: Build docker image
+#         run: |
+#           docker build . -t ruby-thrift:latest
