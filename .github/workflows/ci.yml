@@ -69,6 +69,7 @@ jobs:
           sudo alien -i ~/rpmbuild/RPMS/Test.rpm
           which Test
           Test
+          sudo apt remove --purge Test
           echo "--- [DONE] ---"
 
       # - name: Get tag
