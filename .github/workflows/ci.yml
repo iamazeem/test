@@ -16,31 +16,73 @@ jobs:
   ci:
     runs-on: ubuntu-18.04
     
-    env:
-      FILE: test.txt
+    # env:
+    #   FILE: test.txt
 
     steps:
-      - name: Create file
+      # - name: Create file
+      #   run: |
+      #     echo 'test' > $FILE
+      #     cat $FILE
+
+      - name: Create Test RPM
         run: |
-          echo 'test' > $FILE
-          cat $FILE
+          sudo apt install -y rpm alien
+          rm -rf ~/rpmbuild
+          mkdir -p ~/rpmbuild/SPECS ~/rpmbuild/SOURCES
+          echo ">> Creating test script"
+          cat << EOF > ~/rpmbuild/SOURCES/test
+          #!/bin/sh
+          echo "testing..."
+          EOF
+          chmod +x ~/rpmbuild/SOURCES/test
+          ls -Gghl ~/rpmbuild/SOURCES/test
+          cat ~/rpmbuild/SOURCES/test
+          echo ">> Creating spec file"
+          cat << EOF > ~/rpmbuild/SPECS/test.spec
+          %define _rpmfilename test
+          Name: test
+          Version: 1
+          Release: 1%{?dist}
+          Summary: test
+          License: MIT
 
-      - name: Get tag
-        if: startsWith(github.ref, 'refs/tags/v')
-        id: tag
-        uses: dawidd6/action-get-tag@v1
-        with:
-          strip_v: true
+          %description
+          Testing RPM creation
 
-      - name: Use tag
-        if: startsWith(github.ref, 'refs/tags/v')
-        env:
-          TAG: ${{ steps.tag.outputs.tag }}
-        run: |
-          mv $FILE "$TAG-$FILE"
-          ls -Gghl 
+          %install
+          cp -rfa * %{buildroot}
+          tree %{buildroot}
 
-#       - uses: actions/checkout@v2
+          %files
+          %{_bindir}/test
+          EOF
+          cat ~/rpmbuild/SPECS/test.spec
+          cd ~/rpmbuild/SPECS
+          rpmbuild -ba test.spec
+          ls -hl ~/rpmbuild/RPMS/
+          echo "Installing RPM with alien"
+          sudo alien -i ~/rpmbuild/RPMS/test.rpm
+          which test
+          test
+          echo "--- [DONE] ---"
+
+      # - name: Get tag
+      #   if: startsWith(github.ref, 'refs/tags/v')
+      #   id: tag
+      #   uses: dawidd6/action-get-tag@v1
+      #   with:
+      #     strip_v: true
+
+      # - name: Use tag
+      #   if: startsWith(github.ref, 'refs/tags/v')
+      #   env:
+      #     TAG: ${{ steps.tag.outputs.tag }}
+      #   run: |
+      #     mv $FILE "$TAG-$FILE"
+      #     ls -Gghl 
+
+      # - uses: actions/checkout@v2
 
       # - name: Set up ccache
       #   uses: hendrikmuhs/ccache-action@v1.2
@@ -88,6 +130,6 @@ jobs:
       #     files: |
       #       artifact.txt
 
-#       - name: Build docker image
-#         run: |
-#           docker build . -t ruby-thrift:latest
+      # - name: Build docker image
+      #   run: |
+      #     docker build . -t ruby-thrift:latest
