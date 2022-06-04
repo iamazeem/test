@@ -50,6 +50,9 @@ jobs:
           %description
           Testing RPM creation
 
+          %prep
+          cp -fa %{_sourcedir}/test %{_builddir}/test
+
           %install
           mkdir -p %{buildroot}/%{_bindir}
           cp -fa %{_builddir}/test %{buildroot}/%{_bindir}/
