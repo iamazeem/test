@@ -30,45 +30,45 @@ jobs:
           sudo apt install -y rpm alien
           rm -rf ~/rpmbuild
           mkdir -p ~/rpmbuild/SPECS ~/rpmbuild/SOURCES
-          echo ">> Creating test script"
-          cat << EOF > ~/rpmbuild/SOURCES/test
+          echo ">> Creating Test script"
+          cat << EOF > ~/rpmbuild/SOURCES/Test
           #!/bin/sh
           echo "testing..."
           EOF
-          chmod +x ~/rpmbuild/SOURCES/test
-          ls -Gghl ~/rpmbuild/SOURCES/test
-          cat ~/rpmbuild/SOURCES/test
+          chmod +x ~/rpmbuild/SOURCES/Test
+          ls -Gghl ~/rpmbuild/SOURCES/Test
+          cat ~/rpmbuild/SOURCES/Test
           echo ">> Creating spec file"
-          cat << EOF > ~/rpmbuild/SPECS/test.spec
-          %define _rpmfilename test.rpm
-          Name: test
+          cat << EOF > ~/rpmbuild/SPECS/Test.spec
+          %define _rpmfilename Test.rpm
+          Name: Test
           Version: 1
           Release: 1%{?dist}
-          Summary: test
+          Summary: Test
           License: MIT
 
           %description
           Testing RPM creation
 
           %prep
-          cp -fa %{_sourcedir}/test %{_builddir}/test
+          cp -fa %{_sourcedir}/Test %{_builddir}/Test
 
           %install
           mkdir -p %{buildroot}/%{_bindir}
-          cp -fa %{_builddir}/test %{buildroot}/%{_bindir}/
+          cp -fa %{_builddir}/Test %{buildroot}/%{_bindir}/
           tree %{buildroot}
 
           %files
-          %{_bindir}/test
+          %{_bindir}/Test
           EOF
-          cat ~/rpmbuild/SPECS/test.spec
+          cat ~/rpmbuild/SPECS/Test.spec
           cd ~/rpmbuild/SPECS
-          rpmbuild -ba test.spec
+          rpmbuild -ba Test.spec
           ls -hl ~/rpmbuild/RPMS/
           echo "Installing RPM with alien"
-          sudo alien -i ~/rpmbuild/RPMS/test.rpm
-          which test
-          test
+          sudo alien -i ~/rpmbuild/RPMS/Test.rpm
+          which Test
+          Test
           echo "--- [DONE] ---"
 
       # - name: Get tag
