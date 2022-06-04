@@ -40,7 +40,7 @@ jobs:
           cat ~/rpmbuild/SOURCES/test
           echo ">> Creating spec file"
           cat << EOF > ~/rpmbuild/SPECS/test.spec
-          %define _rpmfilename test
+          %define _rpmfilename test.rpm
           Name: test
           Version: 1
           Release: 1%{?dist}
