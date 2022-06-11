@@ -28,9 +28,9 @@ jobs:
       - name: Install jq
         # if: runner.os == 'Linux'
         run: |
-          wget https://github.com/stedolan/jq/releases/download/jq-1.5/jq-1.5.tar.gz
-          tar xf jq-1.5.tar.gz
-          cd jq-1.5
+          git clone https://github.com/stedolan/jq.git
+          cd jq
+          git checkout cff5336
           CFLAGS='-O3' ./configure \
             --disable-maintainer-mode \
             --without-oniguruma \
