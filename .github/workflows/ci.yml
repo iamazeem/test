@@ -30,7 +30,6 @@ jobs:
         run: |
           brew install coreutils tree autoconf automake libtool
 
-
       - name: Install jq
         # if: runner.os == 'Linux'
         run: |
@@ -45,7 +44,7 @@ jobs:
             --disable-shared \
             --enable-static
           sudo make install
-          whereis jq libjq
+          which jq libjq
 
       # - name: Create file
       #   run: |
