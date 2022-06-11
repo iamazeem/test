@@ -45,7 +45,6 @@ jobs:
             --enable-static
           sudo make install
           which jq
-          which libjq
 
       # - name: Create file
       #   run: |
