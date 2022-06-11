@@ -25,12 +25,12 @@ jobs:
     #   FILE: test.txt
 
     steps:
-      - name: Install jq-1.6
+      - name: Install jq
         # if: runner.os == 'Linux'
         run: |
-          wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-1.6.tar.gz
-          tar xf jq-1.6.tar.gz
-          cd jq-1.6
+          wget https://github.com/stedolan/jq/releases/download/jq-1.5/jq-1.5.tar.gz
+          tar xf jq-1.5.tar.gz
+          cd jq-1.5
           CFLAGS='-O3' ./configure \
             --disable-maintainer-mode \
             --without-oniguruma \
