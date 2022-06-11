@@ -14,62 +14,81 @@ on:
 jobs:
 
   ci:
-    runs-on: ubuntu-18.04
-    
+    name: ci
+    strategy:
+      matrix:
+        os: [ubuntu-18.04, macos-10.15]
+
+    runs-on: ${{ matrix.os }}
+
     # env:
     #   FILE: test.txt
 
     steps:
+      - name: Install jq-1.6
+        # if: runner.os == 'Linux'
+        run: |
+          wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-1.6.tar.gz
+          cd jq-1.6
+          CFLAGS='-O3' ./configure \
+            --disable-maintainer-mode \
+            --without-oniguruma \
+            --disable-docs \
+            --disable-shared \
+            --enable-static
+          sudo make install
+          whereis jq libjq
+
       # - name: Create file
       #   run: |
       #     echo 'test' > $FILE
       #     cat $FILE
 
-      - name: Create Test RPM
-        run: |
-          sudo apt install -y rpm alien
-          rm -rf ~/rpmbuild
-          mkdir -p ~/rpmbuild/SPECS ~/rpmbuild/SOURCES
-          echo ">> Creating Test script"
-          cat << EOF > ~/rpmbuild/SOURCES/Test
-          #!/bin/sh
-          echo "testing..."
-          EOF
-          chmod +x ~/rpmbuild/SOURCES/Test
-          ls -Gghl ~/rpmbuild/SOURCES/Test
-          cat ~/rpmbuild/SOURCES/Test
-          echo ">> Creating spec file"
-          cat << EOF > ~/rpmbuild/SPECS/Test.spec
-          %define _rpmfilename Test.rpm
-          Name: Test
-          Version: 1
-          Release: 1%{?dist}
-          Summary: Test
-          License: MIT
+      # - name: Create Test RPM
+      #   run: |
+      #     sudo apt install -y rpm alien
+      #     rm -rf ~/rpmbuild
+      #     mkdir -p ~/rpmbuild/SPECS ~/rpmbuild/SOURCES
+      #     echo ">> Creating Test script"
+      #     cat << EOF > ~/rpmbuild/SOURCES/Test
+      #     #!/bin/sh
+      #     echo "testing..."
+      #     EOF
+      #     chmod +x ~/rpmbuild/SOURCES/Test
+      #     ls -Gghl ~/rpmbuild/SOURCES/Test
+      #     cat ~/rpmbuild/SOURCES/Test
+      #     echo ">> Creating spec file"
+      #     cat << EOF > ~/rpmbuild/SPECS/Test.spec
+      #     %define _rpmfilename Test.rpm
+      #     Name: Test
+      #     Version: 1
+      #     Release: 1%{?dist}
+      #     Summary: Test
+      #     License: MIT
 
-          %description
-          Testing RPM creation
+      #     %description
+      #     Testing RPM creation
 
-          %prep
-          cp -fa %{_sourcedir}/Test %{_builddir}/Test
+      #     %prep
+      #     cp -fa %{_sourcedir}/Test %{_builddir}/Test
 
-          %install
-          mkdir -p %{buildroot}/%{_bindir}
-          cp -fa %{_builddir}/Test %{buildroot}/%{_bindir}/
-          tree %{buildroot}
+      #     %install
+      #     mkdir -p %{buildroot}/%{_bindir}
+      #     cp -fa %{_builddir}/Test %{buildroot}/%{_bindir}/
+      #     tree %{buildroot}
 
-          %files
-          %{_bindir}/Test
-          EOF
-          cat ~/rpmbuild/SPECS/Test.spec
-          cd ~/rpmbuild/SPECS
-          rpmbuild -bb Test.spec
-          ls -hl ~/rpmbuild/RPMS/
-          echo "Installing RPM with alien"
-          sudo alien -i ~/rpmbuild/RPMS/Test.rpm
-          which Test
-          Test
-          echo "--- [DONE] ---"
+      #     %files
+      #     %{_bindir}/Test
+      #     EOF
+      #     cat ~/rpmbuild/SPECS/Test.spec
+      #     cd ~/rpmbuild/SPECS
+      #     rpmbuild -bb Test.spec
+      #     ls -hl ~/rpmbuild/RPMS/
+      #     echo "Installing RPM with alien"
+      #     sudo alien -i ~/rpmbuild/RPMS/Test.rpm
+      #     which Test
+      #     Test
+      #     echo "--- [DONE] ---"
 
       # - name: Get tag
       #   if: startsWith(github.ref, 'refs/tags/v')
