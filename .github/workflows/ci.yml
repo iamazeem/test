@@ -31,6 +31,7 @@ jobs:
           git clone https://github.com/stedolan/jq.git
           cd jq
           git checkout cff5336
+          autoreconf -fi
           CFLAGS='-O3' ./configure \
             --disable-maintainer-mode \
             --without-oniguruma \
