@@ -25,6 +25,12 @@ jobs:
     #   FILE: test.txt
 
     steps:
+      - name: Set up macOS
+        if: runner.os == 'macOS'
+        run: |
+          brew install coreutils tree autoconf automake libtool
+
+
       - name: Install jq
         # if: runner.os == 'Linux'
         run: |
