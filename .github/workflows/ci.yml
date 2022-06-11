@@ -44,7 +44,8 @@ jobs:
             --disable-shared \
             --enable-static
           sudo make install
-          which jq libjq
+          which jq
+          which libjq
 
       # - name: Create file
       #   run: |
