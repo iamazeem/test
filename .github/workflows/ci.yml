@@ -35,6 +35,14 @@ jobs:
         run: |
           echo "VAR: ${{ env.VAR }}"
 
+      - name: Reset env var
+        run: |
+          echo "VAR=" >> $GITHUB_ENV
+
+      - name: Get env var
+        run: |
+          echo "VAR: ${{ env.VAR }}"
+
       # - name: Set up macOS
       #   if: runner.os == 'macOS'
       #   run: |
