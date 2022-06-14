@@ -17,34 +17,44 @@ jobs:
     name: ci
     strategy:
       matrix:
-        os: [ubuntu-18.04, macos-10.15]
+        # os: [ubuntu-18.04, macos-10.15]
+        os: [ubuntu-18.04]
 
     runs-on: ${{ matrix.os }}
 
-    # env:
+    env:
+      VAR: ''
     #   FILE: test.txt
 
     steps:
-      - name: Set up macOS
-        if: runner.os == 'macOS'
+      - name: Set env var
         run: |
-          brew install coreutils tree autoconf automake libtool
+          echo "VAR=test" >> $GITHUB_ENV
 
-      - name: Install jq
-        # if: runner.os == 'Linux'
+      - name: Get env var
         run: |
-          git clone https://github.com/stedolan/jq.git
-          cd jq
-          git checkout cff5336
-          autoreconf -fi
-          CFLAGS='-O3' ./configure \
-            --disable-maintainer-mode \
-            --without-oniguruma \
-            --disable-docs \
-            --disable-shared \
-            --enable-static
-          sudo make install
-          which jq
+          echo "VAR: ${{ env.VAR }}"
+
+      # - name: Set up macOS
+      #   if: runner.os == 'macOS'
+      #   run: |
+      #     brew install coreutils tree autoconf automake libtool
+
+      # - name: Install jq
+      #   # if: runner.os == 'Linux'
+      #   run: |
+      #     git clone https://github.com/stedolan/jq.git
+      #     cd jq
+      #     git checkout cff5336
+      #     autoreconf -fi
+      #     CFLAGS='-O3' ./configure \
+      #       --disable-maintainer-mode \
+      #       --without-oniguruma \
+      #       --disable-docs \
+      #       --disable-shared \
+      #       --enable-static
+      #     sudo make install
+      #     which jq
 
       # - name: Create file
       #   run: |
@@ -110,7 +120,7 @@ jobs:
       #     TAG: ${{ steps.tag.outputs.tag }}
       #   run: |
       #     mv $FILE "$TAG-$FILE"
-      #     ls -Gghl 
+      #     ls -Gghl
 
       # - uses: actions/checkout@v2
 
