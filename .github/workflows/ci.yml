@@ -32,7 +32,7 @@ jobs:
       - name: Compile test program with gcc-11
         run: |
           cd c
-          gcc-11 -Iinclude main.cpp -o main
+          gcc-11 -Iinclude main.c -o main
           ./main
 
       # - name: Set env var
