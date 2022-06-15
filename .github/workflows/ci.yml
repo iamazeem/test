@@ -27,6 +27,8 @@ jobs:
     #   FILE: test.txt
 
     steps:
+      - uses: actions/checkout@v2
+
       - name: Compile test program with gcc-11
         run: |
           cd c
@@ -135,8 +137,6 @@ jobs:
       #   run: |
       #     mv $FILE "$TAG-$FILE"
       #     ls -Gghl
-
-      # - uses: actions/checkout@v2
 
       # - name: Set up ccache
       #   uses: hendrikmuhs/ccache-action@v1.2
