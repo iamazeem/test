@@ -32,7 +32,11 @@ jobs:
       - name: Compile test program with gcc-11
         run: |
           cd c
-          gcc-11 -Iinclude main.c -o main
+          tar xvf utf8proc-2.6.1.tar.gz
+          cd utf8proc-2.6.1
+          make prefix=$PWD/build install
+          cd ..
+          gcc -Iinclude -Iutf8proc-2.6.1/build/include main.c -o main utf8proc-2.6.1/build/lib/libutf8proc.a
           ./main
 
       # - name: Set env var
