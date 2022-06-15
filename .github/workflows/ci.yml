@@ -27,16 +27,19 @@ jobs:
     #   FILE: test.txt
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: Compile test program with gcc-11
+        if: runner.os == 'macOS'
         run: |
           cd c
           tar xvf utf8proc-2.6.1.tar.gz
           cd utf8proc-2.6.1
           make prefix=$PWD/build install
           cd ..
-          gcc -Iinclude -Iutf8proc-2.6.1/build/include main.c -o main utf8proc-2.6.1/build/lib/libutf8proc.a
+          gcc-11 --version
+          gcc-11 -Iinclude -Iutf8proc-2.6.1/build/include main.c -o main utf8proc-2.6.1/build/lib/libutf8proc.a
           ./main
 
       # - name: Set env var
