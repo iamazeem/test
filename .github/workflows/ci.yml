@@ -18,30 +18,36 @@ jobs:
     strategy:
       matrix:
         # os: [ubuntu-18.04, macos-10.15]
-        os: [ubuntu-18.04]
+        os: [macos-10.15]
 
     runs-on: ${{ matrix.os }}
 
-    env:
-      VAR: ''
+    # env:
+    #   VAR: ''
     #   FILE: test.txt
 
     steps:
-      - name: Set env var
+      - name: Compile test program with gcc-11
         run: |
-          echo "VAR=test" >> $GITHUB_ENV
+          cd c
+          gcc-11 -Iinclude main.cpp -o main
+          ./main
 
-      - name: Get env var
-        run: |
-          echo "VAR: ${{ env.VAR }}"
+      # - name: Set env var
+      #   run: |
+      #     echo "VAR=test" >> $GITHUB_ENV
 
-      - name: Reset env var
-        run: |
-          echo "VAR=" >> $GITHUB_ENV
+      # - name: Get env var
+      #   run: |
+      #     echo "VAR: ${{ env.VAR }}"
 
-      - name: Get env var
-        run: |
-          echo "VAR: ${{ env.VAR }}"
+      # - name: Reset env var
+      #   run: |
+      #     echo "VAR=" >> $GITHUB_ENV
+
+      # - name: Get env var
+      #   run: |
+      #     echo "VAR: ${{ env.VAR }}"
 
       # - name: Set up macOS
       #   if: runner.os == 'macOS'
