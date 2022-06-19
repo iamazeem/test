@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 if [[ -z $GITHUB_ACTOR || -z $GITHUB_TOKEN || -z $GITHUB_REPOSITORY ]]; then
   echo "[ERR] Run $0 under GitHub Actions context!"
   exit 1
