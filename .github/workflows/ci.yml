@@ -29,9 +29,9 @@ jobs:
     steps:
       - name: Install and test zsv
         run: |
-          brew tap iamazeem/zsv
+          brew tap liquidaty/zsv
           brew install zsv
-          zsv version
+          echo "Version: $(zsv version)"
 
       # - name: Checkout
       #   uses: actions/checkout@v2
