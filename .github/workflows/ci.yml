@@ -12,13 +12,12 @@ on:
     types: [created]
 
 jobs:
-
   ci:
     name: ci
     strategy:
       matrix:
         # os: [ubuntu-18.04, macos-10.15]
-        os: [macos-10.15]
+        os: [macos-latest]
 
     runs-on: ${{ matrix.os }}
 
@@ -27,11 +26,17 @@ jobs:
     #   FILE: test.txt
 
     steps:
-      - name: Install and test zsv
+      - name: Calculate SHA256 on macOS
         run: |
-          brew tap liquidaty/zsv
-          brew install zsv
-          echo "Version: $(zsv version)"
+          wget 'https://github.com/liquidaty/zsv/releases/download/v0.1.0-alpha/zsv-0.1.0-alpha-amd64-macosx-gcc.tar.gz'
+          ls -Gghl 'zsv-0.1.0-alpha-amd64-macosx-gcc.tar.gz'
+          openssl dgst -sha256 $TAR | cut -d ' ' -f2 | tr -d '\n'
+
+      # - name: Install and test zsv
+      #   run: |
+      #     brew tap liquidaty/zsv
+      #     brew install zsv
+      #     echo "Version: $(zsv version)"
 
       # - name: Checkout
       #   uses: actions/checkout@v2
