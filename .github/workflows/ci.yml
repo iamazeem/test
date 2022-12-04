@@ -28,9 +28,10 @@ jobs:
     steps:
       - name: Calculate SHA256 on macOS
         run: |
-          wget 'https://github.com/liquidaty/zsv/releases/download/v0.1.0-alpha/zsv-0.1.0-alpha-amd64-macosx-gcc.tar.gz'
-          ls -Gghl 'zsv-0.1.0-alpha-amd64-macosx-gcc.tar.gz'
-          openssl dgst -sha256 $TAR | cut -d ' ' -f2 | tr -d '\n'
+          TAR='zsv-0.1.0-alpha-amd64-macosx-gcc.tar.gz'
+          wget "https://github.com/liquidaty/zsv/releases/download/v0.1.0-alpha/$TAR"
+          ls -Gghl "$TAR"
+          openssl dgst -sha256 "$TAR" | cut -d ' ' -f2 | tr -d '\n'
 
       # - name: Install and test zsv
       #   run: |
