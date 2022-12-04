@@ -26,12 +26,32 @@ jobs:
     #   FILE: test.txt
 
     steps:
-      - name: Calculate SHA256 on macOS
+      - name: Push to another repo
+        env:
+          TEST_DEPLOY_KEY: ${{ secrets.TEST_DEPLOY_KEY }}
+          TEST_DEPLOY_KEY_FILE: "test_deploy_key_file"
         run: |
-          TAR='zsv-0.1.0-alpha-amd64-macosx-gcc.tar.gz'
-          wget -q "https://github.com/liquidaty/zsv/releases/download/v0.1.0-alpha/$TAR"
-          ls -Gghl "$TAR"
-          openssl dgst -sha256 "$TAR" | cut -d ' ' -f2 | tr -d '\n'
+          echo "$TEST_DEPLOY_KEY" > "$TEST_DEPLOY_KEY_FILE"
+          chmod 400 "$TEST_DEPLOY_KEY_FILE"
+          export GIT_SSH_COMMAND="ssh -i $PWD/$TEST_DEPLOY_KEY_FILE -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+          git config --global user.name "CI"
+          git config --global user.email "ci@localhost"
+          git clone git@github.com:iamazeem/study.git
+          cd study
+          echo "$(date)" > test.file
+          git add test.file
+          git commit -m "Add test.file"
+          git push origin main
+          cd ..
+          rm -rf study
+          echo "DONE"
+
+      # - name: Calculate SHA256 on macOS
+      #   run: |
+      #     TAR='zsv-0.1.0-alpha-amd64-macosx-gcc.tar.gz'
+      #     wget -q "https://github.com/liquidaty/zsv/releases/download/v0.1.0-alpha/$TAR"
+      #     ls -Gghl "$TAR"
+      #     openssl dgst -sha256 "$TAR" | cut -d ' ' -f2 | tr -d '\n'
 
       # - name: Install and test zsv
       #   run: |
