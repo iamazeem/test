@@ -31,6 +31,7 @@ jobs:
         env:
           TAG: ${{ github.ref }}
         run: |
+          TAG=$(echo $TAG | cut -d '/' -f3)
           echo "TAG: $TAG"
           if [[ $TAG == "v"* ]]; then
             TAG="${TAG:1}"
