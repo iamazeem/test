@@ -27,11 +27,6 @@ jobs:
     #   FILE: test.txt
 
     steps:
-      - name: Test secret
-        run: |
-          TEST="${{ secrets.TEST_SECRET }}"
-          echo $TEST
-
       # - name: Run mpstat in the background
       #   run: |
       #     mpstat -P ALL 1 > telemetry.out 2> telemetry.err < /dev/null &
