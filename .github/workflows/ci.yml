@@ -37,8 +37,11 @@ jobs:
           import subprocess
           github_sha = os.environ['GITHUB_SHA']
           print(f"github_sha: {github_sha}")
-          git_diff = subprocess.getoutput(f"git diff-tree --no-commit-id --name-only -r {github_sha}")
+          cmd = f"git diff-tree --no-commit-id --name-only -r {github_sha}"
+          print(f"cmd: {cmd}")
+          git_diff = subprocess.getoutput(cmd)
           print(f"git_diff: {git_diff}")
+          print(f"done")
 
       # - name: Run mpstat in the background
       #   run: |
