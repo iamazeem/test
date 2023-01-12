@@ -33,9 +33,10 @@ jobs:
 
       - name: Wait and check output of mpstat
         run: |
-          sleep 10
+          sleep 5
           kill -9 $(pidof mpstat)
           ls -l telemetry.*
+          cat telemetry.out
 
       # - name: Get tag and set TAG env var
       #   if: ${{ startsWith(github.ref, 'refs/tags/v') }}
