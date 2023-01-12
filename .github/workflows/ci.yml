@@ -29,7 +29,8 @@ jobs:
     steps:
       - name: Test secret
         run: |
-          echo ${{ secrets.TEST_SECRET }} 
+          TEST="${{ secrets.TEST_SECRET }}"
+          echo $TEST
 
       # - name: Run mpstat in the background
       #   run: |
