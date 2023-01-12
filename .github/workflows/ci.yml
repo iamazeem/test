@@ -27,9 +27,9 @@ jobs:
     #   FILE: test.txt
 
     steps:
-      - name: Test GitHub Actions' varilables via template directly in the run
+      - name: Test secret
         run: |
-          echo ${{ github.ref }} 
+          echo ${{ secrets.TEST_SECRET }} 
 
       # - name: Run mpstat in the background
       #   run: |
