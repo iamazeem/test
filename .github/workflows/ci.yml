@@ -27,6 +27,9 @@ jobs:
     #   FILE: test.txt
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Get changes files via git
         shell: python
         run: |
@@ -100,9 +103,6 @@ jobs:
       #     brew tap liquidaty/zsv
       #     brew install zsv
       #     echo "Version: $(zsv version)"
-
-      # - name: Checkout
-      #   uses: actions/checkout@v2
 
       # - name: Compile test program with gcc-11
       #   if: runner.os == 'macOS'
