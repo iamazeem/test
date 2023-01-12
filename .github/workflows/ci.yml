@@ -27,18 +27,26 @@ jobs:
     #   FILE: test.txt
 
     steps:
-      - name: Run mpstat in the background
+      - name: Get changes files via git
+        shell: python
         run: |
-          pwd
-          mpstat -P ALL 1 > telemetry.out 2> telemetry.err < /dev/null &
+          github_sha = os.environ('GITHUB_SHA')
+          print(f"github_sha: {github_sha}")
+          git_diff = subprocess.getoutput('git diff-tree --no-commit-id --name-only -r {github_sha}')
+          print(f"git_diff: {git_diff}")
 
-      - name: Wait and check output of mpstat
-        run: |
-          pwd
-          sleep 5
-          kill -9 $(pidof mpstat)
-          ls -l telemetry.*
-          cat telemetry.out
+      # - name: Run mpstat in the background
+      #   run: |
+      #     pwd
+      #     mpstat -P ALL 1 > telemetry.out 2> telemetry.err < /dev/null &
+
+      # - name: Wait and check output of mpstat
+      #   run: |
+      #     pwd
+      #     sleep 5
+      #     kill -9 $(pidof mpstat)
+      #     ls -l telemetry.*
+      #     cat telemetry.out
 
       # - name: Get tag and set TAG env var
       #   if: ${{ startsWith(github.ref, 'refs/tags/v') }}
