@@ -30,6 +30,8 @@ jobs:
       - name: Get changes files via git
         shell: python
         run: |
+          import os
+          import subporcess
           github_sha = os.environ('GITHUB_SHA')
           print(f"github_sha: {github_sha}")
           git_diff = subprocess.getoutput('git diff-tree --no-commit-id --name-only -r {github_sha}')
