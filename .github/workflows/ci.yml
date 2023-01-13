@@ -33,7 +33,8 @@ jobs:
       - name: Check github.ref and github.ref_name (${{ github.ref }} and ${{ github.ref_name }})
         run: |
           echo $GITHUB_REF
-          echo $GIThUB_REF_NAME
+          echo $GITHUB_REF_NAME
+          echo $GITHUB_BASE_REF
 
       # - name: Get changes files via git
       #   shell: python
