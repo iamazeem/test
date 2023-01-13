@@ -27,21 +27,26 @@ jobs:
     #   FILE: test.txt
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      # - name: Checkout
+      #   uses: actions/checkout@v3
 
-      - name: Get changes files via git
-        shell: python
+      - name: Check github.ref and github.ref_name (${{ github.ref }} and ${{ github.ref_name }})
         run: |
-          import os
-          import subprocess
-          github_sha = os.environ['GITHUB_SHA']
-          print(f"github_sha: {github_sha}")
-          cmd = f"git diff-tree --no-commit-id --name-only -r {github_sha}"
-          print(f"cmd: {cmd}")
-          git_diff = subprocess.getoutput(cmd)
-          print(f"git_diff: {git_diff}")
-          print(f"done")
+          echo $GITHUB_REF
+          echo $GIThUB_REF_NAME
+
+      # - name: Get changes files via git
+      #   shell: python
+      #   run: |
+      #     import os
+      #     import subprocess
+      #     github_sha = os.environ['GITHUB_SHA']
+      #     print(f"github_sha: {github_sha}")
+      #     cmd = f"git diff-tree --no-commit-id --name-only -r {github_sha}"
+      #     print(f"cmd: {cmd}")
+      #     git_diff = subprocess.getoutput(cmd)
+      #     print(f"git_diff: {git_diff}")
+      #     print(f"done")
 
       # - name: Run mpstat in the background
       #   run: |
