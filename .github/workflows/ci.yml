@@ -36,6 +36,7 @@ jobs:
         run: |
           pwd
           ls
+          ls test-path
 
       # - name: Check github.ref and github.ref_name (${{ github.ref }} and ${{ github.ref_name }})
       #   run: |
