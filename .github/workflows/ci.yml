@@ -27,14 +27,21 @@ jobs:
     #   FILE: test.txt
 
     steps:
-      # - name: Checkout
-      #   uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: test-path
 
-      - name: Check github.ref and github.ref_name (${{ github.ref }} and ${{ github.ref_name }})
+      - name: pwd and ls
         run: |
-          echo $GITHUB_REF
-          echo $GITHUB_REF_NAME
-          echo $GITHUB_BASE_REF
+          pwd
+          ls
+
+      # - name: Check github.ref and github.ref_name (${{ github.ref }} and ${{ github.ref_name }})
+      #   run: |
+      #     echo $GITHUB_REF
+      #     echo $GITHUB_REF_NAME
+      #     echo $GITHUB_BASE_REF
 
       # - name: Get changes files via git
       #   shell: python
