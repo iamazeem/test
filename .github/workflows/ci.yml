@@ -32,7 +32,8 @@ jobs:
 
       - name: Join env vars
         env:
-          FILEPATH: ${{ format('{0}/{1}', env.DIR, env.FILE) }}
+          # FILEPATH: ${{ format('{0}/{1}', env.DIR, env.FILE) }}
+          FILEPATH: file:${{ env.DIR }}\${{ env.FILE }}
         run: |
           echo $FILEPATH
 
