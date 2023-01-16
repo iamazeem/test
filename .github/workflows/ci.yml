@@ -25,17 +25,28 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
-    # env:
+    env:
     #   DIR: 'test'
     #   FILE: test.txt
+      BUILD_VERSION: '1.0.2'
+      BRANCH_VERSION: '1.0.2'
 
     steps:
       # - name: Checkout
       #   uses: actions/checkout@v3
 
-      - name: Print event input message
+      - name: Versions
         run: |
-          echo "${{ github.event.inputs.message }}"
+          echo "BUILD_VERSION: $BUILD_VERSION"
+          echo "BRANCH_VERSION: $BRANCH_VERSION"
+
+      - name: Fail PR if versions not matching (${{ env.BUILD_VERSION }} != ${{ env.BRANCH_VERSION }})
+        if: ${{ env.BRANCH_VERSION != env.BUILD_VERSION }}
+        run: exit 1
+
+      # - name: Print event input message
+      #   run: |
+      #     echo "${{ github.event.inputs.message }}"
 
       # - name: Join env vars
       #   env:
