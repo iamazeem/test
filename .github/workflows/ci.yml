@@ -32,7 +32,7 @@ jobs:
 
       - name: Join env vars
         env:
-          FILEPATH: ${{ join(toJSON([env.VAR, env.FILE]), '/') }}
+          FILEPATH: ${{ format("{}/{}", env.DIR, env.FILE) }}
         run: |
           echo $FILEPATH
 
