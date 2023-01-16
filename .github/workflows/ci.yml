@@ -22,21 +22,30 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
-    # env:
-    #   VAR: ''
-    #   FILE: test.txt
+    env:
+      DIR: 'test'
+      FILE: test.txt
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          path: test-path
+      # - name: Checkout
+      #   uses: actions/checkout@v3
 
-      - name: pwd and ls
+      - name: Join env vars
+        env:
+          FILEPATH: ${{ join(env.VAR, env.FILE, '/') }}
         run: |
-          pwd
-          ls
-          ls test-path
+          echo $FILEPATH
+
+      # - name: Checkout
+      #   uses: actions/checkout@v3
+      #   with:
+      #     path: test-path
+
+      # - name: pwd and ls
+      #   run: |
+      #     pwd
+      #     ls
+      #     ls test-path
 
       # - name: Check github.ref and github.ref_name (${{ github.ref }} and ${{ github.ref_name }})
       #   run: |
