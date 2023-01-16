@@ -40,7 +40,7 @@ jobs:
           echo "BUILD_VERSION: $BUILD_VERSION"
           echo "BRANCH_VERSION: $BRANCH_VERSION"
 
-      - name: Versions match (${{ env.BUILD_VERSION }} != ${{ env.BRANCH_VERSION }})
+      - name: Versions match (${{ env.BUILD_VERSION }} == ${{ env.BRANCH_VERSION }})
         if: ${{ env.BRANCH_VERSION == env.BUILD_VERSION }}
         run: exit 0
 
