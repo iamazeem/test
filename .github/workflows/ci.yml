@@ -25,20 +25,24 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
-    env:
-      DIR: 'test'
-      FILE: test.txt
+    # env:
+    #   DIR: 'test'
+    #   FILE: test.txt
 
     steps:
       # - name: Checkout
       #   uses: actions/checkout@v3
 
-      - name: Join env vars
-        env:
-          # FILEPATH: ${{ format('{0}/{1}', env.DIR, env.FILE) }}
-          FILEPATH: file:${{ env.DIR }}\${{ env.FILE }}
+      - name: Print event input message
         run: |
-          echo $FILEPATH
+          echo "${{ github.event.inputs.message }}"
+
+      # - name: Join env vars
+      #   env:
+      #     # FILEPATH: ${{ format('{0}/{1}', env.DIR, env.FILE) }}
+      #     FILEPATH: file:${{ env.DIR }}\${{ env.FILE }}
+      #   run: |
+      #     echo $FILEPATH
 
       # - name: Checkout
       #   uses: actions/checkout@v3
