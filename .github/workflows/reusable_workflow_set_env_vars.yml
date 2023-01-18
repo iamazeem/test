@@ -19,7 +19,8 @@ jobs:
         IFS=$'\n'
         for VAR in ${{ inputs.env_vars }}; do
           echo -e "VAR: [$VAR]"
-          export $VAR
+          echo -n "$VAR" >> $GITHUB_ENV
+          # export $VAR
         done
 
     - name: Get environment variables
