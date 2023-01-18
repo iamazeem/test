@@ -18,8 +18,7 @@ jobs:
       env:
         ENV_VARS: ${{ inputs.env_vars }}
       run: |
-        for env in $ENV_VARS; do
-          echo "env: $env"
-          echo "--- --- --- ---"
+        echo -e "$ENV_VARS" | while read VAR; do
+          echo "$VAR"
           # printf "%s\n" $env >> $GITHUB_ENV
         done
