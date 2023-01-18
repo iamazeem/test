@@ -1,0 +1,21 @@
+name: reusable_workflow_set_env_vars
+
+on:
+  workflow_call:
+    inputs:
+      env_vars:
+        required: true
+        type: string
+        description: list of vars and values
+
+jobs:
+  set-env-vars:
+    runs-on: ubuntu-latest
+    steps:  
+    - name: set environment variables
+      if: ${{ inputs.env_vars }}
+      run: |
+        for env in "${{ inputs.env_vars }}"; do
+          echo "env: $env"
+          printf "%s\n" $env >> $GITHUB_ENV
+        done
