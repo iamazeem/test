@@ -13,12 +13,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: set environment variables
+    - name: Set environment variables
       if: ${{ inputs.env_vars }}
       run: |
-        echo "${{ inputs.env_vars }}"
-        echo "----------------------"
-        eval echo -n "${{ inputs.env_vars }}" | while read VAR; do
+        for VAR in ${{ inputs.env_vars }}; do
           echo "$VAR"
-          echo "$VAR" >> $GITHUB_ENV
+          # echo "$VAR" >> $GITHUB_ENV
+        done
+
+    - name: Get environment variables
+      if: ${{ inputs.env_vars }}
+      run: |
+        for VAR in "${{ inputs.env_vars }}"; do
+          KEY=$(echo "$VAR" | cut -d '=' -f1)
+          echo "KEY: $KEY"
+          echo "VAL: ${!KEY}"
         done
