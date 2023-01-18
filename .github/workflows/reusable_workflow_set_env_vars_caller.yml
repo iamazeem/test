@@ -13,6 +13,6 @@ jobs:
       env_vars: |
         TEST_VAR_1=testing
         TEST_VAR_2="testing again..."
-        BRANCH_1=${{ env.BRANCH }}
+        BRANCH_1="${{ env.BRANCH }}"
         BRANCH_2="$GITHUB_REF"
         BRANCH_3=$GITHUB_REF
