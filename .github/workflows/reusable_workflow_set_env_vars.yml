@@ -18,7 +18,7 @@ jobs:
       run: |
         for VAR in "${{ inputs.env_vars }}"; do
           echo "$VAR"
-          # echo "$VAR" >> $GITHUB_ENV
+          echo "$VAR" >> $GITHUB_ENV
         done
 
     - name: Get environment variables
