@@ -17,15 +17,15 @@ jobs:
       if: ${{ inputs.env_vars }}
       run: |
         for VAR in "${{ inputs.env_vars }}"; do
-          echo "$VAR"
-          echo "$VAR" >> $GITHUB_ENV
+          echo -e "[$VAR]"
+          echo -n "$VAR" >> $GITHUB_ENV
         done
 
     - name: Get environment variables
       if: ${{ inputs.env_vars }}
       run: |
         for VAR in "${{ inputs.env_vars }}"; do
-          KEY=$(echo "$VAR" | cut -d '=' -f1)
-          echo "KEY: $KEY"
-          echo "VAL: ${!KEY}"
+          KEY=$(echo -n "$VAR" | cut -d '=' -f1)
+          echo -e "KEY: [$KEY]"
+          echo -e "VAL: [${!KEY}]"
         done
