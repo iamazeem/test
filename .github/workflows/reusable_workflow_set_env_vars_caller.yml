@@ -3,7 +3,7 @@ name: reusable_workflow_caller
 on:
   workflow_dispatch:
 
-env: 
+env:
   BRANCH: ${{ github.head_ref }}
 
 jobs:
