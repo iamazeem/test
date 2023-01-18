@@ -16,6 +16,7 @@ jobs:
     - name: Set environment variables
       if: ${{ inputs.env_vars }}
       run: |
+        IFS=$'\n'
         for VAR in ${{ inputs.env_vars }}; do
           echo -e "VAR: [$VAR]"
           export $VAR
@@ -24,6 +25,7 @@ jobs:
     - name: Get environment variables
       if: ${{ inputs.env_vars }}
       run: |
+        IFS=$'\n'
         for VAR in ${{ inputs.env_vars }}; do
           KEY=$(echo -n "$VAR" | cut -d '=' -f1)
           echo -e "[$KEY] => [${!KEY}]"
