@@ -3,10 +3,10 @@ name: ci
 on:
   push:
     branches: [main]
-    paths-ignore: ['**.md']
+    paths-ignore: ['**.md', '.github/workflows/resuable*.yml']
   pull_request:
     branches: [main]
-    paths-ignore: ['**.md']
+    paths-ignore: ['**.md', '.github/workflows/resuable*.yml']
   release:
     branches: [main]
     types: [created]

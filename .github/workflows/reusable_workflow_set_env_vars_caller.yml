@@ -8,14 +8,11 @@ env:
 
 jobs:
   set-env-vars:
-    steps:
-    - name: Run reusable_workflow_set_env_vars
-      uses: ./.github/workflows/reusable_workflow_set_env_vars.yml
-      with:
-        env_vars: |
-          TEST_VAR_1=testing
-          TEST_VAR_2="testing again..."
-          BRANCH_1=${{ env.BRANCH }}
-          BRANCH_2="${{ env.BRANCH }}"
-          BRANCH_3="$GITHUB_REF"
-          BRANCH_4=$GITHUB_REF
+    uses: ./.github/workflows/reusable_workflow_set_env_vars.yml
+    with:
+      env_vars: |
+        TEST_VAR_1=testing
+        TEST_VAR_2="testing again..."
+        BRANCH_2="${{ env.BRANCH }}"
+        BRANCH_3="$GITHUB_REF"
+        BRANCH_4=$GITHUB_REF
