@@ -11,11 +11,15 @@ on:
 jobs:
   set-env-vars:
     runs-on: ubuntu-latest
-    steps:  
+
+    steps:
     - name: set environment variables
       if: ${{ inputs.env_vars }}
+      env:
+        ENV_VARS: ${{ inputs.env_vars }}
       run: |
-        for env in "${{ inputs.env_vars }}"; do
+        for env in $ENV_VARS; do
           echo "env: $env"
+          echo "--- --- --- ---"
           # printf "%s\n" $env >> $GITHUB_ENV
         done
