@@ -30,21 +30,21 @@ jobs:
             `name` varchar(255) NOT NULL,
             `email` varchar(255) NOT NULL
           );
-          INSERT INTO `table` (`id`, `name`, `email`)
+          INSERT INTO `person` (`id`, `name`, `email`)
           VALUES
             (111, 'abc', 'abc@email.com'),
             (222, 'def', 'def@email.com'),
             (333, 'ghi', 'ghi@email.com'),
             (444, 'jkl', 'jkl@email.com');
-          ALTER TABLE `table` ADD PRIMARY KEY (`id`);
+          ALTER TABLE `person` ADD PRIMARY KEY (`id`);
           COMMIT;
       run: |
         mysql --host 127.0.0.1 --port 33306 -uroot -ppassword -e "SHOW DATABASES LIKE 'test';"
-        echo "$SQL" > test.sql
+        echo "$SQL" > person.sql
         echo "--- SQL ---"
-        cat test.sql
+        cat person.sql
         echo "--- --- ---"
-        echo "Importing from test.sql file"
-        mysql --host 127.0.0.1 --port 33306 -uroot -ppassword test < test.sql
+        echo "Importing from person.sql file"
+        mysql --host 127.0.0.1 --port 33306 -uroot -ppassword test < person.sql
         echo "Checking the imported data"
         mysql --host 127.0.0.1 --port 33306 -uroot -ppassword test <<< 'SELECT id,name,email FROM person;'
