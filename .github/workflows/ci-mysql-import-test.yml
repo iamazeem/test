@@ -39,7 +39,7 @@ jobs:
           ALTER TABLE `table` ADD PRIMARY KEY (`id`);
           COMMIT;
       run: |
-        mysql --host 127.0.0.1 --port 33306 -uroot -ppassword -e "SHOW DATABASES LIKE 'test'"
+        mysql --host 127.0.0.1 --port 33306 -uroot -ppassword -e "SHOW DATABASES LIKE 'test';"
         echo "$SQL" > test.sql
         echo "--- SQL ---"
         cat test.sql
@@ -47,4 +47,4 @@ jobs:
         echo "Importing from test.sql file"
         mysql --host 127.0.0.1 --port 33306 -uroot -ppassword test < test.sql
         echo "Checking the imported data"
-        mysql --host 127.0.0.1 --port 33306 -uroot -ppassword test -e "SELECT * FROM table"
+        mysql --host 127.0.0.1 --port 33306 -uroot -ppassword test -e "SELECT * FROM `table`;"
