@@ -21,9 +21,7 @@ jobs:
 
     steps:
     - name: Import MySQL file
-      env:
-        ARGS: --user=user --password=password --database=test
       run: |
         sudo /etc/init.d/mysql start
-        mysql $ARGS -e "SHOW DATABASES LIKE 'test'"
+        mysql --user=user --password=password --database=test -e "SHOW DATABASES LIKE 'test'"
         # mysql $ARGS < request_data.sql
