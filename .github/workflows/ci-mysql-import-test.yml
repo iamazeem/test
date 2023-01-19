@@ -25,7 +25,7 @@ jobs:
           SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
           START TRANSACTION;
           SET time_zone = "+00:00";
-          CREATE TABLE `table` (
+          CREATE TABLE `person` (
             `id` int(11) NOT NULL,
             `name` varchar(255) NOT NULL,
             `email` varchar(255) NOT NULL
@@ -47,4 +47,4 @@ jobs:
         echo "Importing from test.sql file"
         mysql --host 127.0.0.1 --port 33306 -uroot -ppassword test < test.sql
         echo "Checking the imported data"
-        mysql --host 127.0.0.1 --port 33306 -uroot -ppassword test <<< 'SELECT * FROM table;'
+        mysql --host 127.0.0.1 --port 33306 -uroot -ppassword test <<< 'SELECT id,name,email FROM person;'
