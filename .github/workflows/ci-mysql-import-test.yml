@@ -20,7 +20,31 @@ jobs:
 
     steps:
     - name: Import MySQL file
+      env:
+        SQL: |
+          SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+          START TRANSACTION;
+          SET time_zone = "+00:00";
+
+          CREATE TABLE `table` (
+            `id` int(11) NOT NULL,
+            `name` varchar(255) NOT NULL,
+            `email` varchar(255) NOT NULL
+          );
+
+          INSERT INTO 'table' ('id', 'name', 'email') VALUES
+          (111, 'abc', 'abc@email.com'),
+          (222, 'def', 'def@email.com'),
+          (333, 'ghi', 'ghi@email.com'),
+          (444, 'jkl', 'jkl@email.com');
+
+          ALTER TABLE `table` ADD PRIMARY KEY (`id`);
+
+          COMMIT;
       run: |
         mysql --host 127.0.0.1 --port 33306 -uroot -ppassword -e "SHOW DATABASES LIKE 'test'"
-        # mysql --user=user --password=password --database=test --host=127.0.0.1 --port=33306 -e "SHOW DATABASES LIKE 'test'"
-        # mysql $ARGS < request_data.sql
+        echo "$SQL" > test.sql
+        echo "--- SQL ---"
+        cat test.sql
+        echo "--- --- ---"
+        mysql --host 127.0.0.1 --port 33306 -uroot -ppassword test < test.sql
