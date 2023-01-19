@@ -9,11 +9,10 @@ jobs:
 
     services:
       mysql:
+        # https://hub.docker.com/_/mysql
         image: mysql:5.7
         env:
-          MYSQL_USER: user
-          MYSQL_PASSWORD: password
-          MYSQL_ROOT_PASSWORD: rootpassword
+          MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: test
         ports:
           - 33306:3306
@@ -22,5 +21,6 @@ jobs:
     steps:
     - name: Import MySQL file
       run: |
-        mysql --user=user --password=password --database=test --host=localhost --port=33306 -e "SHOW DATABASES LIKE 'test'"
+        mysql --host 127.0.0.1 --port 33306 -uroot -ppassword -e "SHOW DATABASES LIKE 'test'"
+        # mysql --user=user --password=password --database=test --host=127.0.0.1 --port=33306 -e "SHOW DATABASES LIKE 'test'"
         # mysql $ARGS < request_data.sql
