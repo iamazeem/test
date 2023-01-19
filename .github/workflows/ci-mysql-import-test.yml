@@ -22,8 +22,8 @@ jobs:
     steps:
     - name: Import MySQL file
       run: |
-        echo "Checking MySQL status"
-        sudo service mysql status
+        echo "Restarting MySQL"
+        sudo service mysql restart
         echo "Checking databases"
         mysql --user=user --password=password --database=test -e "SHOW DATABASES LIKE 'test'"
         # mysql $ARGS < request_data.sql
