@@ -1,0 +1,35 @@
+name: MySQL Import Test
+
+on:
+  workflow_dispatch:
+
+env:
+  MYSQL_USER: user
+  MYSQL_PASSWORD: password
+  MYSQL_ROOT_PASSWORD: rootpassword
+  MYSQL_DATABASE: test
+  MYSQL_HOST: 127.0.0.1
+  MYSQL_PORT: 33306
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Import MySQL file
+      run: |
+        ARGS="--user ${{ env.MYSQL_USER }} --password=${{ env.MYSQL_PASSWORD }} --host=${{ env.MYSQL_HOST }} --port=${{ env.MYSQL_PORT }} --database=${{ env.MYSQL_DATABASE }}"
+        mysql $ARGS -e "SHOW DATABASES LIKE 'test';"
+        # mysql $ARGS < request_data.sql
+
+services:
+  mysql:
+    image: mysql:5.7
+    env:
+      MYSQL_USER: ${{ env.MYSQL_USER }}
+      MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
+      MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
+      MYSQL_DATABASE: ${{ env.MYSQL_DATABASE }}
+    ports:
+      - ${{ MYSQL_PORT }}:3306
+    options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
