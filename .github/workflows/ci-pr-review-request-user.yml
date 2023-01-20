@@ -6,6 +6,8 @@ on:
     types: [review_requested]
     paths: ['**.md']
 
+  workflow_dispatch:
+
 jobs:
   specific_review_requested:
     runs-on: ubuntu-latest
