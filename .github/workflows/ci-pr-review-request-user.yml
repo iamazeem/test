@@ -4,6 +4,7 @@ on:
   pull_request:
     branches: [main]
     types: [review_requested]
+    paths: ['**.md']
 
 jobs:
   specific_review_requested:
