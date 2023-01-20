@@ -1,0 +1,14 @@
+name: pr_review_request_user
+
+on:
+  pull_request:
+    branches: [main]
+    types: [review_requested]
+
+jobs:
+  specific_review_requested:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check user
+        run: |
+        echo '${{ toJSON(github) }}' >> $GITHUB_STEP_SUMMARY
