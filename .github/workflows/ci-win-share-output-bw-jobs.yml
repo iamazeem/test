@@ -6,9 +6,11 @@ on:
 jobs:
   job1:
     runs-on: windows-latest
+    outputs:
+      data: ${{ steps.set-data.outputs.DATA }}
     steps:
       - name: Set output
-        id: data-step
+        id: set-data
         shell: bash
         run: echo "DATA='message'" >> $GITHUB_OUTPUT
 
@@ -18,4 +20,6 @@ jobs:
     steps:
       - name: Get output
         shell: bash
-        run: echo "DATA=${{ needs.job1.data-step.outputs.DATA }}"
+        env:
+          DATA: ${{ needs.job1.outputs.DATA }}
+        run: echo "DATA=${{ env.DATA }}"
