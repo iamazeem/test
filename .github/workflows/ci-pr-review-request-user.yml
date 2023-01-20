@@ -12,4 +12,4 @@ jobs:
     steps:
       - name: Check user
         run: |
-        echo '${{ toJSON(github) }}' >> $GITHUB_STEP_SUMMARY
+          echo '${{ toJSON(github) }}' >> $GITHUB_STEP_SUMMARY
