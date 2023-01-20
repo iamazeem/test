@@ -8,6 +8,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Set output
+        id: data-step
         shell: bash
         run: echo "DATA='message'" >> $GITHUB_OUTPUT
 
@@ -17,4 +18,4 @@ jobs:
     steps:
       - name: Get output
         shell: bash
-        run: echo "DATA=${{ needs.job1.outputs.DATA }}"
+        run: echo "DATA=${{ needs.job1.data-step.outputs.DATA }}"
