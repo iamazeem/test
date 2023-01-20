@@ -7,14 +7,14 @@ jobs:
   job1:
     runs-on: windows-latest
     steps:
-      - name: Set
+      - name: Set output
         shell: bash
         run: echo "DATA='message'" >> $GITHUB_OUTPUT
 
   job2:
-    runs-on: windows-latest   
-    needs: job1 
+    runs-on: windows-latest
+    needs: job1
     steps:
       - name: Get output
         shell: bash
-        run: echo "DATA: ${{ needs.job1.outputs.DATA }}"
+        run: echo "DATA=${{ needs.job1.outputs.DATA }}"
