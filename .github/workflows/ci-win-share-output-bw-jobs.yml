@@ -11,15 +11,13 @@ jobs:
     steps:
       - name: Set output
         id: set-data
-        shell: bash
-        run: echo "DATA='message'" >> $GITHUB_OUTPUT
+        run: echo "DATA=message" >> $ENV:GITHUB_OUTPUT
 
   job2:
     runs-on: windows-latest
     needs: job1
     steps:
       - name: Get output
-        shell: bash
         env:
           DATA: ${{ needs.job1.outputs.DATA }}
-        run: echo "DATA=${{ env.DATA }}"
+        run: echo "DATA=$ENV:DATA"
