@@ -7,21 +7,22 @@ jobs:
   build:
     runs-on: windows-2019
 
+    # C:\Users\runneradmin\.dotnet\
     env:
       DOTNET_INSTALL_DIR: ~\.dotnet
       DOTNET_ROOT: ~\.dotnet
 
     steps:
-      # - name: Cache dotnet
-      #   id: cache-dotnet
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ~\.dotnet
-      #     key: ${{ runner.os }}-dotnet-7
-      #     restore-keys: ${{ runner.os }}-dotnet-7
+      - name: Cache dotnet
+        id: cache-dotnet
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.DOTNET_INSTALL_DIR }}
+          key: ${{ runner.os }}-dotnet-7
+          restore-keys: ${{ runner.os }}-dotnet-7
 
       - name: Install dotnet
-        # if: ${{ steps.cache-dotnet.outputs.cache-hit != 'true' }}
+        if: ${{ steps.cache-dotnet.outputs.cache-hit != 'true' }}
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7.0.x
