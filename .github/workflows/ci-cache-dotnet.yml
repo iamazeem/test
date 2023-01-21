@@ -9,7 +9,6 @@ jobs:
 
     # C:\Users\runneradmin\.dotnet\
     env:
-      DOTNET_INSTALL_DIR: ~\.dotnet
       DOTNET_ROOT: ~\.dotnet
 
     steps:
@@ -17,7 +16,7 @@ jobs:
         id: cache-dotnet
         uses: actions/cache@v3
         with:
-          path: ${{ env.DOTNET_INSTALL_DIR }}
+          path: ${{ env.DOTNET_ROOT }}
           key: ${{ runner.os }}-dotnet-7
           restore-keys: ${{ runner.os }}-dotnet-7
 
@@ -28,4 +27,4 @@ jobs:
           dotnet-version: 7.0.x
 
       - name: Check dotnet version
-        run: dotnet --version
+        run: ${{ env.DOTNET_ROOT }}\dotnet --version
