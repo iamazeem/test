@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: '0'
           token: ${{ github.token }}
       - name: Add git notes
         id: git-notes
@@ -21,5 +21,4 @@ jobs:
           git config user.name "Github Actions"
           git config user.email "bot@github.actions"
           git notes add -m "foo bar"
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+          git notes show
