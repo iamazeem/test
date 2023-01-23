@@ -14,8 +14,9 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y binutils-arm-none-eabi gcc-arm-none-eabi
+          whereis gcc-arm-none-eabi || echo "compiler not found"
+          find / -name 'gcc-arm-none-eabi'
           gcc-arm-none-eabi --version
-          gcc --version
 
       - name: Cache Tools
         uses: actions/cache@v3
