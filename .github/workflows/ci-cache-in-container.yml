@@ -1,0 +1,36 @@
+name: cache_in_container
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y binutils-arm-none-eabi gcc-arm-none-eabi
+
+      - name: Cache Tools
+        uses: actions/cache@v3
+        id: tools
+        with:
+          path: |
+            tools/agbcc
+          key: ${{ runner.os }}-tools
+
+      - name: Clone agbcc
+        if: steps.tools.outputs.cache-hit != 'true'
+        uses: actions/checkout@master
+        with:
+          path: 'tmp/agbcc'
+          repository: 'pret/agbcc'
+
+      - name: Build agbcc
+        if: steps.tools.outputs.cache-hit != 'true'
+        run: |
+          ./build.sh
+          ./install.sh $GITHUB_WORKSPACE
+        working-directory: tmp/agbcc
