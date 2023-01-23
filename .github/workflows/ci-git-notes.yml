@@ -21,3 +21,5 @@ jobs:
           git config user.name "Github Actions"
           git config user.email "bot@github.actions"
           git notes add -m "foo bar"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
