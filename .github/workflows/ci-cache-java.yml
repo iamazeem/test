@@ -34,9 +34,9 @@ jobs:
 
       - name: Check version
         run: |
-          echo "RUNNER_TOOL_CACHE: $ENV:RUNNER_TOOL_CACHE"
-          echo "JAVA_HOME_17_X64: $ENV:JAVA_HOME_17_X64"
-          ls $ENV:JAVA_HOME_17_X64
-          ls "$ENV:JAVA_HOME_17_X64"\bin
+          echo "RUNNER_TOOL_CACHE: ${{ env.RUNNER_TOOL_CACHE }}"
+          echo "JAVA_HOME_17_X64: ${{ env.JAVA_HOME_17_X64 }}"
+          ls ${{ env.JAVA_HOME_17_X64 }}
+          ls ${{ env.JAVA_HOME_17_X64 }}\bin
           java -version
-          "$ENV:JAVA_HOME_17_X64"\bin\java -version
+          ${{ env.JAVA_HOME_17_X64 }}\bin\java -version
