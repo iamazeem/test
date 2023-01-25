@@ -7,9 +7,9 @@ jobs:
   build:
     runs-on: windows-2022
 
-    env:
-      # JAVA_HOME: 'C:\hostedtoolcache\windows\Java_Microsoft_jdk\17.0.3\x64'
-      # JAVA_HOME_17_X64: 'C:\hostedtoolcache\windows\Java_Microsoft_jdk\17.0.3\x64'
+    # env:
+    #   JAVA_HOME: 'C:\hostedtoolcache\windows\Java_Microsoft_jdk\17.0.3\x64'
+    #   JAVA_HOME_17_X64: 'C:\hostedtoolcache\windows\Java_Microsoft_jdk\17.0.3\x64'
 
     steps:
       # - name: Cache JDK
