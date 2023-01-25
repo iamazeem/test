@@ -38,4 +38,4 @@ jobs:
           echo "JAVA_HOME_17_X64: $ENV:JAVA_HOME_17_X64"
           ls $ENV:JAVA_HOME_17_X64
           java -version
-          # ${{ env.JAVA_HOME_17_X64 }}/java -version
+          .\$ENV:JAVA_HOME_17_X64\bin\java -version
