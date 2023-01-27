@@ -1,0 +1,21 @@
+name: share_env
+
+on:
+  workflow_dispatch:
+
+env:
+  DATA: "dummy"
+
+jobs:
+  set:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set
+      run: echo "DATA=message" >> $GITHUB_ENV
+
+  get:
+    runs-on: ubuntu-latest
+    needs: set
+    steps:
+    - name: Get
+      run: echo "DATA=${{ env.DATA }}"
