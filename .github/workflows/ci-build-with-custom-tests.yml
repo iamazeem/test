@@ -1,0 +1,20 @@
+name: build_with_custom_tests
+
+on:
+  push:
+    branches: ['**']
+    tags-ignore: ['**']
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    if: ${{ (github.ref_name != 'develop' && !github.event.pull_request.merged) || (github.ref_name == 'develop' && github.event_name == 'push') }}
+    steps:
+    - name: Tests
+      run: echo "${{ toJson(github) }}"
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build
+      run: echo "${{ toJson(github) }}"
