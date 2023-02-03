@@ -11,12 +11,18 @@ jobs:
     if: github.event.pull_request.merged == false
     steps:
     - name: Tests
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
       run: |
-        echo "${{ toJson(github) }}"
+        echo "Testing..."
+        echo "$GITHUB_CONTEXT"
 
   build:
     runs-on: ubuntu-latest
     steps:
     - name: Build
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
       run: |
-        echo "${{ toJson(github) }}"
+        echo "Building..."
+        echo "$GITHUB_CONTEXT"
