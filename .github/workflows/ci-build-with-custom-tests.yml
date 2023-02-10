@@ -4,17 +4,23 @@ on:
   push:
     branches: ['**']
     tags-ignore: ['**']
+  pull_request_target:
+    - types: [closed]
 
 jobs:
   tests:
     runs-on: ubuntu-latest
-    if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
     steps:
-    - name: Tests
+    - name: Context
       run: echo '${{ toJson(github) }}'
+    - name: Tests
+      if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
+      run: echo 'Tests'
 
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Build
+    - name: Context
       run: echo '${{ toJson(github) }}'
+    - name: Build
+      run: echo 'Build'
