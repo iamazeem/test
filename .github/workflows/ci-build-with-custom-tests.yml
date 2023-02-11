@@ -10,6 +10,13 @@ jobs:
     - name: Context
       run: echo '${{ toJson(github) }}'
 
+  sh:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Context
+      shell: sh
+      run: echo '${{ toJson(github) }}'
+
   bash:
     runs-on: ubuntu-latest
     steps:
