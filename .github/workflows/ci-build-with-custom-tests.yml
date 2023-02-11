@@ -1,26 +1,18 @@
-name: build_with_custom_tests
+name: shell_test
 
 on:
-  push:
-    branches: ['**']
-    tags-ignore: ['**']
-  pull_request_target:
-    types: [closed]
+  workflow_dispatch:
 
 jobs:
-  tests:
+  unspecified:
     runs-on: ubuntu-latest
     steps:
     - name: Context
       run: echo '${{ toJson(github) }}'
-    - name: Tests
-      if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
-      run: echo 'Tests'
 
-  build:
+  bash:
     runs-on: ubuntu-latest
     steps:
     - name: Context
+      shell: bash
       run: echo '${{ toJson(github) }}'
-    - name: Build
-      run: echo 'Build'
