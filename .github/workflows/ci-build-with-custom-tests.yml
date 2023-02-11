@@ -7,19 +7,16 @@ jobs:
   unspecified:
     runs-on: ubuntu-latest
     steps:
-    - name: Context
-      run: echo '${{ toJson(github) }}'
+    - run: echo 'unspecified'
 
   sh:
     runs-on: ubuntu-latest
     steps:
-    - name: Context
-      shell: sh
-      run: echo '${{ toJson(github) }}'
+    - shell: sh
+      run: echo 'sh'
 
   bash:
     runs-on: ubuntu-latest
     steps:
-    - name: Context
-      shell: bash
-      run: echo '${{ toJson(github) }}'
+    - shell: bash
+      run: echo 'bash'
