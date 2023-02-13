@@ -1,0 +1,15 @@
+name: step_failure
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Fail
+      continue-on-error: true
+      run: |
+        echo "start"
+        exit 1
+        echo "end"
