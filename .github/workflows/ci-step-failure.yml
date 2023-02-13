@@ -11,5 +11,5 @@ jobs:
       continue-on-error: true
       run: |
         echo "start"
-        exit 1
+        ls test
         echo "end"
