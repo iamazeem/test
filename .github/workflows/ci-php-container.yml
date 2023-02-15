@@ -6,14 +6,11 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
-    container:
-      image: php:7.4.33-apache-bullseye
-      ports:
-      - 80
+    services:
+      php-server:
+        image: php:7.4.33-apache-bullseye
+        ports:
+        - 80:80
     steps:
     - name: Test
-      run: |
-        ls
-        whoami
-        whereis php
-        curl localhost
+      run: curl php-server
