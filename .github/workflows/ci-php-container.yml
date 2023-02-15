@@ -1,0 +1,15 @@
+name: php_container
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    container:
+      image: php:7.4.33-apache-bullseye
+      ports:
+      - 80
+    steps:
+    - name: curl
+      run: curl 127.0.0.1
