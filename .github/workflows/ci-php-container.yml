@@ -7,10 +7,12 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     services:
-      php-server:
+      php:
         image: php:7.4.33-apache-bullseye
         ports:
         - 80:80
     steps:
     - name: Test
-      run: curl php-server
+      run: |
+        dig php
+        curl php
