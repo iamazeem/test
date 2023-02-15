@@ -9,6 +9,8 @@ jobs:
     services:
       php:
         image: php:7.4.33-apache-bullseye
+        ports:
+        - 80:80
     steps:
     - name: Test
       run: curl localhost
