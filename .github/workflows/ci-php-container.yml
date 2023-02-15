@@ -7,9 +7,9 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     container:
-      image: php:7.4.33-apache-bullseye
+      image: php:latest
       ports:
-      - '80:80'
+      - 80
     steps:
     - name: curl
-      run: curl 127.0.0.1
+      run: curl localhost
