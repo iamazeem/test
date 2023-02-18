@@ -14,9 +14,9 @@ jobs:
     steps:
     - name: ${{ matrix.step }}
       run: |
-        echo "Running step: ${{ matrix.step }}'
+        echo "Running step: ${{ matrix.step }}"
 
     - name: ${{ matrix.step }}
       if: github.ref_name == 'main' && matrix.step == 2
       run: |
-        echo "Running step: ${{ matrix.step }}'
+        echo "Running step: ${{ matrix.step }}"
