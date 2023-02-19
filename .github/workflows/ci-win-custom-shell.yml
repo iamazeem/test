@@ -1,0 +1,13 @@
+name: win_custom_shell
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: windows-latest
+    steps:
+    - name: Shell
+      shell: bash
+      run: |
+        ls -lh $(which bash)
+        ls -lh C:/cygwin64/bin/bash
