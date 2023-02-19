@@ -10,4 +10,6 @@ jobs:
       shell: bash
       run: |
         ls -lh $(which bash)
-        ls -lh C:/cygwin64/bin/bash
+        ls -lh C:\\cygwin64\\bin\\bash
+        bash --version
+        C:\\cygwin64\\bin\\bash --version
