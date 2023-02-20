@@ -11,9 +11,16 @@ jobs:
       with:
         repository: duri0214/portfolio
 
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.8
+        cache: pip
+
     - name: Set up and run tests
       run: |
-        python3 -m venv venv
+        python3 --version
+        python3.8 -m venv venv
         . venv/bin/activate
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
