@@ -24,7 +24,7 @@ jobs:
         . venv/bin/activate
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
+        cd mysite
         touch ./vietnam_research/__init__.py
         touch ./vietnam_research/tests/__init__.py
-        cd mysite
         python manage.py test
