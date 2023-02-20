@@ -1,0 +1,20 @@
+name: python_test
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        repository: duri0214/portfolio
+
+    - name: Set up and run tests
+      run: |
+        python3 -m venv venv
+        . venv/bin/activate
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+        python mysite/manage.py test
