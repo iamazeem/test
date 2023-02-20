@@ -12,7 +12,7 @@ jobs:
         repository: duri0214/portfolio
 
     - name: Set up Python
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v4
       with:
         python-version: 3.8
         cache: pip
@@ -24,4 +24,5 @@ jobs:
         . venv/bin/activate
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
-        python mysite/manage.py test
+        cd mysite
+        python manage.py test
