@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 jobs:
   ci:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -24,5 +24,7 @@ jobs:
         . venv/bin/activate
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
+        touch ./vietnam_research/__init__.py
+        touch ./vietnam_research/tests/__init__.py
         cd mysite
         python manage.py test
