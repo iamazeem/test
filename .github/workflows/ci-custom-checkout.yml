@@ -1,0 +1,14 @@
+name: custom_checkout
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Check branches
+      run: |
+        git branch
+        git branh -a
