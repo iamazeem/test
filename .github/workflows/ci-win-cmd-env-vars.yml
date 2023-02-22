@@ -12,10 +12,12 @@ jobs:
         set VERSION=1.2.3
         echo "VERSION: %VERSION%"
         echo "GITHUB_ENV: %GITHUB_ENV%"
-        echo "VERSION=%VERSION%" >> "%GITHUB_ENV%"
+        echo "VERSION=%VERSION%" >> %GITHUB_ENV%
+        type %GITHUB_ENV%
 
     - name: Get version
       shell: cmd
       run: |
+        echo "GITHUB_ENV: %GITHUB_ENV%"
         echo ${{ env.VERSION }}
         echo "VERSION: %VERSION%"
