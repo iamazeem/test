@@ -10,7 +10,7 @@ jobs:
       shell: cmd
       run: |
         echo "GITHUB_ENV: %GITHUB_ENV%"
-        type %GITHUB_ENV%
+        chcp 65001
         echo "TEST=cmd" >> %GITHUB_ENV%
 
     - name: Step 2 (cmd)
