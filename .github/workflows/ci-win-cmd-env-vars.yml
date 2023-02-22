@@ -1,0 +1,22 @@
+name: win_custom_shell
+
+on: workflow_dispatch
+
+defautls:
+  run:
+    shell: cmd
+
+jobs:
+  ci:
+    runs-on: windows-latest
+    steps:
+    - name: Set version
+      run: |
+        set VERSION='1.2.3'
+        echo "VERSION: %VERSION%"
+        echo "VERSION=%VERSION%" >> "$GITHUB_ENV"
+
+    - name: Get version
+      run: |
+        echo ${{ env.VERSION }}
+        echo "VERSION: %VERSION%"
