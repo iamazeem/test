@@ -15,15 +15,15 @@ jobs:
       run: 'echo "GITHUB_ENV: %GITHUB_ENV%"'
 
     - name: Step 3 (pwsh)
-      run: 'echo "GITHUB_ENV: %GITHUB_ENV%"'
+      run: 'echo "GITHUB_ENV: $ENV:GITHUB_ENV"'
 
     - name: Step 4 (pwsh)
-      run: 'echo "GITHUB_ENV: %GITHUB_ENV%"'
+      run: 'echo "GITHUB_ENV: $ENV:GITHUB_ENV"'
 
     - name: Step 5 (bash)
       shell: bash
-      run: 'echo "GITHUB_ENV: %GITHUB_ENV%"'
+      run: 'echo "GITHUB_ENV: $GITHUB_ENV"'
 
     - name: Step 6 (bash)
       shell: bash
-      run: 'echo "GITHUB_ENV: %GITHUB_ENV%"'
+      run: 'echo "GITHUB_ENV: $GITHUB_ENV"'
