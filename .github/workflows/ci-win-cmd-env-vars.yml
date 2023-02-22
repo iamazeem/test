@@ -2,13 +2,12 @@ name: win_custom_shell
 
 on: workflow_dispatch
 
-defautls:
-  run:
-    shell: cmd
-
 jobs:
   ci:
     runs-on: windows-latest
+    defautls:
+      run:
+        shell: cmd
     steps:
     - name: Set version
       run: |
