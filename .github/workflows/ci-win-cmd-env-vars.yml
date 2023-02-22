@@ -6,18 +6,24 @@ jobs:
   ci:
     runs-on: windows-latest
     steps:
-    - name: Set version
+    - name: Step 1 (cmd)
       shell: cmd
-      run: |
-        set VERSION=1.2.3
-        echo "VERSION: %VERSION%"
-        echo "GITHUB_ENV: %GITHUB_ENV%"
-        echo "VERSION=%VERSION%" >> %GITHUB_ENV%
-        type %GITHUB_ENV%
+      run: 'echo "GITHUB_ENV: %GITHUB_ENV%"'
 
-    - name: Get version
+    - name: Step 2 (cmd)
       shell: cmd
-      run: |
-        echo "GITHUB_ENV: %GITHUB_ENV%"
-        echo ${{ env.VERSION }}
-        echo "VERSION: %VERSION%"
+      run: 'echo "GITHUB_ENV: %GITHUB_ENV%"'
+
+    - name: Step 3 (pwsh)
+      run: 'echo "GITHUB_ENV: %GITHUB_ENV%"'
+
+    - name: Step 4 (pwsh)
+      run: 'echo "GITHUB_ENV: %GITHUB_ENV%"'
+
+    - name: Step 5 (bash)
+      shell: bash
+      run: 'echo "GITHUB_ENV: %GITHUB_ENV%"'
+
+    - name: Step 6 (bash)
+      shell: bash
+      run: 'echo "GITHUB_ENV: %GITHUB_ENV%"'
