@@ -4,14 +4,15 @@ on: workflow_dispatch
 
 defaults:
   run:
-    shell: bash
+    shell: powershell
 
 jobs:
   ci:
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
-    # - name: Install yq
-    #   run: choco install yq
+    - name: Install yq
+      run: choco install yq
 
     - name: Create sample YAML file
       shell: bash
@@ -25,18 +26,20 @@ jobs:
             sdk: '>=2.12.0 <3.0.0'
       run: echo "$YAML" > pubspec.yaml && cat pubspec.yaml
 
-    - name: Get version with yq action
-      id: yq
-      uses: mikefarah/yq@master
-      with:
-        cmd: yq -r '.version' 'pubspec.yaml'
+    # - name: Get version with yq action
+    #   id: yq
+    #   uses: mikefarah/yq@master
+    #   with:
+    #     cmd: yq -r '.version' 'pubspec.yaml'
 
-    # - name: Set version
-    #   run: |
-    #     yq -r .version pubspec.yaml > version.file
-    #     set /p VERSION=<version.file
-    #     echo VERSION: %VERSION%
-    #     echo VERSION=%VERSION% >> %GITHUB_ENV%
+    - name: Set version
+      run: |
+        $VERSION=(yq -r .version pubspec.yaml)
+        echo VERSION: $VERSION
+        echo VERSION=$VERSION | Out-File -FilePath $ENV:GITHUB_ENV -Append
+
+    # - name: Print version
+    #   run: echo VERSION=${{ steps.yq.outputs.result }}
 
     - name: Print version
-      run: echo VERSION=${{ steps.yq.outputs.result }}
+      run: echo VERSION=${{ env.VERSION }}
