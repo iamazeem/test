@@ -14,6 +14,7 @@ jobs:
       run: choco install yq
 
     - name: Create sample YAML file
+      shell: bash
       env:
         YAML: |
           name: test
@@ -22,11 +23,11 @@ jobs:
           documentation: https://example.com/test/docs
           environment:
             sdk: '>=2.12.0 <3.0.0'
-      run: echo "%YAML%" > pubspec.yaml && type pubspec.yaml
+      run: echo "%YAML%" > pubspec.yaml && cat pubspec.yaml
 
     - name: Set version
       run: |
-        yq -r '.version' pubspec.yaml > version.file
+        yq -r .version pubspec.yaml > version.file
         set /p VERSION=<version.file
         echo VERSION: %VERSION%
         echo VERSION=%VERSION% >> %GITHUB_ENV%
