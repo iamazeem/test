@@ -4,18 +4,16 @@ on: workflow_dispatch
 
 jobs:
   ci:
-    runs-on: windows-latest
-    defautls:
-      run:
-        shell: cmd
     steps:
     - name: Set version
+      shell: cmd
       run: |
         set VERSION='1.2.3'
         echo "VERSION: %VERSION%"
         echo "VERSION=%VERSION%" >> "$GITHUB_ENV"
 
     - name: Get version
+      shell: cmd
       run: |
         echo ${{ env.VERSION }}
         echo "VERSION: %VERSION%"
