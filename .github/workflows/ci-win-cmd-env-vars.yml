@@ -9,18 +9,18 @@ jobs:
     - name: Step 1 (cmd)
       shell: cmd
       run: |
-        # chcp 65001
+        ; chcp 65001
         set CMD=cmd
         echo "TEST1=%CMD%" >> %GITHUB_ENV%
-        # echo "TEST2=%CMD%" >> %GITHUB_ENV%
+        ; echo "TEST2=%CMD%" >> %GITHUB_ENV%
 
     - name: Step 2 (cmd)
       shell: cmd
       run: |
         echo TEST1=%TEST1%
-        # echo TEST2=%TEST2%
+        ; echo TEST2=%TEST2%
         echo env.TEST1=${{ env.TEST1 }}
-        # echo env.TEST2=${{ env.TEST2 }}
+        ; echo env.TEST2=${{ env.TEST2 }}
 
     # - name: Step 3 (pwsh)
     #   run: |
