@@ -22,16 +22,16 @@ jobs:
           documentation: https://example.com/test/docs
           environment:
             sdk: '>=2.12.0 <3.0.0'
-      run: echo %YAML% > pubspec.yaml && type pubspec.yaml
+      run: echo "%YAML%" > pubspec.yaml && type pubspec.yaml
 
     - name: Set version
       run: |
-        yq '.version' pubspec.yaml > version.file
-        set /p VERSION=<version/.file
-        echo "VERSION: %VERSION%"
-        echo "VERSION=%VERSION%" >> %GITHUB_ENV%
+        yq -r '.version' pubspec.yaml > version.file
+        set /p VERSION=<version.file
+        echo VERSION: %VERSION%
+        echo VERSION=%VERSION% >> %GITHUB_ENV%
 
     - name: Get version
       run: |
-        echo "VERSION=%VERSION%"
-        echo "VERSION=${{ env.VERSION }}"
+        echo VERSION=%VERSION%
+        echo VERSION=${{ env.VERSION }}
