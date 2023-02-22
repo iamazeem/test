@@ -4,6 +4,7 @@ on: workflow_dispatch
 
 jobs:
   ci:
+    runs-on: windows-latest
     steps:
     - name: Set version
       shell: cmd
