@@ -25,12 +25,25 @@ jobs:
             sdk: '>=2.12.0 <3.0.0'
       run: echo "$YAML" > pubspec.yaml && cat pubspec.yaml
 
+    - name: Get SDK Version from config
+      id: version
+      uses: mikefarah/yq@master
+      with:
+        cmd: yq -r '.version' 'pubspec.yaml'
+
     - name: Set version
+      env:
+        VERSION: ${{ steps.version.outputs.output }}
       run: |
-        yq -r .version pubspec.yaml > version.file
-        set /p VERSION=<version.file
         echo VERSION: %VERSION%
         echo VERSION=%VERSION% >> %GITHUB_ENV%
+
+    # - name: Set version
+    #   run: |
+    #     yq -r .version pubspec.yaml > version.file
+    #     set /p VERSION=<version.file
+    #     echo VERSION: %VERSION%
+    #     echo VERSION=%VERSION% >> %GITHUB_ENV%
 
     - name: Get version
       run: |
