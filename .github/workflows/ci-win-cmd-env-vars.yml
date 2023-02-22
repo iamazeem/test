@@ -31,26 +31,18 @@ jobs:
   ci-ubuntu:
     runs-on: ubuntu-latest
     steps:
-    - name: Step 1 (cmd)
-      shell: cmd
-      run: 'echo "GITHUB_ENV: %GITHUB_ENV%"'
+    - name: Step 1 (bash)
+      shell: bash
+      run: 'echo "GITHUB_ENV: $GITHUB_ENV"'
 
-    - name: Step 2 (cmd)
-      shell: cmd
-      run: 'echo "GITHUB_ENV: %GITHUB_ENV%"'
+    - name: Step 2 (bash)
+      shell: bash
+      run: 'echo "GITHUB_ENV: $GITHUB_ENV"'
 
     - name: Step 3 (pwsh)
-      shell: pwsh
+      shell: powershell
       run: 'echo "GITHUB_ENV: $ENV:GITHUB_ENV"'
 
     - name: Step 4 (pwsh)
-      shell: pwsh
+      shell: powershell
       run: 'echo "GITHUB_ENV: $ENV:GITHUB_ENV"'
-
-    - name: Step 5 (bash)
-      shell: bash
-      run: 'echo "GITHUB_ENV: $GITHUB_ENV"'
-
-    - name: Step 6 (bash)
-      shell: bash
-      run: 'echo "GITHUB_ENV: $GITHUB_ENV"'
