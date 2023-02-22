@@ -2,54 +2,36 @@ name: win_custom_shell
 
 on: workflow_dispatch
 
+defaults:
+  run:
+    shell: cmd
+
 jobs:
   ci:
     runs-on: windows-latest
     steps:
     - name: Install yq
+      run: choco install yq
+
+    - name: Create sample YAML file
+      env:
+        YAML: |
+          name: test
+          version: 1.2.3
+          homepage: https://example.com/test
+          documentation: https://example.com/test/docs
+          environment:
+            sdk: '>=2.12.0 <3.0.0'
+      run: echo %YAML% > pubspec.yaml && type pubspec.yaml
+
+    - name: Set version
       run: |
-        choco install yq
+        yq '.version' pubspec.yaml > version.file
+        set /p VERSION=<version/.file
+        echo "VERSION: %VERSION%"
+        echo "VERSION=%VERSION%" >> %GITHUB_ENV%
 
-    - name: Step 1 (cmd)
-      shell: cmd
+    - name: Get version
       run: |
-        REM chcp 65001
-        set CMD=cmd
-        echo "TEST1=%CMD%" >> %GITHUB_ENV%
-        REM echo "TEST2=%CMD%" >> %GITHUB_ENV%
-
-    - name: Step 2 (cmd)
-      shell: cmd
-      run: |
-        echo TEST1=%TEST1%
-        REM echo TEST2=%TEST2%
-        echo env.TEST1=${{ env.TEST1 }}
-        REM echo env.TEST2=${{ env.TEST2 }}
-
-    # - name: Step 3 (pwsh)
-    #   run: |
-    #     echo "GITHUB_ENV: $ENV:GITHUB_ENV"
-    #     type $ENV:GITHUB_ENV
-    #     echo "TEST=pwsh" | Out-File -FilePath $ENV:GITHUB_ENV -Append
-
-    # - name: Step 4 (pwsh)
-    #   run: |
-    #     echo "GITHUB_ENV: $ENV:GITHUB_ENV"
-    #     type $ENV:GITHUB_ENV
-    #     echo "TEST=$ENV:TEST"
-    #     echo "env.TEST=${{ env.TEST }}"
-
-    # - name: Step 5 (bash)
-    #   shell: bash
-    #   run: |
-    #     echo "GITHUB_ENV: $GITHUB_ENV"
-    #     cat $GITHUB_ENV
-    #     echo "TEST=bash" >> $GITHUB_ENV
-
-    # - name: Step 6 (bash)
-    #   shell: bash
-    #   run: |
-    #     echo "GITHUB_ENV: $GITHUB_ENV"
-    #     cat $GITHUB_ENV
-    #     echo "TEST=$TEST"
-    #     echo "env.TEST=${{ env.TEST }}"
+        echo "VERSION=%VERSION%"
+        echo "VERSION=${{ env.VERSION }}"
