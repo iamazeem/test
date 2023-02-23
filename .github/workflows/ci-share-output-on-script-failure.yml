@@ -1,0 +1,24 @@
+name: share_output_on_script_failure
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set output
+        id: script
+        env:
+          SCRIPT: |
+            #!/usr/bin/env bash
+            echo "Output 1..."
+            echo "Output 2..."
+            echo "Output 3..."
+            exit 123
+        run: |
+          echo "$SCRIPT" > script.sh
+          chmod +x script.sh
+          echo "STDOUT=(./script.sh)" >> $GITHUB_OUTPUT
+
+      - name: Get output
+        run: echo "${{ steps.script.outputs.STDOUT }}"
