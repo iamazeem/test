@@ -16,9 +16,8 @@ jobs:
             echo "Output 3..."
             exit 123
         run: |
-          echo "$SCRIPT" > script.sh
-          chmod +x script.sh
+          echo "$SCRIPT" > script.sh && chmod +x script.sh
           echo "STDOUT="$(./script.sh)"" >> $GITHUB_OUTPUT
 
       - name: Get output
-        run: echo "${{ steps.script.outputs.STDOUT }}"
+        run: cat "${{ steps.script.outputs.STDOUT }}" > output.log && cat output.log
