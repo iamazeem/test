@@ -20,4 +20,4 @@ jobs:
           echo "STDOUT="$(./script.sh)"" >> $GITHUB_OUTPUT
 
       - name: Get output
-        run: cat "${{ steps.script.outputs.STDOUT }}" > output.log && cat output.log
+        run: echo "${{ steps.script.outputs.STDOUT }}" > output.log && cat output.log
