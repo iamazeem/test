@@ -1,0 +1,17 @@
+name: win_mingw_test
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Compile
+      shell: bash
+      run: |
+        gcc --version
+        g++ --version
+        gcc test.c -o test_c
+        g++ test.cpp -o test_cpp
