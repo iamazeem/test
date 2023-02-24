@@ -20,7 +20,8 @@ jobs:
       run: |
         echo "JOB_ID: $JOB_ID"
         JOB_NAME="$(gh run view --log --json jobs --jq '.jobs[0].name' $RUN_ID)"
-        echo "JOB_NAME: $JOB_NAME"        gcc --version
+        echo "JOB_NAME: $JOB_NAME"
+        gcc --version
         g++ --version
         gcc test.c -o test_c && ./test_c
         g++ test.cpp -o test_cpp && ./test_cpp
