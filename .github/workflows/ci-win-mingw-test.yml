@@ -12,7 +12,7 @@ jobs:
     - name: Compile
       env:
         JOB_ID: ${{ github.job }}
-        JOB_NAME: jobs.${{ github.job }}.name
+        JOB_NAME: ${{ jobs.ci.name }}
       shell: bash
       run: |
         echo "JOB_ID: $JOB_ID"
