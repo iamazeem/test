@@ -13,7 +13,7 @@ jobs:
       shell: bash
       run: |
         echo "github.job: ${{ github.job }}"
-        echo "toJSON(github): '${{ toJSON(github) }}'"
+        echo "job.name: $(gh run view --log --json jobs --jq '.jobs[0].name' ${{ github.run_id }})"
         gcc --version
         g++ --version
         gcc test.c -o test_c && ./test_c
