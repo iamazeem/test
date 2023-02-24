@@ -10,6 +10,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     - name: Compile
+      env:
+        GH_TOKEN: ${{ github.token }}
       shell: bash
       run: |
         echo "github.job: ${{ github.job }}"
