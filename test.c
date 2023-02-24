@@ -3,6 +3,6 @@
 
 int main()
 {
-    puts("Hello World");
+    puts("Hello World from C!");
     return EXIT_SUCCESS;
 }

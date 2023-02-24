@@ -13,5 +13,6 @@ jobs:
       run: |
         gcc --version
         g++ --version
-        gcc test.c -o test_c
-        g++ test.cpp -o test_cpp
+        gcc test.c -o test_c && ./test_c
+        g++ test.cpp -o test_cpp && ./test_cpp
+
