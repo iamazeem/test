@@ -1,0 +1,32 @@
+name: job_id_and_name
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build
+      env:
+        GH_TOKEN: ${{ github.token }}
+        JOB_ID: ${{ github.job }}
+        RUN_ID: ${{ github.run_id }}
+      run: |
+        echo "JOB_ID: $JOB_ID"
+        JOB_NAME="$(gh run view --log --json jobs --jq '.jobs[0].name' $RUN_ID)"
+        echo "JOB_NAME: $JOB_NAME"
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Test
+      env:
+        GH_TOKEN: ${{ github.token }}
+        JOB_ID: ${{ github.job }}
+        RUN_ID: ${{ github.run_id }}
+      run: |
+        echo "JOB_ID: $JOB_ID"
+        JOB_NAME="$(gh run view --log --json jobs --jq '.jobs[0].name' $RUN_ID)"
+        echo "JOB_NAME: $JOB_NAME"
