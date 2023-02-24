@@ -10,13 +10,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     - name: Compile
-      env:
-        JOB_ID: ${{ github.job }}
-        JOB_NAME: ${{ jobs.ci.name }}
       shell: bash
       run: |
-        echo "JOB_ID: $JOB_ID"
-        echo "JOB_NAME: $JOB_NAME"
+        echo "github.job: ${{ github.job }}"
+        echo "toJSON(job): $${{ toJSON(job) }}"
         gcc --version
         g++ --version
         gcc test.c -o test_c && ./test_c
