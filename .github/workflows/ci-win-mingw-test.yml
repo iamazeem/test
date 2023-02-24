@@ -4,6 +4,7 @@ on: workflow_dispatch
 
 jobs:
   ci:
+    name: CI
     runs-on: windows-latest
     steps:
     - name: Checkout
@@ -11,8 +12,9 @@ jobs:
     - name: Compile
       shell: bash
       run: |
+        echo "github.job: ${{ github.job }}"
+        echo "job: ${{ toJSON(job) }}"
         gcc --version
         g++ --version
         gcc test.c -o test_c && ./test_c
         g++ test.cpp -o test_cpp && ./test_cpp
-
