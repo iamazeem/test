@@ -18,6 +18,7 @@ jobs:
         echo "JOB_ID: $JOB_ID"
         JOB_NAME="$(gh run view --repo $REPO --json jobs --jq '.jobs[0].name' $RUN_ID)"
         echo "JOB_NAME: $JOB_NAME"
+        echo '${{ toJSON(github) }}'
 
   test:
     name: Test
@@ -28,3 +29,4 @@ jobs:
         echo "JOB_ID: $JOB_ID"
         JOB_NAME="$(gh run view --repo $REPO --json jobs --jq '.jobs[0].name' $RUN_ID)"
         echo "JOB_NAME: $JOB_NAME"
+        echo '${{ toJSON(github) }}'
