@@ -3,6 +3,6 @@
 
 int main()
 {
-    std::cout << "Hello Wold from C++!" << std::endl;
+    std::cout << "Hello from C++" << std::endl;
     return EXIT_SUCCESS;
 }
