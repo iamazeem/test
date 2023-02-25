@@ -21,10 +21,6 @@ jobs:
           --health-retries=3
 
     steps:
-    - name: Check DB
-      run: |
-        mysql --host 127.0.0.1 --port 3306 -uroot -ppassword -e "SHOW DATABASES LIKE 'test_portfolio';"
-
     - name: Checkout
       uses: actions/checkout@v3
       with:
@@ -43,6 +39,7 @@ jobs:
         DB_USER: root
         DB_PASSWORD: password
       run: |
+        mysql --host 127.0.0.1 --port 3306 -u "$DB_USER" -p "$DB_PASSWORD" -e "SHOW DATABASES LIKE '$DB_NAME';"
         python3 --version
         python3 -m venv venv
         . venv/bin/activate
