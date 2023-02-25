@@ -24,6 +24,7 @@ jobs:
         DB_NAME: portfolio
         DB_USER: root
         DB_PASSWORD: root
+        DJANGO_SECRET_KEY: VGUkdCFOZwo=
       run: |
         # https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md#mysql
         sudo systemctl start mysql
@@ -38,4 +39,5 @@ jobs:
         python manage.py makemigrations register
         python manage.py makemigrations vietnam_research gmarker shopping linebot warehouse
         python manage.py migrate
+        DJANGO_SECRET_KEY="$(base64 <<< "$RANDOM|TeStiNg|$RANDOM" | tr -d '\n')"
         python manage.py test
