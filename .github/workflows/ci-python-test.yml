@@ -29,7 +29,7 @@ jobs:
     steps:
     - name: Check DB
       run: |
-        mysql --host 127.0.0.1 --port 3306 -u "$DB_USER" -p "$DB_PASSWORD" -e "SHOW DATABASES LIKE '$DB_NAME';"
+        mysql --host 127.0.0.1 --port 3306 -u '${{ env.DB_USER }}' -p '${{ env.DB_PASSWORD }}' -e "SHOW DATABASES LIKE '${{ env.DB_NAME }}';"
 
     - name: Checkout
       uses: actions/checkout@v3
