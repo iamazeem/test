@@ -2,12 +2,6 @@ name: python_test
 
 on: workflow_dispatch
 
-env:
-  DB_ENGINE: django.db.backends.mysql
-  DB_NAME: test_portfolio
-  DB_USER: root
-  DB_PASSWORD: password
-
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -16,8 +10,8 @@ jobs:
       mysql:
         image: mysql:5.7
         env:
-          MYSQL_ROOT_PASSWORD: ${{ env.DB_PASSWORD }}
-          MYSQL_DATABASE: ${{ env.DB_NAME }}
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: test_portfolio
         ports:
           - 3306:3306
         options: >-
@@ -29,7 +23,7 @@ jobs:
     steps:
     - name: Check DB
       run: |
-        mysql --host 127.0.0.1 --port 3306 -u '${{ env.DB_USER }}' -p '${{ env.DB_PASSWORD }}' -e "SHOW DATABASES LIKE '${{ env.DB_NAME }}';"
+        mysql --host 127.0.0.1 --port 3306 -uroot -ppassword -e "SHOW DATABASES LIKE 'test_portfolio';"
 
     - name: Checkout
       uses: actions/checkout@v3
@@ -43,6 +37,11 @@ jobs:
         cache: pip
 
     - name: Set up and run tests
+      env:
+        DB_ENGINE: django.db.backends.mysql
+        DB_NAME: test_portfolio
+        DB_USER: root
+        DB_PASSWORD: password
       run: |
         python3 --version
         python3 -m venv venv
