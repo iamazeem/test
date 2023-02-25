@@ -23,10 +23,10 @@ jobs:
         DB_ENGINE: django.db.backends.mysql
         DB_NAME: test_portfolio
         DB_USER: root
-        DB_PASSWORD: password
+        DB_PASSWORD: ''
       run: |
         sudo systemctl start mysql
-        mysql --host 127.0.0.1 --port 3306 -u$DB_USER -p$DB_PASSWORD -e "SHOW DATABASES;"
+        mysql --host 127.0.0.1 --port 3306 -u$DB_USER -e "SHOW DATABASES;"
         python3 --version
         python3 -m venv venv
         . venv/bin/activate
