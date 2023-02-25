@@ -27,8 +27,8 @@ jobs:
       run: |
         # https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md#mysql
         sudo systemctl start mysql
-        # mysql -u$DB_USER -p$DB_PASSWORD -e "CREATE DATABASE $DB_NAME;"
-        # mysql -u$DB_USER -p$DB_PASSWORD -e "SHOW DATABASES;"
+        mysql -u$DB_USER -p$DB_PASSWORD -e "CREATE DATABASE $DB_NAME;"
+        mysql -u$DB_USER -p$DB_PASSWORD -e "SHOW DATABASES;"
         python3 --version
         python3 -m venv venv
         . venv/bin/activate
