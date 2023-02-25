@@ -5,6 +5,21 @@ on: workflow_dispatch
 jobs:
   ci:
     runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: test_portfolio
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -18,13 +33,20 @@ jobs:
         cache: pip
 
     - name: Set up and run tests
+      env:
+        DB_ENGINE: django.db.backends.mysql
+        DB_NAME: test_portfolio
+        DB_USER: root
+        DB_PASSWORD: password
       run: |
+        mysql --host 127.0.0.1 --port 3306 -u "$DB_USER" -p "$DB_PASSWORD" -e "SHOW DATABASES LIKE '$DB_NAME';" 2>/dev/null
         python3 --version
         python3 -m venv venv
         . venv/bin/activate
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
         cd mysite
-        touch ./vietnam_research/__init__.py
-        touch ./vietnam_research/tests/__init__.py
+        python manage.py makemigrations register
+        python manage.py makemigrations vietnam_research gmarker shopping linebot warehouse
+        python manage.py migrate
         python manage.py test
