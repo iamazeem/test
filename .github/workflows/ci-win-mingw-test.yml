@@ -4,7 +4,6 @@ on: workflow_dispatch
 
 jobs:
   ci:
-    name: CI
     runs-on: windows-latest
 
     steps:
@@ -12,15 +11,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Compile
-      env:
-        GH_TOKEN: ${{ github.token }}
-        JOB_ID: ${{ github.job }}
-        RUN_ID: ${{ github.run_id }}
-      shell: bash
       run: |
-        echo "JOB_ID: $JOB_ID"
-        JOB_NAME="$(gh run view --log --json jobs --jq '.jobs[0].name' $RUN_ID)"
-        echo "JOB_NAME: $JOB_NAME"
         gcc --version
         g++ --version
         gcc test.c -o test_c && ./test_c
