@@ -39,7 +39,7 @@ jobs:
         DB_USER: root
         DB_PASSWORD: password
       run: |
-        mysql --host 127.0.0.1 --port 3306 -u "$DB_USER" -p "$DB_PASSWORD" -e "SHOW DATABASES LIKE '$DB_NAME';"
+        mysql --host 127.0.0.1 --port 3306 -u$DB_USER -p$DB_PASSWORD -e "SHOW DATABASES LIKE '$DB_NAME';"
         python3 --version
         python3 -m venv venv
         . venv/bin/activate
