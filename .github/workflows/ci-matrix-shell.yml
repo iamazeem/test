@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Test (${{ matrix.job.name }})
-      shell: '${{ matrix.job.shell }}'
+    - name: Test (${{ matrix.shell }})
+      shell: ${{ matrix.shell }}
       run: |
         echo "Test"
