@@ -1,0 +1,20 @@
+name: workflow_dispatch
+
+on:
+  workflow_dispatch:
+    inputs:
+      options:
+        description: 'Options'
+        required: true
+        type: choice
+        options:
+        - Option A
+        - Option B
+        - Option C
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Test
+      run: echo "Test"
