@@ -1,5 +1,8 @@
 name: workflow_dispatch
 
+env:
+  options: '["A","B","C"]'
+
 on:
   workflow_dispatch:
     inputs:
@@ -7,10 +10,7 @@ on:
         description: 'Options'
         required: true
         type: choice
-        options:
-        - Option A
-        - Option B
-        - Option C
+        options: ${{ fromJSON(env.options) }}
 
 jobs:
   ci:
