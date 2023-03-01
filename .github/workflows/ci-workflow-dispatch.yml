@@ -10,7 +10,7 @@ on:
         description: 'Options'
         required: true
         type: choice
-        options: ${{ fromJSON(env.options) }}
+        options: ${{ fromJSON('["A","B","C"]') }}
 
 jobs:
   ci:
