@@ -1,0 +1,14 @@
+name: pr_path1
+
+on:
+  pull_request:
+    branches: [develop]
+    paths: ['path1/**']
+  workflow_dispatch:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Test
+      run: echo '${{ toJSON(github) }}'
