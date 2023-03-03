@@ -4,6 +4,7 @@ on:
   pull_request:
     branches: [develop]
     paths: ['path2/**']
+    types: [opened, reopened, synchronize]
   workflow_dispatch:
 
 jobs:
