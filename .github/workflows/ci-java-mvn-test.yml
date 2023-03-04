@@ -13,10 +13,9 @@ jobs:
         repository: paras21avenue/denodo
 
     - name: Set up JDK 1.8
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v1
       with:
         java-version: 1.8
-        distribution: temurin
 
     - name: Build with Maven
       run: |
