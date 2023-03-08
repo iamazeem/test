@@ -16,4 +16,4 @@ jobs:
 
     steps:
     - name: Check version
-      run: envsubt --version
+      run: envsubst --version
