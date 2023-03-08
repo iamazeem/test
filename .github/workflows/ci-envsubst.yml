@@ -16,4 +16,24 @@ jobs:
 
     steps:
     - name: Check version
-      run: envsubst --version
+      env:
+        NPMRC: |
+          ; --- START ---
+          ; bad config
+          _authToken=${PAT}
+
+          ; good config
+          @myorg:registry=https://somewhere-else.com/myorg
+          @another:registry=https://somewhere-else.com/another
+          //registry.npmjs.org/:_authToken=${PAT}
+          ; would apply to both @myorg and @another
+          ; //somewhere-else.com/:_authToken=PAT
+          ; would apply only to @myorg
+          //somewhere-else.com/myorg/:_authToken=${PAT}
+          ; would apply only to @another
+          //somewhere-else.com/another/:_authToken=${PAT}
+          ; --- END ---
+        PAT: ${{ secrets.PAT }}
+      run: |
+        echo "$NPMRC" > .npmrc && cat .npmrc
+        envsubst < .npmrc > .npmrc.envsubst && mv .npmrc.envsubst .npmrc && cat .npmrc
