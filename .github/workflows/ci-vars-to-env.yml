@@ -1,0 +1,14 @@
+name: vars_to_env
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check vars
+      run: |
+        echo '${{ vars.VAR1 }}'
+        echo '${{ vars.VAR2 }}'
+        echo
+        env
