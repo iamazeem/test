@@ -19,5 +19,5 @@ jobs:
     steps:
       - name: Get output
         env:
-          DATA: ${{ needs.job1.outputs.DATA }}
+          DATA: ${{ needs.job1.outputs.data }}
         run: echo "DATA=$ENV:DATA"
