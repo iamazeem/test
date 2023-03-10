@@ -8,7 +8,7 @@ jobs:
 
     steps:
     - name: Set vars to env
-      uses: .github/actions/set-vars-to-env
+      uses: ./.github/actions/set-vars-to-env
       # env:
       #   VARS_JSON: ${{ toJSON(vars) }}
       # run: |
