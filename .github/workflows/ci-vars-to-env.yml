@@ -6,9 +6,13 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-    - name: Check vars
+    - name: Set vars to env
+      env:
+        VARS_JSON: '${{ toJSON(vars) }}'
       run: |
-        echo '${{ vars.VAR1 }}'
-        echo '${{ vars.VAR2 }}'
-        echo '${{ toJSON(vars) }}'
-        env
+        echo "$VARS_JSON" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' > .env
+        cat .env >> $GITHUB_ENV
+
+    - name: Check env vars
+      run: |
+        env | grep VAR
