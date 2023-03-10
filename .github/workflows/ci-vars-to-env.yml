@@ -8,10 +8,11 @@ jobs:
 
     steps:
     - name: Set vars to env
-      env:
-        VARS_JSON: ${{ toJSON(vars) }}
-      run: |
-        echo "$VARS_JSON" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' >> $GITHUB_ENV
+      uses: .github/actions/set-vars-to-env
+      # env:
+      #   VARS_JSON: ${{ toJSON(vars) }}
+      # run: |
+      #   echo "$VARS_JSON" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' >> $GITHUB_ENV
 
     - name: Check env vars
       run: |
