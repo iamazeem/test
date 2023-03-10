@@ -13,7 +13,7 @@ jobs:
   #       run: echo "ACTION_DIR=set-env-vars-from-json" >> $GITHUB_OUTPUT
 
   ci:
-    needs: setup
+    # needs: setup
     runs-on: ubuntu-latest
 
     steps:
