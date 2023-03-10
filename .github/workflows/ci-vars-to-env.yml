@@ -13,7 +13,7 @@ jobs:
     - name: Set vars to env
       uses: ./.github/actions/set-vars-to-env
       with:
-        vars-json: ${{ toJSON(vars) }}
+        vars: ${{ vars }}
       # env:
       #   VARS_JSON: ${{ toJSON(vars) }}
       # run: |
