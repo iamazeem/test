@@ -5,8 +5,7 @@ author: 'Azeem Sajid'
 inputs:
   vars-json:
     description: 'vars context as JSON'
-    required: false
-    default: '${{ toJSON(vars) }}'
+    required: true
 
 runs:
   using: 'composite'
