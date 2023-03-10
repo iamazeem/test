@@ -10,5 +10,5 @@ jobs:
       run: |
         echo '${{ vars.VAR1 }}'
         echo '${{ vars.VAR2 }}'
-        echo
+        echo '${{ toJSON(vars) }}'
         env
