@@ -14,7 +14,7 @@ runs:
   steps:
     - name: Set vars to env
       env:
-        JSON: ${{ inputs.json) }}
+        JSON: ${{ inputs.json }}
       shell: bash
       run: |
         echo '${{ github.action_path }}'
