@@ -3,14 +3,14 @@ name: vars_to_env
 on: workflow_dispatch
 
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-    outputs:
-      ACTION_DIR: ${{ steps.set-dir.outputs.ACTION_DIR }}
-    steps:
-      - name: Set output
-        id: set-dir
-        run: echo "ACTION_DIR=set-env-vars-from-json" >> $GITHUB_OUTPUT
+  # setup:
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     ACTION_DIR: ${{ steps.set-dir.outputs.ACTION_DIR }}
+  #   steps:
+  #     - name: Set output
+  #       id: set-dir
+  #       run: echo "ACTION_DIR=set-env-vars-from-json" >> $GITHUB_OUTPUT
 
   ci:
     needs: setup
@@ -21,8 +21,8 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Set vars to env
-      uses: ./.github/actions/${{ needs.setup.outputs.ACTION_DIR }}
-      # uses: ./.github/actions/set-env-vars-from-json
+      # uses: ./.github/actions/${{ needs.setup.outputs.ACTION_DIR }}
+      uses: ./.github/actions/set-env-vars-from-json
       with:
         json: '${{ toJSON(vars) }}'
 
