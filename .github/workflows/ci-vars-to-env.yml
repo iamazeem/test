@@ -9,13 +9,11 @@ jobs:
     steps:
     - name: Set vars to env
       env:
-        VARS_JSON: '${{ toJSON(vars) }}'
+        VARS_JSON: ${{ toJSON(vars) }}
       run: |
-        echo "$VARS_JSON" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' >> "$GITHUB_ENV"
+        echo "$VARS_JSON" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' >> $GITHUB_ENV
 
     - name: Check env vars
       run: |
-        env | grep VAR
-        echo
-        echo "$VAR1"
-        echo "$VAR2"
+        echo "VAR1=$VAR1"
+        echo "VAR2=$VAR2"
