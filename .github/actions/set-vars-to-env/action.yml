@@ -1,15 +1,22 @@
 name: 'Set vars to env context'
 description: 'Sets variables from vars to env context'
+author: 'Azeem Sajid'
+
+inputs:
+  vars-json:
+    description: 'vars context as JSON'
+    required: false
+    default: '${{ toJSON(vars) }}'
 
 runs:
   using: 'composite'
 
   steps:
     - name: Set vars to env
-      # env:
-      #   VARS_JSON: ${{ toJSON(github.vars) }}
+      env:
+        VARS_JSON: ${{ inputs.vars-json }}
       shell: bash
       run: |
-        echo "${{ github.action_path }}"
-        echo "${{ toJSON(github) }}"
+        echo '${{ github.action_path }}'
         echo "$VARS_JSON" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' >> $GITHUB_ENV
+        echo '${{ toJSON(github) }}'
