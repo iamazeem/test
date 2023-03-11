@@ -1,0 +1,15 @@
+name: pr_labels
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+  workflow_dispatch:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - name: github.event
+      run: |
+        echo '${{ toJSON(github.event) }}'
