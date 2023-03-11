@@ -18,4 +18,7 @@ jobs:
         GH_TOKEN: ${{ github.token }}
         PR_NUMBER: ${{ github.event.number }}
       run: |
-        gh pr view --json labels --jq '.labels[].name | select(startswith("project:")) | sub("project:";"")' "$PR_NUMBER"
+        gh pr view \
+          --json labels \
+          --jq '.labels[].name | select(startswith("project:")) | sub("project:";"")' \
+          "$PR_NUMBER"
