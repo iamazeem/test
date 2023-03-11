@@ -11,5 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: github.event
+      env:
+        GH_TOKEN: ${{ github.token }}
+        PR_NUMBER: ${{ github.event.number }}
       run: |
-        echo '${{ toJSON(github.event) }}'
+        # echo '${{ toJSON(github.event) }}'
+        gh pr view --json labels --jq '.labels[].name | select(startswith("project:")) | sub("project:";"")' "$PR_NUMBER"
