@@ -49,16 +49,16 @@ jobs:
 
     strategy:
       matrix: 
-        include: ${{ fromJson(needs.step1.outputs.matrix) }}
+        include: ${{ fromJSON(needs.step1.outputs.matrix) }}
 
     steps:
     - name: Check array
       env:
-        MATRIX_INCLUDE: ${{ matrix.include }}
+        MATRIX_INCLUDE: ${{ toJSON(matrix) }}
         PROJECT: ${{ fromJson(needs.step1.outputs.matrix)[0].project }}
         CONFIG: ${{ fromJson(needs.step1.outputs.matrix)[0].config }}
-        NESTED: |
-          ${{ join(fromJson(needs.step1.outputs.matrix)[0].nested.*.val, ', ') }}
+        NESTED: >-
+          ${{ join(fromJSON(needs.step1.outputs.matrix)[0].nested.*.val, ', ') }}
       run: |
         echo "MATRIX_INCLUDE: [$MATRIX_INCLUDE]"
         echo "PROJECT: [$PROJECT]"
