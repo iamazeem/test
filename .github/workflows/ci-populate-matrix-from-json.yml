@@ -56,8 +56,9 @@ jobs:
       env:
         PROJECT: ${{ fromJson(needs.step1.outputs.matrix)[0].project }}
         CONFIG: ${{ fromJson(needs.step1.outputs.matrix)[0].config }}
-        NESTED: ${{ fromJson(needs.step1.outputs.matrix)[0].nested }}
+        NESTED: |
+          ${{ fromJson(needs.step1.outputs.matrix)[0].nested }}
       run: |
-        echo "PROJECT: $PROJECT"
-        echo "CONFIG: $CONFIG"
-        echo "NESTED: $NESTED"
+        echo "PROJECT: [$PROJECT]"
+        echo "CONFIG: [$CONFIG]"
+        echo "NESTED: [$NESTED]"
