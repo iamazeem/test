@@ -58,7 +58,7 @@ jobs:
         PROJECT: ${{ fromJson(needs.step1.outputs.matrix)[0].project }}
         CONFIG: ${{ fromJson(needs.step1.outputs.matrix)[0].config }}
         NESTED: |
-          ${{ join(fromJson(needs.step1.outputs.matrix)[0].nested, ', ') }}
+          ${{ join(fromJson(needs.step1.outputs.matrix)[0].nested.*.val, ', ') }}
       run: |
         echo "MATRIX_INCLUDE: [$MATRIX_INCLUDE]"
         echo "PROJECT: [$PROJECT]"
