@@ -1,8 +1,6 @@
 name: populate_matrix_from_json
 
-on:
-  push:
-    branches: [main]
+on: workflow_dispatch
 
 jobs:
   step1:
@@ -54,4 +52,7 @@ jobs:
         include: ${{ fromJson(needs.step1.outputs.matrix) }}
 
     steps:
-    - run: echo hello
+    - name: Check array
+      env:
+        PROJECT: ${{ fromJson(needs.step1.outputs.matrix)[0].project }}
+      run: echo "$PROJECT"
