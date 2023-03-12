@@ -1,7 +1,6 @@
 name: step_failure
 
-on:
-  workflow_dispatch:
+on: workflow_dispatch
 
 jobs:
   ci:
