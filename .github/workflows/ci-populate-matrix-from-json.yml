@@ -54,11 +54,13 @@ jobs:
     steps:
     - name: Check array
       env:
+        MATRIX_INCLUDE: ${{ matrix.include }}
         PROJECT: ${{ fromJson(needs.step1.outputs.matrix)[0].project }}
         CONFIG: ${{ fromJson(needs.step1.outputs.matrix)[0].config }}
         NESTED: |
-          ${{ fromJson(needs.step1.outputs.matrix)[0].nested }}
+          ${{ join(fromJson(needs.step1.outputs.matrix)[0].nested, ', ') }}
       run: |
+        echo "MATRIX_INCLUDE: [$MATRIX_INCLUDE]"
         echo "PROJECT: [$PROJECT]"
         echo "CONFIG: [$CONFIG]"
         echo "NESTED: [$NESTED]"
