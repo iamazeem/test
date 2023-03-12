@@ -54,10 +54,10 @@ jobs:
     steps:
     - name: Check array
       env:
-        MATRIX: ${{ toJSON(matrix) }}
-        PROJECT: ${{ toJSON(matrix).project }}
-        CONFIG: ${{ toJSON(matrix).config }}
-        NESTED: ${{ join(toJSON(matrix).nested.*.val, ', ') }}
+        MATRIX: ${{ fromJSON(matrix) }}
+        PROJECT: ${{ fromJSON(matrix).project }}
+        CONFIG: ${{ fromJSON(matrix).config }}
+        NESTED: ${{ join(fromJSON(matrix).nested.*.val, ', ') }}
       run: |
         echo "MATRIX: $(jq -r -c '.' <<< "$MATRIX")"
         echo "PROJECT: [$PROJECT]"
