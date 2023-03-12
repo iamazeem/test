@@ -55,4 +55,9 @@ jobs:
     - name: Check array
       env:
         PROJECT: ${{ fromJson(needs.step1.outputs.matrix)[0].project }}
-      run: echo "$PROJECT"
+        CONFIG: ${{ fromJson(needs.step1.outputs.matrix)[0].config }}
+        NESTED: ${{ fromJson(needs.step1.outputs.matrix)[0].nested }}
+      run: |
+        echo "PROJECT: $PROJECT"
+        echo "CONFIG: $CONFIG"
+        echo "NESTED: $NESTED"
