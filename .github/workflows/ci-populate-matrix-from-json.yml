@@ -1,0 +1,57 @@
+name: populate_matrix_from_json
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  step1:
+    runs-on: ubuntu-latest
+
+    outputs:
+      matrix: ${{ steps.build.outputs.matrix }}
+
+    steps:
+    - name: Build
+      id: build
+      env:
+        CONFIG: >-
+          [
+            {
+              "project": "foo",
+              "config": "Debug",
+              "nested": [
+                {
+                  "val": "val1"
+                }
+              ]
+            },
+            {
+              "project": "bar",
+              "config": "Release",
+              "nested": [
+                {
+                  "val": "val2"
+                },
+                {
+                  "val": "val3"
+                }
+              ]
+            }
+          ]
+      run: echo "matrix=$(jq -r -c . <<< "$CONFIG")" >> $GITHUB_OUTPUT
+    
+    - name: Check
+      run: jq . <<< '${{ steps.build.outputs.matrix }}'
+
+  step2:
+    needs: step1
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix: 
+        include: ${{ fromJson(needs.step1.outputs.matrix) }}
+
+    steps:
+    - run: echo hello
