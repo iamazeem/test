@@ -6,6 +6,7 @@ on:
       python_version:
         description: 'Python version'
         default: '3.11'
+        required: true
 
 jobs:
   ci:
