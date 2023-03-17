@@ -17,7 +17,8 @@ jobs:
 
     - name: Checkout iamazeem/cwm-keda-external-scaler
       uses: actions/checkout@v3
-      repository: iamazeem/cwm-keda-external-scaler
+      with:
+        repository: iamazeem/cwm-keda-external-scaler
 
     - name: Check iamazeem/cwm-keda-external-scaler
       run: |
