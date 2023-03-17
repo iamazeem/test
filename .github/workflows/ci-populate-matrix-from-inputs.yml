@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        python_version: ${{ fromJSON(toJSON(format('[{0}]', inputs.python_version))) }}
+        python_version: ${{ fromJSON(format('[{0}]', inputs.python_version)) }}
 
     steps:
       - uses: actions/setup-python@v4
