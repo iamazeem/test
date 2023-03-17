@@ -1,0 +1,34 @@
+name: double_checkout_docker_build
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout test
+      uses: actions/checkout@v3
+
+    - name: Check test
+      run: |
+        pwd
+        ls -Gghl
+
+    - name: Checkout iamazeem/cwm-keda-external-scaler
+      uses: actions/checkout@v3
+      repository: iamazeem/cwm-keda-external-scaler
+
+    - name: Check iamazeem/cwm-keda-external-scaler
+      run: |
+        pwd
+        ls -Gghl
+
+    - name: Build
+      uses: docker/build-push-action@v4
+      with:
+        pull: false
+        push: false
+        context: .
+        file: Dockerfile
+        tags: iamazeem/cwm-keda-external-scaler:latest
