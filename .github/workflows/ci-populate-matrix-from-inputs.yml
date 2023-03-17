@@ -1,0 +1,20 @@
+name: populate_matrix_from_inputs
+
+on:
+  workflow_dispatch:
+    inputs:
+      python_version:
+        description: 'Python version'
+        default: '3.11'
+
+jobs:
+  ci:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        python_version: ${{ fromJSON(toJSON(format('[{0}]', inputs.python_version))) }}
+
+    steps:
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python_version }}
