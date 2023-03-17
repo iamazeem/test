@@ -1,6 +1,8 @@
 name: populate_matrix_from_inputs
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
     inputs:
       python_version:
