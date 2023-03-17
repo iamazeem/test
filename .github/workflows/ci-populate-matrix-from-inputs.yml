@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        python_version: ${{ fromJSON(format('[{0}]', inputs.python_version)) }}
+        python_version: ${{ fromJSON(format('[{0}]', inputs.python_version || '"3.7","3.10"')) }}
 
     steps:
       - uses: actions/setup-python@v4
