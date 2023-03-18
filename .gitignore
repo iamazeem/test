@@ -1,2 +1,4 @@
 .vscode
 main
+target
+*.lock
