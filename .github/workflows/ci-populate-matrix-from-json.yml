@@ -1,0 +1,65 @@
+name: populate_matrix_from_json
+
+on: workflow_dispatch
+
+jobs:
+  step1:
+    runs-on: ubuntu-latest
+
+    outputs:
+      matrix: ${{ steps.build.outputs.matrix }}
+
+    steps:
+    - name: Build
+      id: build
+      env:
+        CONFIG: >-
+          [
+            {
+              "project": "foo",
+              "config": "Debug",
+              "nested": [
+                {
+                  "val": "val1"
+                }
+              ]
+            },
+            {
+              "project": "bar",
+              "config": "Release",
+              "nested": [
+                {
+                  "val": "val2"
+                },
+                {
+                  "val": "val3"
+                }
+              ]
+            }
+          ]
+      run: echo "matrix=$(jq -r -c . <<< "$CONFIG")" >> $GITHUB_OUTPUT
+    
+    - name: Check
+      run: jq . <<< '${{ steps.build.outputs.matrix }}'
+
+  step2:
+    needs: step1
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix: 
+        include: ${{ fromJSON(needs.step1.outputs.matrix) }}
+
+    steps:
+    - name: Check array
+      env:
+        MATRIX: ${{ toJSON(matrix) }}
+        PROJECT: ${{ fromJSON(toJSON(matrix)).project }}
+        CONFIG: ${{ fromJSON(toJSON(matrix)).config }}
+        NESTED: ${{ join(fromJSON(toJSON(matrix)).nested.*.val, ', ') }}
+      run: |
+        echo "MATRIX: $(jq -r -c '.' <<< "$MATRIX")"
+        echo "PROJECT: [$PROJECT]"
+        echo "CONFIG: [$CONFIG]"
+        echo "NESTED: [$NESTED]"

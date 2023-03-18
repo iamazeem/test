@@ -6,20 +6,6 @@ jobs:
   ci:
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: test_portfolio
-        ports:
-          - 3306:3306
-        options: >-
-          --health-cmd="mysqladmin ping"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=3
-
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -35,11 +21,14 @@ jobs:
     - name: Set up and run tests
       env:
         DB_ENGINE: django.db.backends.mysql
-        DB_NAME: test_portfolio
+        DB_NAME: portfolio
         DB_USER: root
-        DB_PASSWORD: password
+        DB_PASSWORD: root
       run: |
-        mysql --host 127.0.0.1 --port 3306 -u "$DB_USER" -p "$DB_PASSWORD" -e "SHOW DATABASES LIKE '$DB_NAME';"
+        # https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md#mysql
+        sudo systemctl start mysql
+        mysql -u$DB_USER -p$DB_PASSWORD -e "CREATE DATABASE $DB_NAME;"
+        mysql -u$DB_USER -p$DB_PASSWORD -e "SHOW DATABASES;"
         python3 --version
         python3 -m venv venv
         . venv/bin/activate
@@ -49,4 +38,5 @@ jobs:
         python manage.py makemigrations register
         python manage.py makemigrations vietnam_research gmarker shopping linebot warehouse
         python manage.py migrate
+        export DJANGO_SECRET_KEY="$(base64 <<< "$RANDOM|TeStiNg|$RANDOM" | tr -d '\n')"
         python manage.py test

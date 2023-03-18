@@ -1,0 +1,26 @@
+name: vars_to_env
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Set vars to env
+      uses: ./.github/actions/set-env-vars-from-json
+      with:
+        json: '${{ toJSON(vars) }}'
+
+      # env:
+      #   VARS_JSON: ${{ toJSON(vars) }}
+      # run: |
+      #   echo "$VARS_JSON" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' >> $GITHUB_ENV
+
+    - name: Check env vars
+      run: |
+        echo "VAR1=$VAR1"
+        echo "VAR2=$VAR2"

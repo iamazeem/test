@@ -1,0 +1,26 @@
+name: matrix_job_run_id
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Fail
+      shell: bash
+      run: exit 1
+
+    - name: Log
+      if: ${{ failure() }}
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        gh run view --log-failed $GITHUB_RUN_ID

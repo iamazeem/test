@@ -1,0 +1,17 @@
+name: matrix_shell_test
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    strategy:
+      matrix:
+        shell: [sh, bash]
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Test (${{ matrix.shell }})
+      shell: ${{ matrix.shell }}
+      run: |
+        echo "Test"

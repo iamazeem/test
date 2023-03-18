@@ -1,0 +1,24 @@
+name: pr_labels
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+  workflow_dispatch:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: List project names from labels
+      env:
+        GH_TOKEN: ${{ github.token }}
+        PR_NUMBER: ${{ github.event.number }}
+      run: |
+        gh pr view \
+          --json labels \
+          --jq '.labels[].name | select(startswith("project:")) | sub("project:";"")' \
+          "$PR_NUMBER"
