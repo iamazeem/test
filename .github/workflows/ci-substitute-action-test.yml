@@ -25,12 +25,14 @@ jobs:
             "ENV_VAR0": "$ENV_VAR0",
             "ENV_VAR1": "$ENV_VAR1"
           }
-      runs: |
+      run: |
         echo "$TEST_JSON" > test.json
 
     - name: Substitute
       uses: iamazeem/substitute-action@v1
       with:
-        input-files: test.json
-        variables: ENV_VAR0
+        input-files: |
+          test.json
+        variables: |
+          ENV_VAR0
         enable-dump: true
