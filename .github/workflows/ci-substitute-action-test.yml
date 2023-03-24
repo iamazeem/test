@@ -1,0 +1,36 @@
+name: substitute_action_test
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+
+    defaults:
+      run:
+        shell: bash
+
+    env:
+      ENV_VAR0: 'env_val0'
+      ENV_VAR1: 'env_val1'
+
+    steps:
+    - name: Create test input file
+      env:
+        TEST_JSON: |
+          {
+            "ENV_VAR0": "$ENV_VAR0",
+            "ENV_VAR1": "$ENV_VAR1"
+          }
+      runs: |
+        echo "$TEST_JSON" > test.json
+
+    - name: Substitute
+      uses: iamazeem/substitute-action@v1
+      with:
+        input-files: test.json
+        variables: ENV_VAR0
+        enable-dump: true
