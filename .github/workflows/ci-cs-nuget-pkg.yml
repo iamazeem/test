@@ -2,17 +2,8 @@ name: cs_nuget_pkg_test
 
 on: workflow_dispatch
 
-defaults:
-  run:
-    shell: pwsh
-
 jobs:
   build:
-    strategy:
-      matrix:
-        configuration:
-        - Release
-
     runs-on: windows-latest
 
     env:
@@ -45,25 +36,25 @@ jobs:
     - name: Build
       run: |
         dotnet build EngageSoftware.Dnn.Logging.sln `
-          --no-restore --configuration ${{ matrix.configuration }} `
+          --no-restore --configuration=Release `
           -p:VersionSuffix=${{ env.VERSION_SUFFIX }}
 
     - name: Package
       run: |
         dotnet pack EngageSoftware.Dnn.Logging.sln `
           --no-build `
-          --configuration ${{ matrix.configuration }} `
+          --configuration=Release `
           -p:VersionSuffix=${{ env.VERSION_SUFFIX }} `
           --output dist/
-
-    # - name: Upload build artifacts
-    #   uses: actions/upload-artifact@v3.1.2
-    #   with:
-    #     path: dist/
 
     - name: Check
       shell: bash
       run: ls -hl dist/
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        path: dist/
 
     # - name: Push packages to NuGet
     #   run: |
