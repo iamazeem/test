@@ -61,6 +61,10 @@ jobs:
     #   with:
     #     path: dist/
 
+    - name: Check
+      shell: bash
+      run: ls -hl dist/
+
     # - name: Push packages to NuGet
     #   run: |
     #     dotnet nuget push dist/ \
