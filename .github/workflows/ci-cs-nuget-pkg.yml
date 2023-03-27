@@ -44,16 +44,16 @@ jobs:
 
     - name: Build
       run: |
-        dotnet build EngageSoftware.Dnn.Logging.sln \
-          --no-restore --configuration ${{ matrix.configuration }} \
+        dotnet build EngageSoftware.Dnn.Logging.sln `
+          --no-restore --configuration ${{ matrix.configuration }} `
           -p:VersionSuffix=${{ env.VERSION_SUFFIX }}
 
     - name: Package
       run: |
-        dotnet pack EngageSoftware.Dnn.Logging.sln \
-          --no-build \
-          --configuration ${{ matrix.configuration }} \
-          -p:VersionSuffix=${{ env.VERSION_SUFFIX }} \
+        dotnet pack EngageSoftware.Dnn.Logging.sln `
+          --no-build `
+          --configuration ${{ matrix.configuration }} `
+          -p:VersionSuffix=${{ env.VERSION_SUFFIX }} `
           --output dist/
 
     # - name: Upload build artifacts
