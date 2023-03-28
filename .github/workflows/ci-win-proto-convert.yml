@@ -4,12 +4,7 @@ on: workflow_dispatch
 
 jobs:
   build:
-    strategy:
-      matrix:
-        os: [windows-latest]
-        ruby-version: ['2.6', '2.7']
-
-    runs-on: ${{ matrix.os }}
+    runs-on: windows-latest
 
     defaults:
       run:
@@ -23,7 +18,7 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: ${{ matrix.ruby-version }}
+        ruby-version: '2.6'
         bundler-cache: true
 
     - name: Bundle install
