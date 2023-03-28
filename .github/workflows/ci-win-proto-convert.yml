@@ -34,7 +34,7 @@ jobs:
     - name: Build and install
       run: |
         gem build *.gemspec
-        sudo gem install *.gem
+        gem install *.gem
         proto-convert -h
         echo "proto-convert installed successfully"
 
