@@ -39,4 +39,7 @@ jobs:
         echo "proto-convert installed successfully"
 
     - name: Test
-      run: ./test/run_tests.sh
+      run: |
+        pwd
+        ls -l
+        ./test/run_tests.sh
