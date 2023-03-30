@@ -15,5 +15,8 @@ jobs:
     steps:
     - name: Test
       env:
-        OPTION_VALUE: ${{ (inputs.option == 'A' && '123') || (inputs.option == 'B' && '456') }}
-      run: echo "$OPTION_VALUE"
+        OPTION_VALUE1: ${{ (inputs.option == 'A' && '123') || (inputs.option == 'B' && '456') }}
+        OPTION_VALUE2: ${{ inputs.option == 'A' && '123' || '456' }}
+      run: |
+        echo "$OPTION_VALUE1"
+        echo "$OPTION_VALUE2"
