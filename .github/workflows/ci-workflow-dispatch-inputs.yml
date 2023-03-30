@@ -1,0 +1,19 @@
+name: workflow_dispatch_inputs_test
+
+on:
+  workflow_dispatch:
+    inputs:
+      option:
+        description: 'Option'
+        required: true
+        type: choice
+        options: ['A','B']
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Test
+      env:
+        OPTION_VALUE: ${{ (inputs.option == 'A' && '123') || (inputs.option == 'B' && '456') }}
+      run: echo "$OPTION_VALUE"
