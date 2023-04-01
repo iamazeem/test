@@ -19,4 +19,4 @@ jobs:
     - name: Checkout 2
       uses: actions/checkout@v3
       with:
-        fetch-depth: ${{ env.BRANCH1 == 'develop' && '1' || '0' }}
+        fetch-depth: ${{ env.BRANCH2 == 'develop' && '1' || '0' }}
