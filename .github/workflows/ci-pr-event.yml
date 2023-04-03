@@ -1,0 +1,14 @@
+name: pr_event_test
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check user
+      run: |
+        echo '${{ toJSON(github) }}' >> $GITHUB_STEP_SUMMARY
