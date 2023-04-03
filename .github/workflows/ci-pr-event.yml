@@ -11,4 +11,6 @@ jobs:
     steps:
     - name: Check user
       run: |
+        echo '${{ toJSON(github.event.pull_request.base.ref) }}'
+        echo '${{ toJSON(github) }}'
         echo '${{ toJSON(github) }}' >> $GITHUB_STEP_SUMMARY
