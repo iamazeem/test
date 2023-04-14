@@ -16,4 +16,4 @@ jobs:
     name: test
     uses: ./.github/workflows/reusable_workflow_set_env_vars.yml
     with:
-      name: ${{ github.job }}
+      name: ${{ toJSON(github.job) }}
