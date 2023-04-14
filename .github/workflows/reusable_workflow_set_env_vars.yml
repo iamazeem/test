@@ -3,31 +3,40 @@ name: reusable_workflow_set_env_vars
 on:
   workflow_call:
     inputs:
-      env_vars:
-        required: true
+      # env_vars:
+      #   required: true
+      #   type: string
+      #   description: list of vars and values
+      name:
+        required: false
         type: string
-        description: list of vars and values
+        description: name
 
 jobs:
   set-env-vars:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Set environment variables
-      if: ${{ inputs.env_vars }}
+    - name: Check
       run: |
-        IFS=$'\n'
-        for VAR in ${{ inputs.env_vars }}; do
-          echo -e "VAR: [$VAR]"
-          echo -n "$VAR" >> $GITHUB_ENV
-          # export $VAR
-        done
+        echo '${{ inputs.name }}'
+        echo '${{ toJSON(github) }}'
 
-    - name: Get environment variables
-      if: ${{ inputs.env_vars }}
-      run: |
-        IFS=$'\n'
-        for VAR in ${{ inputs.env_vars }}; do
-          KEY=$(echo -n "$VAR" | cut -d '=' -f1)
-          echo -e "[$KEY] => [${!KEY}]"
-        done
+    # - name: Set environment variables
+    #   if: ${{ inputs.env_vars }}
+    #   run: |
+    #     IFS=$'\n'
+    #     for VAR in ${{ inputs.env_vars }}; do
+    #       echo -e "VAR: [$VAR]"
+    #       echo -n "$VAR" >> $GITHUB_ENV
+    #       # export $VAR
+    #     done
+
+    # - name: Get environment variables
+    #   if: ${{ inputs.env_vars }}
+    #   run: |
+    #     IFS=$'\n'
+    #     for VAR in ${{ inputs.env_vars }}; do
+    #       KEY=$(echo -n "$VAR" | cut -d '=' -f1)
+    #       echo -e "[$KEY] => [${!KEY}]"
+    #     done
