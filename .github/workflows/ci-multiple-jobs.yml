@@ -1,0 +1,17 @@
+name: multiple_jobs_test
+
+on: workflow_dispatch
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        run: echo '${{ github.job }}'
+
+job2:
+  needs: [job1]
+  runs-on: ubuntu-latest
+  steps:
+    - name: Test
+      run: echo '${{ github.job }}'
