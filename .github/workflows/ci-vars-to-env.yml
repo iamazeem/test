@@ -7,20 +7,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
+    - name: Checkout [${{ github.repository }}]
       uses: actions/checkout@v3
 
     - name: Set vars to env
       uses: ./.github/actions/set-env-vars-from-json
       with:
-        json: '${{ toJSON(vars) }}'
+        # json: '${{ toJSON(vars) }}'
+        name: 'Test'
 
       # env:
       #   VARS_JSON: ${{ toJSON(vars) }}
       # run: |
       #   echo "$VARS_JSON" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' >> $GITHUB_ENV
 
-    - name: Check env vars
-      run: |
-        echo "VAR1=$VAR1"
-        echo "VAR2=$VAR2"
+    # - name: Check env vars
+    #   run: |
+    #     echo "VAR1=$VAR1"
+    #     echo "VAR2=$VAR2"

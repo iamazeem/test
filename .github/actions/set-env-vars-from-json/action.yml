@@ -2,18 +2,25 @@ name: 'Set environment variables from JSON'
 description: 'Sets environment variables from valid JSON object'
 
 inputs:
-  json:
-    description: 'Valid JSON object'
+  # json:
+  #   description: 'Valid JSON object'
+  #   required: true
+  name:
+    description: name
     required: true
 
 runs:
   using: 'composite'
 
   steps:
-    - name: Set vars to env
-      env:
-        JSON: '${{ inputs.json }}'
-      shell: bash
-      run: |
-        echo '${{ github.action_path }}'
-        echo "$JSON" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' >> $GITHUB_ENV
+    # - name: Set vars to env
+    #   env:
+    #     JSON: '${{ inputs.json }}'
+    #   shell: bash
+    #   run: |
+    #     echo '${{ github.action_path }}'
+    #     echo "$JSON" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' >> $GITHUB_ENV
+
+    - name: Test
+      shell: pwsh
+      run: Write-Host "name ${{ inputs.name }}"
