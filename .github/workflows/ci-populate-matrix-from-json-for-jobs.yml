@@ -15,6 +15,9 @@ jobs:
         id: step1
         run: echo "matrix='${{ env.VERSIONS }}" >> $GITHUB_OUTPUT
 
+      - name: Check
+        run: echo "${{ steps.step1.outputs.matrix }}"
+
   deploy-gke:
     name: Deploy to GKE
     runs-on: ubuntu-latest
