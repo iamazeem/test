@@ -2,6 +2,9 @@ name: vars_to_env
 
 on: workflow_dispatch
 
+env:
+  test: 'TEST'
+
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -14,7 +17,7 @@ jobs:
       uses: ./.github/actions/set-env-vars-from-json
       with:
         # json: '${{ toJSON(vars) }}'
-        name: 'Test'
+        name: ${test}
 
       # env:
       #   VARS_JSON: ${{ toJSON(vars) }}

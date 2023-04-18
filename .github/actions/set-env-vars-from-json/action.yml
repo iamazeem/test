@@ -21,6 +21,14 @@ runs:
     #     echo '${{ github.action_path }}'
     #     echo "$JSON" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' >> $GITHUB_ENV
 
-    - name: Test
+    - name: Test with pwsh (Write-Host)
       shell: pwsh
       run: Write-Host "name ${{ inputs.name }}"
+
+    - name: Test with pwsh (echo)
+      shell: pwsh
+      run: echo "name ${{ inputs.name }}"
+
+    - name: Test with bash
+      shell: bash
+      run: echo "name ${{ inputs.name }}"
