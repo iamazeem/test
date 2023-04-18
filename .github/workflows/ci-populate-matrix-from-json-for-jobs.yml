@@ -13,7 +13,7 @@ jobs:
     steps: 
       - name: Create Matrix Variable
         id: step1
-        run: echo "matrix=${{ env.VERSIONS }}" >> $GITHUB_OUTPUT
+        run: echo "matrix='$VERSIONS'" >> $GITHUB_OUTPUT
 
       - name: Check
         run: echo "${{ steps.step1.outputs.matrix }}"
