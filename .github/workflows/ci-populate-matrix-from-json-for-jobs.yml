@@ -3,7 +3,7 @@ name: populate_matrix_from_json_for_jobs
 on: workflow_dispatch
 
 env:
-  VERSIONS: '["9.0.0", "11.0.0"]'
+  VERSIONS: '[\"9.0.0\", \"11.0.0\"]'
 
 jobs:
   prepare-matrix:
@@ -13,10 +13,10 @@ jobs:
     steps: 
       - name: Create Matrix Variable
         id: step1
-        run: echo "matrix='$VERSIONS'" >> $GITHUB_OUTPUT
+        run: echo "matrix=${{ env.VERSIONS }}" >> $GITHUB_OUTPUT
 
       - name: Check
-        run: echo "${{ steps.step1.outputs.matrix }}"
+        run: echo '${{ steps.step1.outputs.matrix }}'
 
   deploy-gke:
     name: Deploy to GKE
