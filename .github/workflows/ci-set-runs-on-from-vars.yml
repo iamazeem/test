@@ -1,0 +1,11 @@
+name: set_runs_on_from_vars
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    environment: Dev
+    runs-on: ${{ vars.RUNNER }}
+    steps:
+    - name: Test
+      run: echo '${{ vars.RUNNER }}'
