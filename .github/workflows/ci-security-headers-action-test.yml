@@ -1,0 +1,32 @@
+name: security_headers_action_test
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Analyze HTTP response headers
+        uses: iamazeem/security-headers-action@v1
+        id: analyze
+        with:
+          api-key: ${{ secrets.API_KEY }}
+          domain-or-url: securityheaders.com
+
+      - name: Print output
+        env:
+          RESULTS_AS_JSON: ${{ steps.analyze.outputs.results-as-json }}
+          SUMMARY_AS_JSON: ${{ steps.analyze.outputs.summary-as-json }}
+          GRADE: ${{ steps.analyze.outputs.grade }}
+        run: |
+          jq '.' <<<"$RESULTS_AS_JSON"
+          jq '.' <<<"$SUMMARY_AS_JSON"
+          echo "GRADE: [$GRADE]"
