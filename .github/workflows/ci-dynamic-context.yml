@@ -3,13 +3,13 @@ name: dynamic_context_test
 on: workflow_dispatch
 
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
 
     steps:
     - name: Check
-      if: ${{ github.ref_name == 'main' && github.event_name == 'workflow_dispatch' }}
       env:
-        GITHUB: ${{ format('{0}', 'github') }}
+        # GITHUB: ${{ format('{0}', 'github') }}
+        html_url: github.event.[github.event_name].html_url
       run: |
-        echo "$GITHUB"
+        echo "$html_url"
