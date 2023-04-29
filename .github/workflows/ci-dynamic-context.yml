@@ -9,6 +9,6 @@ jobs:
     steps:
     - name: Check
       env:
-        GITHUB: ${{ toJSON(format('github.event.{0}.html_url', github.event_name)) }}
+        html_url: ${{ toJSON(format('github.event.{0}.html_url', github.event_name)) }}
       run: |
-        echo '${{ env.GITHUB }}'
+        echo '${{ toJSON(github) }}' | jq '${{ env.html_url }}' 
