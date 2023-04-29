@@ -1,0 +1,12 @@
+name: dynamic_context_test
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check
+      run: |
+        jq -r '${{ format('.{0}', 'event') }}' <<< '${{ toJSON(github) }}'
