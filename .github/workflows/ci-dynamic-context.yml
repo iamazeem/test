@@ -9,7 +9,6 @@ jobs:
     steps:
     - name: Check
       env:
-        # GITHUB: ${{ format('{0}', 'github') }}
-        html_url: github.event.[github.event_name].html_url
+        GITHUB: ${{ format('github.event.{0}.html_url', github.event_name) }}
       run: |
-        echo "$html_url"
+        echo '${{ env.GITHUB }}'
