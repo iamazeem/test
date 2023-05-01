@@ -13,20 +13,5 @@ jobs:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v3
 
-      - name: Set up
-        env:
-          TF: |
-            provider "github" {
-              token1 = "ghp_MabcfMTIzZHVtbXl0b2tlbjEyMzEyMzEyMwo="
-              token2 = "ghr_MTIabceIzZHVtbXl0b2tlbjEyMzEyMzEyMwo="
-              token3 = "accf30ed92f4c139e9ea2d255e4c8606fbca2651"
-            }
-        run: |
-          echo "$TF" > main.tf
-          cat main.tf
-
       - name: Run detect-secrets with reviewdog
         uses: reviewdog/action-detect-secrets@v0.11.5
-        with:
-          fail_on_error: true
-          reporter: github-check
