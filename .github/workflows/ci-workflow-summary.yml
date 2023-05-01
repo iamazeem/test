@@ -1,0 +1,12 @@
+name: workflow_summary_test
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Summarize
+        run: |
+          echo 'Testing workflow summary...' >> "$GITHUB_STEP_SUMMARY"
