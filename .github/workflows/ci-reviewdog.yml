@@ -1,6 +1,9 @@
 name: reviewdog_test
 
-on: workflow_dispatch
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
   ci:
