@@ -1,0 +1,20 @@
+name: pypi_token_mint_test
+
+on: workflow_dispatch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Mint token
+        id: mint
+        uses: tschm/token-mint-action@v1.0.0
+
+      - name: Check
+        run: |
+          echo '${{ steps.mint.outputs.api-token }}'
