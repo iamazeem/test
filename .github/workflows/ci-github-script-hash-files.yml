@@ -3,23 +3,33 @@ name: github_script_hash_files_test
 on: workflow_dispatch
 
 jobs:
-  ci:
+  hash:
     runs-on: ubuntu-latest
 
+    outputs:
+      result: '${{ steps.hash.outputs.result }}'
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Hash
-      id: hash
-      uses: actions/github-script@v6
-      with:
-        result-encoding: string
-        script: |
-          return glob.hashFiles('**/README.md');
+      - name: Hash
+        id: hash
+        uses: actions/github-script@v6
+        env:
+          PATTERN: '**/README.md'
+        with:
+          result-encoding: string
+          script: |
+            return glob.hashFiles(`${PATTERN}`);
 
-    - name: Check
-      env:
-        HASH: '${{ steps.hash.outputs.result }}'
-      run: |
-        echo "HASH: [$HASH]"
+  check:
+    runs-on: ubuntu-latest
+    needs: [hash]
+
+    steps:
+      - name: Check
+        env:
+          HASH: '${{ needs.hash.outputs.result }}'
+        run: |
+          echo "HASH: [$HASH]"
