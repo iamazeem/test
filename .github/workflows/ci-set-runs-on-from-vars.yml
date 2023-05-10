@@ -5,7 +5,7 @@ on: workflow_dispatch
 jobs:
   ci:
     environment: Dev
-    runs-on: ${{ vars.RUNNER }}
+    runs-on: ubuntu-latest
     steps:
     - name: Test
       run: |
