@@ -16,12 +16,10 @@ jobs:
       - name: Hash
         id: hash
         uses: actions/github-script@v6
-        env:
-          PATTERN: '**/README.md'
         with:
           result-encoding: string
           script: |
-            return glob.hashFiles(`${PATTERN}`);
+            return glob.hashFiles('**/README.md');
 
   check:
     runs-on: ubuntu-latest
