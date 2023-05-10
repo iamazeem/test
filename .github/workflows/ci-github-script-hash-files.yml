@@ -1,0 +1,25 @@
+name: github_script_hash_files_test
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Hash
+      id: hash
+      uses: actions/github-script@v6
+      with:
+        result-encoding: string
+        script: |
+          return glob.hashFiles('**/README.md');
+
+    - name: Check
+      env:
+        HASH: '${{ steps.hash.outputs.result }}'
+      run: |
+        echo "HASH: [$HASH]"
