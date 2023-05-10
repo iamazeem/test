@@ -11,5 +11,5 @@ jobs:
         env:
           deploy_path: 'C:\\inetpub\\wwwroot\\soc.qa'
         run: |
-          $new_path=$deploy_path.replace('\\','/').replace(':','')
+          $new_path=$ENV:deploy_path.replace('\\','/').replace(':','')
           echo $new_path
