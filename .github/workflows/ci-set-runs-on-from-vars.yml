@@ -8,4 +8,6 @@ jobs:
     runs-on: ${{ vars.RUNNER }}
     steps:
     - name: Test
-      run: echo '${{ vars.RUNNER }}'
+      run: |
+        echo '${{ vars.RUNNER }}'
+        echo '${{ toJSON(github) }}'
