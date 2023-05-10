@@ -1,0 +1,15 @@
+name: pwsh_transform_path
+
+on: workflow_dispatch
+
+jobs:
+  job:
+    runs-on: windows-latest
+
+    steps:
+      - name: Transform path
+        env:
+          deploy_path: 'C:\\inetpub\\wwwroot\\soc.qa'
+        run: |
+          $new_path=$deploy_path.replace('\\','/').replace(':','')
+          echo $new_path
