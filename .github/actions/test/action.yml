@@ -4,11 +4,9 @@ description: Test
 inputs:
   a:
     description: a
-    required: false
   b:
     description: b
-    required: false
-    default: '${{ inputs.a }}'
+    default: 'B'
 
 runs:
   using: composite
@@ -16,7 +14,7 @@ runs:
   steps:
     - name: Test
       env:
-        A: '${{ inputs.a }}'
+        A: '${{ inputs.a && inputs.a || inputs.b }}'
         B: '${{ inputs.b }}'
       shell: bash
       run: |
