@@ -26,6 +26,9 @@ jobs:
           cd java/test
           mvn package --batch-mode
           java -cp target/test-1.0.jar test.Test
-          mvn deploy:deploy-file --batch-mode -Dfile=$PWD/target/test-1.0.jar -DrepositoryId=github -Durl=https://maven.pkg.github.com/${{ github.repository }}
-          # mvn deploy:deploy-file -DgroupId=test -DartifactId=test -Dversion=1.0 -Dfile=target/test-1.0.jar -Durl=https://maven.pkg.github.com/${{ github.repository }}
-          # mvn --batch-mode deploy
+          mvn deploy:deploy-file --batch-mode \
+            -DgroupId=test -DartifactId=test \
+              -Dversion=1.0 \
+              -Dfile=target/test-1.0.jar \
+              -DrepositoryId=github \
+              -Durl=https://maven.pkg.github.com/${{ github.repository }}
