@@ -24,6 +24,7 @@ jobs:
         shell: bash
         run: |
           cd java/test
-          mvn clean package
-          java -cp target/test-1.0.jar test.Test
-          mvn --batch-mode deploy
+          mvn package
+          # java -cp target/test-1.0.jar test.Test
+          mvn deploy:deploy-file -DgroupId=test -DartifactId=test -Dversion=1.0 -Dfile=target/test-1.0.jar -Durl=https://maven.pkg.github.com/${{ github.repository }}
+          # mvn --batch-mode deploy
