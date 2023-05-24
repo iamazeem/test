@@ -18,6 +18,7 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
+      # https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry
       - name: Publish Package
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -28,7 +29,7 @@ jobs:
           java -cp target/test-1.0.jar test.Test
           mvn deploy:deploy-file --batch-mode \
             -DgroupId=test -DartifactId=test \
-              -Dversion=1.0 \
-              -Dfile=target/test-1.0.jar \
-              -DrepositoryId=github \
-              -Durl=https://maven.pkg.github.com/${{ github.repository }}
+            -Dversion=1.0 \
+            -Dfile=target/test-1.0.jar \
+            -DrepositoryId=github \
+            -Durl=https://maven.pkg.github.com/${{ github.repository }}
