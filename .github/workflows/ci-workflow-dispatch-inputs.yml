@@ -13,7 +13,7 @@ on:
         required: false
         type: number
       env:
-        description: 'Value'
+        description: 'Environment'
         required: false
         type: environment
 
