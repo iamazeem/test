@@ -8,6 +8,14 @@ on:
         required: true
         type: choice
         options: ['A','B']
+      value:
+        description: 'Value'
+        required: false
+        type: number
+      env:
+        description: 'Value'
+        required: false
+        type: environment
 
 jobs:
   ci:
