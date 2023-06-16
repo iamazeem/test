@@ -1,0 +1,17 @@
+name: self_disable_workflow
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Test
+        run: echo "Test"
+
+      - name: Disable [${{ github.workflow }}]
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh workflow disable '${{ github.workflow }}'
