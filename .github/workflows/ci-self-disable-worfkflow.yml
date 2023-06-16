@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Test
-        run: echo "Test"
+      - name: Checkout [${{ github.repository }}]
+        uses: actions/checkout@v3
 
       - name: Disable [${{ github.workflow }}]
         env:
