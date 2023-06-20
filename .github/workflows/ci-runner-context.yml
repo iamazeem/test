@@ -1,0 +1,12 @@
+name: runner_context
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Dump runner context
+      run: |
+        echo '${{ toJson(runner) }}'
