@@ -9,4 +9,5 @@ jobs:
     steps:
       - name: Summarize
         run: |
-          echo 'Testing workflow summary...' >> "$GITHUB_STEP_SUMMARY"
+          echo '# Testing workflow summary...' >> "$GITHUB_STEP_SUMMARY"
+          echo '![image](https://avatars.githubusercontent.com/u/7128328?v=4)' >> "$GITHUB_STEP_SUMMARY"
