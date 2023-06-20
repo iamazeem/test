@@ -9,4 +9,8 @@ jobs:
     steps:
     - name: Dump runner context
       run: |
-        echo '${{ toJson(runner) }}'
+        echo '${{ toJson(runner) }}' >> "$GITHUB_STEP_SUMMARY"
+
+    - name: Dump github context
+      run: |
+        echo '${{ toJson(github) }}' >> "$GITHUB_STEP_SUMMARY"
