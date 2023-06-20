@@ -3,14 +3,14 @@ name: pr_event_test
 on:
   pull_request:
     branches: [main]
+    types: [opened, reopened]
   workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - name: Check user
+    - name: Check pull_request event
+      if: ${{ github.event_name == 'pull_request' }}
       run: |
-        echo '${{ toJSON(github.event.pull_request.base.ref) }}'
-        echo '${{ toJSON(github) }}'
-        echo '${{ toJSON(github) }}' >> $GITHUB_STEP_SUMMARY
+        echo '${{ toJSON(github) }}' | tee -a "$GITHUB_STEP_SUMMARY"
