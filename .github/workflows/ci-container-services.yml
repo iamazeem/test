@@ -20,4 +20,4 @@ jobs:
     steps:
       - name: Check
         run: |
-          mysql -hmysql -uroot -ppassword <<< 'SHOW DATABASES;'
+          mysql -hmysql -uroot -ppassword -e 'SHOW DATABASES;'
