@@ -39,7 +39,7 @@ jobs:
           ALTER TABLE `person` ADD PRIMARY KEY (`id`);
           COMMIT;
       run: |
-        mysql --host 127.0.0.1 --port 33306 -uroot -ppassword -e "SHOW DATABASES LIKE 'test';" 2>/dev/null
+        mysql --host mysql --port 33306 -uroot -ppassword -e "SHOW DATABASES LIKE 'test';" 2>/dev/null
         echo "$SQL" > person.sql
         echo "--- SQL ---"
         cat person.sql
