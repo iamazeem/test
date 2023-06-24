@@ -20,4 +20,5 @@ jobs:
     steps:
       - name: Check
         run: |
+          sudo apt install -y mysql-client
           mysql --host db --port 3306 -uroot -ppassword -e 'SHOW DATABASES;'
