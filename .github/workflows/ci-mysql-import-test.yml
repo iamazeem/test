@@ -1,4 +1,4 @@
-name: MySQL Import Test
+name: mysql_import
 
 on:
   workflow_dispatch:
