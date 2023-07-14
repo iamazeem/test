@@ -19,7 +19,7 @@ jobs:
     steps:
     - name: Check
       run: |
-        echo '${{ toJSON(inputs) }}'
+        echo '${{ toJson(fromJson(inputs.inputs)) }}'
 
     # - name: Set environment variables
     #   if: ${{ inputs.env_vars }}
