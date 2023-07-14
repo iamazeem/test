@@ -7,10 +7,10 @@ on:
       #   required: true
       #   type: string
       #   description: list of vars and values
-      name:
+      inputs:
+        description: inputs
         required: false
         type: string
-        description: name
 
 jobs:
   set-env-vars:
@@ -19,8 +19,7 @@ jobs:
     steps:
     - name: Check
       run: |
-        echo '${{ inputs.name }}'
-        echo '${{ toJSON(github) }}'
+        echo '${{ toJSON(inputs) }}'
 
     # - name: Set environment variables
     #   if: ${{ inputs.env_vars }}
