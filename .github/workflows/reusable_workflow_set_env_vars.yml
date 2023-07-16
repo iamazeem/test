@@ -20,6 +20,7 @@ jobs:
     - name: Check
       run: |
         echo '${{ toJson(fromJson(inputs.inputs)) }}'
+        echo "$USER"
 
     # - name: Set environment variables
     #   if: ${{ inputs.env_vars }}
