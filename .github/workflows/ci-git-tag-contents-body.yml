@@ -1,0 +1,21 @@
+name: git_tag_contents_body
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        repository: py-pdf/pypdf
+
+    - name: Check
+      run: |
+        git fetch --tags --force
+        latest_tag=$(git describe --tags --abbrev=0)
+        echo "latest_tag: $latest_tag"
+        echo
+        git tag -l "$latest_tag" --format='%(contents:body)'
