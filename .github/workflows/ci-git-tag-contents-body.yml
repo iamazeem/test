@@ -26,5 +26,7 @@ jobs:
         echo "EOF" >> "$GITHUB_ENV"
 
     - name: Get
+      env:
+        tag_body: '${{ env.tag_body }}'
       run: |
-        echo '${{ env.tag_body }}'
+        echo "tag_body: $tag_body"
