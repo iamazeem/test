@@ -21,8 +21,10 @@ jobs:
         tag_body="$(git tag -l "$latest_tag" --format='%(contents:body)')"
         echo "tag_body: $tag_body"
         echo
-        echo "tag_body=$tag_body" >> "$GITHUB_ENV"
+        echo "tag_body<<EOF" >> "$GITHUB_ENV"
+        echo "$tag_body" >> "$GITHUB_ENV"
+        echo "EOF" >> "$GITHUB_ENV"
 
     - name: Get
       run: |
-        echo "${{ env.tag_body }}"
+        echo '${{ env.tag_body }}'
