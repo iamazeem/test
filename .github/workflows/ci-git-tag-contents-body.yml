@@ -12,10 +12,17 @@ jobs:
       with:
         repository: py-pdf/pypdf
 
-    - name: Check
+    - name: Set
       run: |
         git fetch --tags --force
         latest_tag=$(git describe --tags --abbrev=0)
         echo "latest_tag: $latest_tag"
         echo
-        git tag -l "$latest_tag" --format='%(contents:body)'
+        tag_body="$(git tag -l "$latest_tag" --format='%(contents:body)')"
+        echo "tag_body: $tag_body"
+        echo
+        echo "tag_body=$tag_body" >> "$GITHUB_ENV"
+
+    - name: Get
+      run: |
+        echo "${{ env.tag_body }}"
