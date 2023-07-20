@@ -10,11 +10,11 @@ jobs:
     - name: unspecified
       run: echo 'unspecified'
 
-    - name: sh
+    - name: sh -> dash
       shell: sh
       run: |
-        ls -l $(which sh)
-        dpkg -s dash
+        ls -Gghl $(which sh)
+        dpkg -s dash | grep 'Version'
 
     - name: bash
       shell: bash
