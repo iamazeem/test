@@ -7,19 +7,15 @@ jobs:
   unspecified:
     runs-on: ubuntu-latest
     steps:
-    - run: echo 'unspecified'
+    - name: unspecified
+      run: echo 'unspecified'
 
-  sh:
-    runs-on: ubuntu-latest
-    steps:
-    - shell: sh
+    - name: sh
+      shell: sh
       run: |
-        echo 'sh'
         ls -l $(which sh)
         dpkg -s dash
 
-  bash:
-    runs-on: ubuntu-latest
-    steps:
-    - shell: bash
+    - name: bash
+      shell: bash
       run: echo 'bash'
