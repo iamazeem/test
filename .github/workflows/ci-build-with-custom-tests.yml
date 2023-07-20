@@ -8,7 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: unspecified
-      run: echo 'unspecified'
+      run: |
+        echo "BASH_VERSION: $BASH_VERSION"
 
     - name: sh -> dash
       shell: sh
@@ -18,4 +19,5 @@ jobs:
 
     - name: bash
       shell: bash
-      run: echo 'bash'
+      run: |
+        echo "BASH_VERSION: $BASH_VERSION"
