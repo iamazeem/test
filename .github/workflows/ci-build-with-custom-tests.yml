@@ -11,13 +11,13 @@ jobs:
       run: |
         echo "BASH_VERSION: $BASH_VERSION"
 
+    - name: bash
+      shell: bash
+      run: |
+        echo "BASH_VERSION: $BASH_VERSION"
+
     - name: sh -> dash
       shell: sh
       run: |
         ls -Gghl $(which sh)
         dpkg -s dash | grep 'Version'
-
-    - name: bash
-      shell: bash
-      run: |
-        echo "BASH_VERSION: $BASH_VERSION"
