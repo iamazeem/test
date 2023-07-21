@@ -14,8 +14,17 @@ jobs:
     - name: Install dependencies
       run: pip install pandas matplotlib
 
-    - name: Initial tree
-      run: pwd && tree
+    - name: Test script
+      env:
+        SCRIPT: |
+          #!/bin/bash
+          echo "Hello, $USER!"
+          exit 0
+      run: |
+        echo "$SCRIPT" > script.sh
+        chmod +x script.sh
+        ls -lh
+        ./script.sh
 
     - name: Samtools version
       run: |
