@@ -11,7 +11,16 @@ jobs:
       with:
         repository: erinyoung/ACI
 
-    - name: Build and install samtools
+    - name: Check samtools
+      continue-on-error: true
+      run: |
+        pwd && ls -lh && tree
+        ls -lh ./bin/samtools/samtools
+        file ./bin/samtools/samtools
+        ldd ./bin/samtools/samtools
+        ./bin/samtools/samtools version
+  
+    - name: Build and install samtools from source
       env:
         URL: https://github.com/samtools/samtools/releases/download/1.17/samtools-1.17.tar.bz2
       run: |
@@ -26,13 +35,8 @@ jobs:
         ldd bin/samtools
         echo "$PWD/bin" >> "$GITHUB_PATH"
 
-    - name: Samtools version
+    - name: Check samtools version
       run: |
         whereis samtools
         ls -lh $(which samtools)
         samtools version
-        # pwd && ls -lh && tree
-        # ls -lh ./bin/samtools/samtools
-        # file ./bin/samtools/samtools
-        # ldd ./bin/samtools/samtools
-        # ./bin/samtools/samtools version
