@@ -19,5 +19,6 @@ jobs:
 
     - name: Samtools version
       run: |
-        ls -alh ./bin/samtools/samtools
+        pwd
+        ls -lh ./bin/samtools/samtools
         ./bin/samtools/samtools version
