@@ -19,5 +19,5 @@ jobs:
 
     - name: Samtools version
       run: |
-        ls -alh /home/runner/work/ACI/ACI/bin/samtools/samtools
-        /home/runner/work/ACI/ACI/bin/samtools/samtools version
+        ls -alh ./bin/samtools/samtools
+        ./bin/samtools/samtools version
