@@ -15,10 +15,10 @@ jobs:
       run: pip install pandas matplotlib
 
     - name: Initial tree
-      run: pwd && tree .
+      run: pwd && tree
 
     - name: Samtools version
       run: |
-        pwd
+        pwd && ls -lh && tree
         ls -lh ./bin/samtools/samtools
         ./bin/samtools/samtools version
