@@ -1,4 +1,4 @@
-name: exe_not_found
+name: samtools
 
 on: workflow_dispatch
 
@@ -19,9 +19,12 @@ jobs:
         wget "$URL"
         tar -xvf samtools-1.17.tar.bz2
         cd samtools-1.17
-        ./configure
+        ./configure --prefix=$PWD
         make
         make install
+        ls -lh bin/samtools
+        ldd bin/samtools
+        echo "$PWD/bin" >> "$GITHUB_PATH"
 
     - name: Samtools version
       run: |
@@ -32,4 +35,4 @@ jobs:
         # ls -lh ./bin/samtools/samtools
         # file ./bin/samtools/samtools
         # ldd ./bin/samtools/samtools
-        # stdbuf -i0 -o0 -e0 ./bin/samtools/samtools version
+        # ./bin/samtools/samtools version
