@@ -30,4 +30,5 @@ jobs:
       run: |
         pwd && ls -lh && tree
         ls -lh ./bin/samtools/samtools
-        ./bin/samtools/samtools version
+        ldd ./bin/samtools/samtools
+        stdbuf -i0 -o0 -e0 ./bin/samtools/samtools version
