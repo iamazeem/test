@@ -13,8 +13,8 @@ jobs:
 
     - name: Build
       run: |
-        python3 -m venv venv
-        source venv/bin/activate
+        # python3 -m venv venv
+        # source venv/bin/activate
         python -m pip install pip --upgrade
         pip install build
         python -m build
