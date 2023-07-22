@@ -1,0 +1,52 @@
+name: populate_matrix_from_json_file
+
+on: workflow_dispatch
+
+jobs:
+  step1:
+    runs-on: ubuntu-latest
+
+    outputs:
+      matrix: ${{ steps.build.outputs.matrix }}
+
+    steps:
+    - name: Build
+      id: build
+      env:
+        CONFIG: >-
+          [
+            {
+              "flavor": "app1",
+              "packageName": "io.app1",
+              "keyStoreBase64": "...",
+              "keyStorePassword": "...",
+              "keyStoreAlias": "io.app1-alias"
+            },
+            {
+              "flavor": "app2",
+              "packageName": "io.app2",
+              "keyStoreBase64": "...",
+              "keyStorePassword": "...",
+              "keyStoreAlias": "io.app2-alias"
+            }
+          ]
+      run: echo "matrix=$(jq -r -c . <<< "$CONFIG")" >> "$GITHUB_OUTPUT"
+    
+    - name: Check
+      run: jq . <<< '${{ steps.build.outputs.matrix }}'
+
+  step2:
+    needs: step1
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix: 
+        app: ${{ fromJSON(needs.step1.outputs.matrix) }}
+
+    steps:
+    - name: Check array
+      env:
+        MATRIX: ${{ toJSON(matrix) }}
+      run: |
+        echo "MATRIX: $(jq -r -c '.' <<< "$MATRIX")"
