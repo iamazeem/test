@@ -30,7 +30,10 @@ jobs:
               "keyStoreAlias": "io.app2-alias"
             }
           ]
-      run: echo "matrix=$(jq -r -c . <<< "$CONFIG")" >> "$GITHUB_OUTPUT"
+      run: |
+        cat "$CONFIG" > build-matrix.json
+        MATRIX=$(jq '[.[0]] | tostring' < build-matrix.json)
+        echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
     
     - name: Check
       run: jq . <<< '${{ steps.build.outputs.matrix }}'
