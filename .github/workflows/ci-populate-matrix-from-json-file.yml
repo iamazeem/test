@@ -31,7 +31,7 @@ jobs:
             }
           ]
       run: |
-        cat "$CONFIG" > build-matrix.json
+        echo "$CONFIG" > build-matrix.json
         MATRIX=$(jq '[.[0]] | tostring' < build-matrix.json)
         echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
     
