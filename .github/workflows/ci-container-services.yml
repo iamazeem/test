@@ -24,9 +24,14 @@ jobs:
     container: ubuntu:latest
 
     steps:
-      - name: Check
+      - name: Install postgresql-client (psql)
         run: |
           apt update -y
           apt install -y postgresql-client
           psql --version
-          psql -h postgres -p 5432 -U postgres -d postgres
+
+      - name: Check DB connection
+        run: |
+          psql "postgresql://postgres:postgres@postgres:5432/postgres" <<EOF
+            SELECT * FROM postgres;
+          EOF
