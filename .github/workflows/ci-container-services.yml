@@ -26,6 +26,7 @@ jobs:
     steps:
       - name: Check
         run: |
+          apt update -y
           apt install -y postgresql-client
           psql --version
           psql -h postgres -p 5432 -U postgres -d postgres
