@@ -10,7 +10,6 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_DB: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_USER: postgres
         ports:
@@ -32,6 +31,10 @@ jobs:
 
       - name: Check DB connection
         run: |
-          psql "postgresql://postgres:postgres@postgres:5432/postgres" <<EOF
-            SELECT * FROM postgres;
+          psql "postgresql://postgres:postgres@postgres:5432" <<EOF
+            CREATE TABLE test (id INT);
+            INSERT INTO test (id) VALUES (123);
+            INSERT INTO test (id) VALUES (456);
+            INSERT INTO test (id) VALUES (789);
+            SELECT * FROM test;
           EOF
