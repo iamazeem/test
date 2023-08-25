@@ -1,0 +1,17 @@
+name: reusable_workflow_set_output_caller
+
+on: workflow_dispatch
+
+jobs:
+  set:
+    uses: ./.github/workflows/reusable_workflow_set_output.yml
+
+  get:
+    needs: set
+    runs-on: windows-latest
+    steps:
+    - name: Get
+      env:
+        test: '${{ needs.set.outputs.test }}'
+      run: |
+        echo 'test: $test'

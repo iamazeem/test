@@ -1,0 +1,26 @@
+name: reusable_workflow_set_output
+
+on: workflow_call
+
+jobs:
+  set-output:
+    runs-on: windows-latest
+
+    defaults:
+      run:
+        shell: pwsh
+
+    outputs:
+      test: ${{ steps.set.outputs.test }}
+
+    steps:
+    - name: Set
+      id: set
+      run: |
+        $output="test=123"
+        echo "output: $output"
+        echo $outputs | Out-File -Append $env:GITHUB_OUTPUT
+
+    - name: Get
+      run: |
+        echo 'test: ${{ steps.set.outputs.test }}'
