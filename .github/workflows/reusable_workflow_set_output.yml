@@ -1,9 +1,14 @@
 name: reusable_workflow_set_output
 
-on: workflow_call
+on:
+  workflow_call:
+    outputs:
+      test:
+        description: 'test'
+        value: ${{ jobs.set.outputs.test }}
 
 jobs:
-  set-output:
+  set:
     runs-on: windows-latest
 
     defaults:
