@@ -9,6 +9,11 @@ jobs:
   get:
     needs: set
     runs-on: windows-latest
+
+    defaults:
+      run:
+        shell: pwsh
+
     steps:
     - name: Get
       env:
