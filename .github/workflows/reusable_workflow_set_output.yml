@@ -25,4 +25,4 @@ jobs:
       env:
         test: ${{ steps.set.outputs.test }}
       run: |
-        echo "test: $test"
+        echo "test: $env:test"
