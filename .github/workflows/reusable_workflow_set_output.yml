@@ -4,8 +4,7 @@ on:
   workflow_call:
     outputs:
       test:
-        description: 'test'
-        value: ${{ jobs.set.outputs.test }}
+        value: '${{ jobs.set.outputs.test }}'
 
 jobs:
   set:
@@ -16,7 +15,7 @@ jobs:
         shell: pwsh
 
     outputs:
-      test: ${{ steps.set.outputs.test }}
+      test: '${{ steps.set.outputs.test }}'
 
     steps:
     - name: Set
@@ -27,7 +26,5 @@ jobs:
         echo $output >> $env:GITHUB_OUTPUT
 
     - name: Get
-      env:
-        test: ${{ steps.set.outputs.test }}
       run: |
-        echo "test: $env:test"
+        echo "test: ${{ steps.set.outputs.test }}"
