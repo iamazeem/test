@@ -22,5 +22,7 @@ jobs:
         echo $outputs >> $env:GITHUB_OUTPUT
 
     - name: Get
+      env:
+        test: ${{ steps.set.outputs.test }}
       run: |
-        echo 'test: ${{ steps.set.outputs.test }}'
+        echo "test: $test"

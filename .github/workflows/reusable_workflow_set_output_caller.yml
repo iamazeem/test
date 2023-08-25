@@ -14,4 +14,4 @@ jobs:
       env:
         test: '${{ needs.set.outputs.test }}'
       run: |
-        echo 'test: $env:test'
+        echo "test: $env:test"
