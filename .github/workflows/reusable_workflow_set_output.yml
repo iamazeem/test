@@ -19,7 +19,7 @@ jobs:
       run: |
         $output="test=123"
         echo "output: $output"
-        echo $outputs | Out-File -Append $env:GITHUB_OUTPUT
+        echo $outputs >> $env:GITHUB_OUTPUT
 
     - name: Get
       run: |
