@@ -12,11 +12,11 @@ jobs:
 
     steps:
     - name: Checkout 1
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: ${{ env.BRANCH1 == 'main' && '0' || '1' }}
 
     - name: Checkout 2
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: ${{ env.BRANCH2 == 'develop' && '1' || '0' }}
