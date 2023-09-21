@@ -38,18 +38,14 @@ runs:
 
     - name: Set up problem matcher
       env:
-        PROBLEM_MATCH_CONFIG: |
+        PROBLEM_MATCHER_CONFIG: |
           {
             "problemMatcher": [
               {
                 "owner": "xunit",
                 "pattern": [
                   {
-                    "regexp": "^\\s*Failed\\s(.*)([\\s\\S]*?)(Stack\\sTrace:\\s*at\\s)(.*)\\s+in\\s+(.*):line\\s+(\\d+)\\s*$",
-                    "file": 5,
-                    "fromPath": 5,
-                    "line": 6,
-                    "message": 2
+                    "regexp": "^.*Failed.*$"
                   }
                 ]
               }
@@ -57,7 +53,7 @@ runs:
           }
       shell: bash
       run: |
-        echo "$PROBLEM_MATCH_CONFIG" > xunit.json
+        echo "$PROBLEM_MATCHER_CONFIG" > xunit.json
         echo "$PWD/xunit.json"
         cat "$PWD/xunit.json"
         echo "::add-matcher::$PWD/xunit.json"
