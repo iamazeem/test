@@ -14,8 +14,11 @@ runs:
                 "owner": "xunit",
                 "pattern": [
                   {
-                    "regexp": "^.*(Failed.*)$",
-                    "message": 1
+                    "regexp": "^\\s*Failed\\s(.*)([\\s\\S]*?)(Stack\\sTrace:\\s*at\\s)(.*)\\s+in\\s+(.*):line\\s+(\\d+)\\s*$",
+                    "message": 2
+                    "fromPath": 5,
+                    "file": 5,
+                    "line": 6,
                   }
                 ]
               }
