@@ -5,6 +5,9 @@ on: workflow_dispatch
 jobs:
   ci:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
 
     steps:
     - name: Add problem matcher
@@ -56,7 +59,6 @@ jobs:
 
           Failed!  - Failed:     2, Passed:   133, Skipped:     0, Total:   135, Duration: 549 ms - Library.Tests.dll (net7.0)
           Error: Process completed with exit code 1.
-      shell: bash
       run: |
         echo "$LOGS"
 
