@@ -41,25 +41,12 @@ jobs:
     - name: Dumping Logs
       env:
         LOGS: |
-          Starting test execution, please wait...
-          A total of 1 test files matched the specified pattern.
-          [xUnit.net 00:00:00.55]     Library.Tests.UnitTest1.DeliberateFail2 [FAIL]
-          [xUnit.net 00:00:00.56]     Library.Tests.UnitTest1.DeliberateFail1 [FAIL]
-            Failed Library.Tests.UnitTest1.DeliberateFail2 [< 1 ms]
-
-              at Library.Tests.UnitTest1.DeliberateFail2() in /home/runner/work/Library/Library.Tests/UnitTest1.cs:line 30
-            at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
-            at System.Reflection.MethodInvoker.Invoke(Object obj, IntPtr* args, BindingFlags invokeAttr)
-            Failed Library.Tests.UnitTest1.DeliberateFail1 [< 1 ms]
-              at Library.Tests.UnitTest1.DeliberateFail1() in /home/runner/work/Library/Library.Tests/UnitTest1.cs:line 27
-            at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
-            at System.Reflection.MethodInvoker.Invoke(Object obj, IntPtr* args, BindingFlags invokeAttr)
-          Results File: /home/runner/work/Library/Library.Tests/TestResults/test-results.trx
-
-          Failed!  - Failed:     2, Passed:   133, Skipped:     0, Total:   135, Duration: 549 ms - Library.Tests.dll (net7.0)
-          Error: Process completed with exit code 1.
+          Failed Library.Tests.UnitTest1.DeliberateFail2 [< 1 ms]
+            at Library.Tests.UnitTest1.DeliberateFail2() in /home/runner/work/Library/Library.Tests/UnitTest1.cs:line 30
+          Failed Library.Tests.UnitTest1.DeliberateFail1 [< 1 ms]
+            at Library.Tests.UnitTest1.DeliberateFail1() in /home/runner/work/Library/Library.Tests/UnitTest1.cs:line 27
       run: |
-        echo "$LOGS"
+          echo "$LOGS"
 
     - name: Remove problem matcher
       run: |
