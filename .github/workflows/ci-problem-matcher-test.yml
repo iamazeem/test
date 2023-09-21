@@ -64,4 +64,4 @@ jobs:
 
     - name: Remove problem matcher
       run: |
-        echo "::remove-matcher::xunit::"
+        echo "::remove-matcher::$PWD/xunit.json"
