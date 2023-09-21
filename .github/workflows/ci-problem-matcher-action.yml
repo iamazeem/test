@@ -1,0 +1,14 @@
+name: problem_matcher_action_test
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout [${{ github.repository }}]
+      uses: actions/checkout@v4
+
+    - name: Run problem matcher
+      uses: ./.github/actions/problem-matcher
