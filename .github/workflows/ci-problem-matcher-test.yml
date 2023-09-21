@@ -46,7 +46,8 @@ jobs:
           Failed Library.Tests.UnitTest1.DeliberateFail2 [< 1 ms]
             at Library.Tests.UnitTest1.DeliberateFail2() in ${{ github.workspace }}/UnitTests.cs:line 2
       run: |
-        touch "${{ github.workspace }}/UnitTests.cs"
+        echo "Error 1 at line 1" >> "${{ github.workspace }}/UnitTests.cs"
+        echo "Error 2 at line 2" >> "${{ github.workspace }}/UnitTests.cs"
         echo "$LOGS"
 
     - name: Remove problem matcher
