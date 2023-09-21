@@ -17,10 +17,16 @@ jobs:
             "problemMatcher": [
               {
                 "owner": "xunit",
-                "pattern": [ 
+                "pattern": [
                   {
                     "regexp": "^\\s*Failed\\s(.*)$",
                     "message": 1
+                  },
+                  {
+                    "regexp": "^\\s*at\\s(.*)\\s+in\\s+(.*):line\\s+(\\d+)\\s*$",
+                    "file": 2,
+                    "fromPath": 2,
+                    "line": 3,
                   }
                 ]
               }
@@ -40,18 +46,11 @@ jobs:
           [xUnit.net 00:00:00.55]     Library.Tests.UnitTest1.DeliberateFail2 [FAIL]
           [xUnit.net 00:00:00.56]     Library.Tests.UnitTest1.DeliberateFail1 [FAIL]
             Failed Library.Tests.UnitTest1.DeliberateFail2 [< 1 ms]
-            Error Message:
-            System.Exception : Error message
-            Stack Trace:
+
               at Library.Tests.UnitTest1.DeliberateFail2() in /home/runner/work/Library/Library.Tests/UnitTest1.cs:line 30
             at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
             at System.Reflection.MethodInvoker.Invoke(Object obj, IntPtr* args, BindingFlags invokeAttr)
             Failed Library.Tests.UnitTest1.DeliberateFail1 [< 1 ms]
-            Error Message:
-            Assert.True() Failure
-          Expected: True
-          Actual:   False
-            Stack Trace:
               at Library.Tests.UnitTest1.DeliberateFail1() in /home/runner/work/Library/Library.Tests/UnitTest1.cs:line 27
             at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
             at System.Reflection.MethodInvoker.Invoke(Object obj, IntPtr* args, BindingFlags invokeAttr)
