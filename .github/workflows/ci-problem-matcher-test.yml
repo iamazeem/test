@@ -26,7 +26,7 @@ jobs:
                     "regexp": "^\\s*at\\s(.*)\\s+in\\s+(.*):line\\s+(\\d+)\\s*$",
                     "file": 2,
                     "fromPath": 2,
-                    "line": 3,
+                    "line": 3
                   }
                 ]
               }
