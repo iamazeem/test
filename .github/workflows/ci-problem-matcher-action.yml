@@ -7,12 +7,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout [${{ github.repository }}]
-      uses: actions/checkout@v4
+    # - name: Checkout [${{ github.repository }}]
+    #   uses: actions/checkout@v4
 
-    - name: Run problem matcher
-      uses: ./.github/actions/problem-matcher
+    # - name: Run problem matcher
+    #   uses: ./.github/actions/problem-matcher
 
+    - name: Set up problem matcher
+      env:
+        PROBLEM_MATCHER_CONFIG: |
+          {
+            "problemMatcher": [
+              {
+                "owner": "xunit",
+                "pattern": [ 
+                  {
+                    "regexp": "^\\s*Failed\\s(.*)$",
+                    "message": 1
+                  }
+                ]
+              }
+            ]
+          }
+      # shell: bash
+      run: |
+        echo "$PROBLEM_MATCHER_CONFIG" > xunit.json
+        echo "$PWD/xunit.json"
+        cat -n "$PWD/xunit.json"
+        echo "::add-matcher::$PWD/xunit.json"
 
     - name: Dumping Logs
       env:
