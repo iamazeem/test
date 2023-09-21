@@ -24,6 +24,7 @@ runs:
               }
             ]
           }
+      shell: bash
       run: |
         echo "$PROBLEM_MATCH_CONFIG" > xunit.json
         echo "::add-matcher::$PWD/xunit.json"
