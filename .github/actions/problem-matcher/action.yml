@@ -5,30 +5,6 @@ runs:
   using: composite
 
   steps:
-    - name: Set up problem matchers
-      env:
-        PROBLEM_MATCH_CONFIG: |
-          {
-            "problemMatcher": [
-              {
-                "owner": "xunit",
-                "pattern": [
-                  {
-                    "regexp": "^\\s*Failed\\s(.*)([\\s\\S]*?)(Stack\\sTrace:\\s*at\\s)(.*)\\s+in\\s+(.*):line\\s+(\\d+)\\s*$",
-                    "file": 5,
-                    "fromPath": 5,
-                    "line": 6,
-                    "message": 2
-                  }
-                ]
-              }
-            ]
-          }
-      shell: bash
-      run: |
-        echo "$PROBLEM_MATCH_CONFIG" > xunit.json
-        echo "::add-matcher::$PWD/xunit.json"
-
     - name: Dumping Logs
       env:
         LOGS: |
@@ -59,3 +35,29 @@ runs:
       shell: bash
       run: |
         echo "$LOGS"
+
+    - name: Set up problem matcher
+      env:
+        PROBLEM_MATCH_CONFIG: |
+          {
+            "problemMatcher": [
+              {
+                "owner": "xunit",
+                "pattern": [
+                  {
+                    "regexp": "^\\s*Failed\\s(.*)([\\s\\S]*?)(Stack\\sTrace:\\s*at\\s)(.*)\\s+in\\s+(.*):line\\s+(\\d+)\\s*$",
+                    "file": 5,
+                    "fromPath": 5,
+                    "line": 6,
+                    "message": 2
+                  }
+                ]
+              }
+            ]
+          }
+      shell: bash
+      run: |
+        echo "$PROBLEM_MATCH_CONFIG" > xunit.json
+        echo "$PWD/xunit.json"
+        cat "$PWD/xunit.json"
+        echo "::add-matcher::$PWD/xunit.json"
