@@ -10,5 +10,11 @@ jobs:
     - name: Checkout [${{ github.repository }}]
       uses: actions/checkout@v4
 
+    - name: Log test failure
+      run: echo "Failed Log 1..."
+
     - name: Run problem matcher
       uses: ./.github/actions/problem-matcher
+
+    - name: Log test failure
+      run: echo "Failed Log 2..."
