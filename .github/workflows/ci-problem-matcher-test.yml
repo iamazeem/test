@@ -41,12 +41,13 @@ jobs:
     - name: Dumping Logs
       env:
         LOGS: |
-          Failed Library.Tests.UnitTest1.DeliberateFail2 [< 1 ms]
-            at Library.Tests.UnitTest1.DeliberateFail2() in /home/runner/work/Library/Library.Tests/UnitTest1.cs:line 30
           Failed Library.Tests.UnitTest1.DeliberateFail1 [< 1 ms]
-            at Library.Tests.UnitTest1.DeliberateFail1() in /home/runner/work/Library/Library.Tests/UnitTest1.cs:line 27
+            at Library.Tests.UnitTest1.DeliberateFail1() in ${{ github.workspace }}/UnitTests.cs:line 1
+          Failed Library.Tests.UnitTest1.DeliberateFail2 [< 1 ms]
+            at Library.Tests.UnitTest1.DeliberateFail2() in ${{ github.workspace }}/UnitTests.cs:line 2
       run: |
-          echo "$LOGS"
+        echo "${{ github.workspace }}/UnitTests.cs"
+        echo "$LOGS"
 
     - name: Remove problem matcher
       run: |
