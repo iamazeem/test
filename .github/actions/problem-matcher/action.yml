@@ -45,7 +45,8 @@ runs:
                 "owner": "xunit",
                 "pattern": [
                   {
-                    "regexp": "^.*Failed.*$"
+                    "regexp": "^.*(Failed.*)$",
+                    "message": 1
                   }
                 ]
               }
