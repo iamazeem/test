@@ -1,4 +1,4 @@
-name: problem_matcher_action_test
+name: problem_matcher_test
 
 on: workflow_dispatch
 
@@ -7,12 +7,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # - name: Checkout [${{ github.repository }}]
-    #   uses: actions/checkout@v4
-
-    # - name: Run problem matcher
-    #   uses: ./.github/actions/problem-matcher
-
     - name: Set up problem matcher
       env:
         PROBLEM_MATCHER_CONFIG: |
@@ -29,7 +23,6 @@ jobs:
               }
             ]
           }
-      # shell: bash
       run: |
         echo "$PROBLEM_MATCHER_CONFIG" > xunit.json
         echo "$PWD/xunit.json"
