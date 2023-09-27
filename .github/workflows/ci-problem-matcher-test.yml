@@ -41,10 +41,34 @@ jobs:
     - name: Dumping Logs
       env:
         LOGS: |
-          Failed Library.Tests.UnitTest1.DeliberateFail1 [< 1 ms]
-            at Library.Tests.UnitTest1.DeliberateFail1() in /home/runner/work/Library/Library.Tests/UnitTests.cs:line 1
-          Failed Library.Tests.UnitTest1.DeliberateFail2 [< 1 ms]
-            at Library.Tests.UnitTest1.DeliberateFail2() in /home/runner/work/Library/Library.Tests/UnitTests.cs:line 2
+          Test run for /home/runner/work/Library/Library.Tests/bin/Debug/net7.0/Library.Tests.dll (.NETCoreApp,Version=v7.0)
+          Microsoft (R) Test Execution Command Line Tool Version 17.7.0-preview-23364-03+bc17bb9693cfc4778ded51aa0ab7f1065433f989 (x64)
+          Copyright (c) Microsoft Corporation.  All rights reserved.
+
+          Starting test execution, please wait...
+          A total of 1 test files matched the specified pattern.
+          [xUnit.net 00:00:00.55]     Library.Tests.UnitTest1.DeliberateFail2 [FAIL]
+          [xUnit.net 00:00:00.56]     Library.Tests.UnitTest1.DeliberateFail1 [FAIL]
+            Failed Library.Tests.UnitTest1.DeliberateFail2 [< 1 ms]
+            Error Message:
+            System.Exception : Error message
+            Stack Trace:
+              at Library.Tests.UnitTest1.DeliberateFail2() in /home/runner/work/Library/Library.Tests/UnitTest1.cs:line 30
+            at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+            at System.Reflection.MethodInvoker.Invoke(Object obj, IntPtr* args, BindingFlags invokeAttr)
+            Failed Library.Tests.UnitTest1.DeliberateFail1 [< 1 ms]
+            Error Message:
+            Assert.True() Failure
+          Expected: True
+          Actual:   False
+            Stack Trace:
+              at Library.Tests.UnitTest1.DeliberateFail1() in /home/runner/work/Library/Library.Tests/UnitTest1.cs:line 27
+            at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+            at System.Reflection.MethodInvoker.Invoke(Object obj, IntPtr* args, BindingFlags invokeAttr)
+          Results File: /home/runner/work/Library/Library.Tests/TestResults/test-results.trx
+
+          Failed!  - Failed:     2, Passed:   133, Skipped:     0, Total:   135, Duration: 549 ms - Library.Tests.dll (net7.0)
+          Error: Process completed with exit code 1.
       run: |
         echo "$LOGS"
 
