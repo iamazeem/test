@@ -10,6 +10,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GH_VARIABLE_PAT }}
       TEST_VAR: 'test_var_value'
+      TEST_VAR_ENV: 'test_var_value_env'
 
     steps:
       - name: Checkout
@@ -30,7 +31,7 @@ jobs:
         run: gh variable set TEST_VAR --body "$TEST_VAR"
 
       - name: Set (env Dev)
-        run: gh variable set --env Dev TEST_VAR_ENV --body "${TEST_VAR}_env"
+        run: gh variable set TEST_VAR_ENV --body "$TEST_VAR_ENV" --env Dev
 
       - name: List (repo)
         run: gh variable list
