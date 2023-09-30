@@ -6,6 +6,8 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     environment: Dev
+    permissions:
+      actions: write
 
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
