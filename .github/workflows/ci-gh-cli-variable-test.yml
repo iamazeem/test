@@ -1,0 +1,31 @@
+name: gh_cli_variable_test
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    environment: Dev
+
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TEST_VAR: 'test_var_value'
+
+    steps:
+      - name: List (repo)
+        run: gh variable list
+
+      - name: List (env Dev)
+        run: gh variable list --env Dev
+
+      - name: Set (repo)
+        run: gh variable set TEST_VAR --body "$TEST_VAR"
+
+      - name: Set (env Dev)
+        run: gh variable set --env Dev TEST_VAR_ENV --body "${TEST_VAR}_env"
+
+      - name: List (repo)
+        run: gh variable list
+
+      - name: List (env Dev)
+        run: gh variable list --env Dev
