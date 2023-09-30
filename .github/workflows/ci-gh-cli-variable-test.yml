@@ -12,6 +12,9 @@ jobs:
       TEST_VAR: 'test_var_value'
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: List (repo)
         run: gh variable list
 
