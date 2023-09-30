@@ -15,6 +15,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Delete
+        run: |
+          gh variable delete TEST_VAR
+          gh variable delete TEST_VAR_ENV --env Dev
+
       - name: List (repo)
         run: gh variable list
 
@@ -32,3 +37,8 @@ jobs:
 
       - name: List (env Dev)
         run: gh variable list --env Dev
+
+      - name: Dump
+        run: |
+          echo 'TEST_VAR: ${{ vars.TEST_VAR }}'
+          echo 'TEST_VAR_ENV: ${{ vars.TEST_VAR_ENV }}'
