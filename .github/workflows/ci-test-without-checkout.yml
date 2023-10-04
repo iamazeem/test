@@ -1,0 +1,12 @@
+name: test_without_checkout
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: cat
+      run: |
+        cat ./.github/workflows/ci-assign-with-condition.yml
