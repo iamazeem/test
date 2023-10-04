@@ -9,4 +9,4 @@ jobs:
     steps:
     - name: cat
       run: |
-        cat ./.github/workflows/ci-assign-with-condition.yml
+        cat ./.github/actions/test/action.yml
