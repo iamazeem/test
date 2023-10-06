@@ -20,7 +20,7 @@ jobs:
 
       - name: Touch files and add commit
         run: |
-          touch test123.{c,cpp,js,sh}
+          touch test123.{c,cpp,js,sh} test456.{c,cpp,js,sh,py}
           git config --global user.name "Azeem Sajid"
           git config --global user.email "azeem.sajid@gmail.com"
           git add .
