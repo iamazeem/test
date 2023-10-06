@@ -26,25 +26,25 @@ jobs:
           git add .
           git commit -m "Touch files"
 
-      - name: Changed files
+      - name: Changed files (c)
         id: changed-files-c
         uses: tj-actions/changed-files@v39
         with:
           files: '**.c'
 
-      - name: Changed files
+      - name: Changed files (cpp)
         id: changed-files-cpp
         uses: tj-actions/changed-files@v39
         with:
           files: '**.cpp'
 
-      - name: Changed files
+      - name: Changed files (js)
         id: changed-files-js
         uses: tj-actions/changed-files@v39
         with:
           files: '**.js'
 
-      - name: Changed files
+      - name: Changed files (sh)
         id: changed-files-sh
         uses: tj-actions/changed-files@v39
         with:
