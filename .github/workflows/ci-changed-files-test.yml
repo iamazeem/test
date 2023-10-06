@@ -1,0 +1,62 @@
+name: changed_files_test
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    outputs:
+      changed-files-c: ${{ steps.changed-files-c.outputs.all_changed_files }}
+      changed-files-cpp: ${{ steps.changed-files-cpp.outputs.all_changed_files }}
+      changed-files-js: ${{ steps.changed-files-js.outputs.all_changed_files }}
+      changed-files-sh: ${{ steps.changed-files-sh.outputs.all_changed_files }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Touch files and add commit
+        run: |
+          touch test.{c,cpp,js,sh}
+          git config --global user.name "Azeem Sajid"
+          git config --global user.email "azeem.sajid@gmail.com"
+          git add .
+          git commit -m "Touch files"
+
+      - name: Changed files
+        id: changed-files-c
+        uses: tj-actions/changed-files@v39
+        with:
+          files: '**.c'
+
+      - name: Changed files
+        id: changed-files-cpp
+        uses: tj-actions/changed-files@v39
+        with:
+          files: '**.cpp'
+
+      - name: Changed files
+        id: changed-files-js
+        uses: tj-actions/changed-files@v39
+        with:
+          files: '**.js'
+
+      - name: Changed files
+        id: changed-files-sh
+        uses: tj-actions/changed-files@v39
+        with:
+          files: '**.sh'
+
+  lint:
+    runs-on: ubuntu-latest
+    needs: [ci]
+    steps:
+      - name: Check
+        run: |
+          echo 'c: ${{ needs.ci.outputs.changed-files-c }}'
+          echo 'cpp: ${{ needs.ci.outputs.changed-files-cpp }}'
+          echo 'js: ${{ needs.ci.outputs.changed-files-js }}'
+          echo 'sh: ${{ needs.ci.outputs.changed-files-sh }}'
