@@ -7,6 +7,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      - name: Install Office
+        run: choco install office365business
+
       - name: Setup
         env:
           SCRIPT: |
