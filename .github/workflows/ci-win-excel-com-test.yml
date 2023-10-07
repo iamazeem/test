@@ -22,3 +22,4 @@ jobs:
         echo $SCRIPT > excel.py
         python --version
         python excel.py
+        ls
