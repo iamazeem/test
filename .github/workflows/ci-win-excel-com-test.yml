@@ -19,7 +19,7 @@ jobs:
           workbook.Close()
           excel.Quit()
       run: |
-        echo $SCRIPT > excel.py
+        echo $env:SCRIPT > excel.py
         python --version
         python excel.py
         ls
