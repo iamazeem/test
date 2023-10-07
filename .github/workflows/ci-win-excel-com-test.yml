@@ -7,19 +7,23 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Create
-      env:
-        SCRIPT: |
-          import os
-          import win32com.client as win32
-          
-          excel = win32.Dispatch("Excel.Application")
-          workbook = excel.Workbooks.Add()
-          workbook.SaveAs(os.getcwd() + '\\Created.xlsx')
-          workbook.Close()
-          excel.Quit()
-      run: |
-        echo $env:SCRIPT > excel.py
-        python --version
-        python excel.py
-        ls
+      - name: Setup
+        env:
+          SCRIPT: |
+            import os
+            import win32com.client as win32
+            
+            excel = win32.Dispatch("Excel.Application")
+            workbook = excel.Workbooks.Add()
+            workbook.SaveAs(os.getcwd() + '\\Created.xlsx')
+            workbook.Close()
+            excel.Quit()
+        run: |
+          pip install pywin32
+          echo $env:SCRIPT > excel.py
+          python --version
+        
+      - name: Run
+        run: |
+          python excel.py
+          ls
