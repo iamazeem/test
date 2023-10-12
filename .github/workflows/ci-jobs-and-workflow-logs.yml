@@ -24,4 +24,4 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }}
         RUN_ID: ${{ github.run_id }}
       run: |
-        gh run view "$RUN_ID" --log
+        gh run view "$RUN_ID" --log --repo iamazeem/test
