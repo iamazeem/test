@@ -16,7 +16,6 @@ jobs:
           MARIADB_USER: user
           MARIADB_PASSWORD: password
           MARIADB_ROOT_PASSWORD: rootpassword
-          # MARIADB_MYSQL_LOCALHOST_USER:
           MARIADB_MYSQL_LOCALHOST_GRANTS: USAGE
         options: >-
           --health-cmd="healthcheck.sh --connect --innodb_initialized"
@@ -33,7 +32,7 @@ jobs:
       - name: Check DBs
         run: |
           mariadb \
-            --host localhost \
+            --host 127.0.0.1 \
             --user user \
             --password password \
             --execute "SHOW DATABASES;"
