@@ -13,9 +13,9 @@ jobs:
           - "3306:3306"
         env:
           MARIADB_DATABASE: db
-          MARIADB_USER: root
+          MARIADB_USER: user
           MARIADB_PASSWORD: password
-          MARIADB_ROOT_PASSWORD: password
+          MARIADB_ROOT_PASSWORD: rootpassword
           MARIADB_MYSQL_LOCALHOST_GRANTS: USAGE
         options: >-
           --health-cmd="healthcheck.sh --connect --innodb_initialized"
@@ -25,4 +25,4 @@ jobs:
 
     steps:
       - name: Show DBs
-        run: mysql --host 127.0.0.1 -uroot -ppassword -e "SHOW DATABASES;"
+        run: mysql --host 127.0.0.1 -uuser -ppassword -e "SHOW DATABASES;"
