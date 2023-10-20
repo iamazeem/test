@@ -17,11 +17,11 @@ jobs:
           MARIADB_USER: root
           MARIADB_ROOT_PASSWORD: password
           MARIADB_PASSWORD: password
-        options: >-
-          --health-cmd="healthcheck.sh"
-          --health-interval=5s
-          --health-timeout=60s
-          --health-retries=10
+        # options: >-
+        #   --health-cmd="healthcheck.sh"
+        #   --health-interval=5s
+        #   --health-timeout=60s
+        #   --health-retries=10
 
     steps:
       - name: Install MariaDB Client
