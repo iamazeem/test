@@ -16,7 +16,7 @@ jobs:
           MARIADB_USER: user
           MARIADB_PASSWORD: password
           MARIADB_ROOT_PASSWORD: rootpassword
-          MARIADB_MYSQL_LOCALHOST_USER:
+          # MARIADB_MYSQL_LOCALHOST_USER:
           MARIADB_MYSQL_LOCALHOST_GRANTS: USAGE
         options: >-
           --health-cmd="healthcheck.sh --connect --innodb_initialized"
