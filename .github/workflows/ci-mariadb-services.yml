@@ -18,10 +18,10 @@ jobs:
           MARIADB_ROOT_PASSWORD: password
           MARIADB_PASSWORD: password
         options: >-
-          --health-cmd 'healthcheck.sh --connect --innodb_initialized'
-          --health-interval 5s
-          --health-timeout 60s
-          --health-retries 10
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=5s
+          --health-timeout=60s
+          --health-retries=10
 
     steps:
       - name: Install MariaDB Client
