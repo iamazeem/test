@@ -8,7 +8,7 @@ jobs:
 
     services:
       mariadb:
-        image: mariadb:10.8.2
+        image: mariadb:latest
         ports:
           - "3306:3306"
         env:
