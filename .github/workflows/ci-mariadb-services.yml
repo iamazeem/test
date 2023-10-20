@@ -1,0 +1,39 @@
+name: mariadb_services
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    services:
+      mariadb:
+        image: mariadb:latest
+        ports:
+          - "3306:3306"
+        env:
+          # DATABASE_HOST: 127.0.0.1
+          MARIADB_DATABASE: db
+          MARIADB_USER: root
+          MARIADB_ROOT_PASSWORD: password
+          MARIADB_PASSWORD: password
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=10s
+          --health-timeout=10s
+          --health-retries=5
+
+    steps:
+      - name: Install MariaDB Client
+        run: |
+          sudo apt install mariadb-client
+          mariadb --version
+
+      - name: Check DBs
+        run: |
+          mariadb \
+            --host mariadb \
+            --port 3306 \
+            --user root \
+            --password password \
+            --execute "SHOW DATABASES;"
