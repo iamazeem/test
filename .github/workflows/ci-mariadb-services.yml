@@ -12,13 +12,13 @@ jobs:
         ports:
           - "3306:3306"
         env:
-          # DATABASE_HOST: 127.0.0.1
+          MARIADB_ROOT_HOST: mariadb
           MARIADB_DATABASE: db
           MARIADB_USER: root
           MARIADB_ROOT_PASSWORD: password
           MARIADB_PASSWORD: password
         # options: >-
-        #   --health-cmd="healthcheck.sh"
+        #   --health-cmd="healthcheck.sh --connect"
         #   --health-interval=5s
         #   --health-timeout=60s
         #   --health-retries=10
