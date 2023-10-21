@@ -22,7 +22,7 @@ jobs:
         if: failure()
         id: status
         env:
-          KEY: ${{ format('{0}.{1}.{2}.{3}', github.job, github.run_id, github.run_number, github.run_attempt) }}
+          KEY: ${{ format('{0}_{1}_{2}_{3}', github.job, github.run_id, github.run_number, github.run_attempt) }}
           VALUE: ${{ matrix.value }}
         run: |
           echo "$KEY=$VALUE"
@@ -54,6 +54,8 @@ jobs:
     steps:
       - name: Status
         run: |
-          echo '```json' >> "$GITHUB_STEP_SUMMARY"
-          echo '${{ toJson(needs) }}' >> "$GITHUB_STEP_SUMMARY"
-          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          {
+            echo '```json'
+            echo '${{ toJson(needs) }}'
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
