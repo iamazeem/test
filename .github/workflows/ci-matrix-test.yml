@@ -8,7 +8,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        value: [1, 2]
+        value: [1, 2, 3]
     outputs:
       status: ${{ steps.status.outputs.status }}
     steps:
@@ -22,13 +22,8 @@ jobs:
         if: failure()
         id: status
         env:
-          status: >-
-            {
-              "github.job": "${{ github.job }}",
-              "github.run_id": "${{ github.run_id }}",
-              "matrix.value": "${{ matrix.value }}"
-            }
-        run: echo "status=$(jq -c -r '.' <<< '${{ env.status }}')" >> "$GITHUB_OUTPUT"
+          MATRIX_VALUE: ${{ matrix.value }}
+        run: echo "$GITHUB_JOB.$GITHUB_RUN_ID=$MATRIX_VALUE" >> "$GITHUB_OUTPUT"
 
   skip:
     if: ${{ github.event_name != 'workflow_dispatch' }}
