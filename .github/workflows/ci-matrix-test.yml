@@ -5,58 +5,59 @@ on: workflow_dispatch
 jobs:
   matrix:
     runs-on: ubuntu-latest
-    # continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
-        step: [1, 2]
+        value: [1, 2]
+    outputs:
+      status: ${{ steps.status.outputs.status }}
     steps:
-      - name: Step ${{ matrix.step }}
+      - name: Step
         env:
-          STEP: '${{ matrix.step }}'
+          VALUE: '${{ matrix.value }}'
         run: |
-          echo "Step $STEP"
-          if [[ $STEP == '2' ]]; then
+          if [[ $VALUE == '2' ]]; then
             exit 1
           fi
+
+      - name: Status
+        if: failure()
+        id: status
+        env:
+          status: >-
+            {
+              "github.job": "${{ github.job }}",
+              "github.run_id": "${{ github.run_id }}",
+              "matrix.value": "${{ matrix.value }}"
+            }
+        run: echo "status=$(jq -c '. | @json' <<< $status)" >> "$GITHUB_OUTPUT"
 
   skip:
     if: ${{ github.event_name != 'workflow_dispatch' }}
     runs-on: ubuntu-latest
-    # continue-on-error: true
     steps:
       - name: Skip
         run: exit 0
 
   pass:
     runs-on: ubuntu-latest
-    # continue-on-error: true
     steps:
       - name: Pass
         run: exit 0
 
   fail:
     runs-on: ubuntu-latest
-    # continue-on-error: true
-    # outputs:
-    #   status: ${{  }}
     steps:
       - name: Fail
         run: exit 1
-      # - name: Status
-        # if: always()
-        # id: status
-        # run: |
 
-
-  wait:
+  status:
     needs: [matrix, skip, pass, fail]
-    if: ${{ always() }}
+    if: always()
     runs-on: ubuntu-latest
     steps:
-      - name: Wait
+      - name: Status
         run: |
-          echo 'Waiting...'
           echo '```json' >> "$GITHUB_STEP_SUMMARY"
           echo '${{ toJson(needs) }}' >> "$GITHUB_STEP_SUMMARY"
           echo '```' >> "$GITHUB_STEP_SUMMARY"
