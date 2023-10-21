@@ -50,4 +50,6 @@ jobs:
       - name: Wait
         run: |
           echo 'Waiting...'
-          echo '${{ toJson(needs) }}'
+          echo '```json' >> "$GITHUB_STEP_SUMMARY"
+          echo '${{ toJson(needs) }}' >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
