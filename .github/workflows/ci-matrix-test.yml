@@ -43,9 +43,11 @@ jobs:
         run: exit 1
 
   wait:
-    needs: [matrix, pass, fail]
+    needs: [matrix, skip, pass, fail]
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
       - name: Wait
-        run: echo 'Waiting...'
+        run: |
+          echo 'Waiting...'
+          echo '${{ toJson(needs) }}'
