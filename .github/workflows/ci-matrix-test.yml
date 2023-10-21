@@ -5,15 +5,22 @@ on: workflow_dispatch
 jobs:
   ci:
     runs-on: ubuntu-latest
+    continue-on-error: true
     strategy:
+      fail-fast: false
       matrix:
         step: [1, 2]
     steps:
       - name: Step ${{ matrix.step }}
-        run: echo 'Step ${{ matrix.step }}'
+        env:
+          STEP: ${{ matrix.step }}
+        run: |
+          echo 'Step $STEP'
+          [[ $STEP == '2' ]] && exit 1
 
   wait:
     needs: [ci]
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - name: Wait
