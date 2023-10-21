@@ -11,13 +11,7 @@ jobs:
       matrix:
         step: [1, 2]
     steps:
-      - name: Pass Step 1
-        env:
-          STEP: '${{ matrix.step }}'
-        run: |
-          echo "Step $STEP"
-
-      - name: Fail Step 2
+      - name: Step ${{ matrix.step }}
         env:
           STEP: '${{ matrix.step }}'
         run: |
