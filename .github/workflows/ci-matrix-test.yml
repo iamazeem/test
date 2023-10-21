@@ -25,7 +25,7 @@ jobs:
           KEY: ${{ format('{0}__{1}_{2}_{3}', github.job, github.run_id, github.run_number, github.run_attempt) }}
           VALUE: ${{ matrix.value }}
         run: |
-          gh variable set "$KEY" --body "$VALUE"
+          gh --repo '${{ github.repository }}' variable set "$KEY" --body "$VALUE"
 
   skip:
     if: false
@@ -64,5 +64,5 @@ jobs:
         run: |
           {
             echo '## Variables'
-            gh variable list
+            gh --repo '${{ github.repository }}' variable list
           } >> "$GITHUB_STEP_SUMMARY"
