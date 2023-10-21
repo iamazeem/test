@@ -2,6 +2,9 @@ name: matrix_test
 
 on: workflow_dispatch
 
+env:
+  GH_TOKEN: ${{ github.token }}
+
 jobs:
   matrix:
     runs-on: ubuntu-latest
@@ -9,27 +12,23 @@ jobs:
       fail-fast: false
       matrix:
         value: [1, 2, 3]
-    outputs:
-      status: ${{ steps.status.outputs.status }}
     steps:
-      - name: Step
+      - name: 'Step (matrix.value: ${{ matrix.value }})'
         env:
           VALUE: '${{ matrix.value }}'
         run: |
-          [[ $VALUE == '1' ]] 
+          [[ $VALUE == '1' ]]
 
-      - name: Status
+      - name: Set failure status for ${{ matrix.value }}
         if: failure()
-        id: status
         env:
-          KEY: ${{ format('{0}_{1}_{2}_{3}', github.job, github.run_id, github.run_number, github.run_attempt) }}
+          KEY: ${{ format('{0}__{1}_{2}_{3}', github.job, github.run_id, github.run_number, github.run_attempt) }}
           VALUE: ${{ matrix.value }}
         run: |
-          echo "$KEY=$VALUE"
-          echo "$KEY=$VALUE" >> "$GITHUB_OUTPUT"
+          gh variable set "$KEY" --body "$VALUE"
 
   skip:
-    if: ${{ github.event_name != 'workflow_dispatch' }}
+    if: false
     runs-on: ubuntu-latest
     steps:
       - name: Skip
@@ -52,10 +51,18 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     steps:
-      - name: Status
+      - name: Dump needs JSON
         run: |
           {
+            echo '## `needs` JSON'
             echo '```json'
             echo '${{ toJson(needs) }}'
             echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Dump variables
+        run: |
+          {
+            echo '## Variables'
+            gh variable list
           } >> "$GITHUB_STEP_SUMMARY"
