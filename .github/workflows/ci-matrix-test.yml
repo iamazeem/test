@@ -16,7 +16,9 @@ jobs:
           STEP: '${{ matrix.step }}'
         run: |
           echo "Step $STEP"
-          [[ $STEP == '2' ]] && exit 1
+          if [[ $STEP == '2' ]]; then
+            exit 1
+          fi
 
   wait:
     needs: [ci]
