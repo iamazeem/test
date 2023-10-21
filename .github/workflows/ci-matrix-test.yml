@@ -5,7 +5,7 @@ on: workflow_dispatch
 jobs:
   matrix:
     runs-on: ubuntu-latest
-    continue-on-error: true
+    # continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
@@ -23,24 +23,31 @@ jobs:
   skip:
     if: ${{ github.event_name != 'workflow_dispatch' }}
     runs-on: ubuntu-latest
-    continue-on-error: true
+    # continue-on-error: true
     steps:
       - name: Skip
         run: exit 0
 
   pass:
     runs-on: ubuntu-latest
-    continue-on-error: true
+    # continue-on-error: true
     steps:
       - name: Pass
         run: exit 0
 
   fail:
     runs-on: ubuntu-latest
-    continue-on-error: true
+    # continue-on-error: true
+    # outputs:
+    #   status: ${{  }}
     steps:
       - name: Fail
         run: exit 1
+      # - name: Status
+        # if: always()
+        # id: status
+        # run: |
+
 
   wait:
     needs: [matrix, skip, pass, fail]
