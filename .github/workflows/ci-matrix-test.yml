@@ -28,7 +28,7 @@ jobs:
               "github.run_id": "${{ github.run_id }}",
               "matrix.value": "${{ matrix.value }}"
             }
-        run: echo "status=$(jq -c '.' <<< '${{ toJson(env.status) }}')" >> "$GITHUB_OUTPUT"
+        run: echo "status=$(jq -c -r '.' <<< '${{ env.status }}')" >> "$GITHUB_OUTPUT"
 
   skip:
     if: ${{ github.event_name != 'workflow_dispatch' }}
