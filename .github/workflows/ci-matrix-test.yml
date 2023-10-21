@@ -3,13 +3,13 @@ name: matrix_test
 on: workflow_dispatch
 
 jobs:
-  ci:
+  matrix:
     runs-on: ubuntu-latest
     continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
-        step: [1, 2]
+        step: [1, 2, 3]
     steps:
       - name: Step ${{ matrix.step }}
         env:
@@ -20,8 +20,22 @@ jobs:
             exit 1
           fi
 
+  pass:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Pass
+        run: exit 0
+
+  fail:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Fail
+        run: exit 1
+
   wait:
-    needs: [ci]
+    needs: [matrix, pass, fail]
     if: always()
     runs-on: ubuntu-latest
     steps:
