@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        step: [1, 2, 3]
+        step: [1, 2]
     steps:
       - name: Step ${{ matrix.step }}
         env:
@@ -19,6 +19,14 @@ jobs:
           if [[ $STEP == '2' ]]; then
             exit 1
           fi
+
+  skip:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Skip
+        run: exit 0
 
   pass:
     runs-on: ubuntu-latest
@@ -36,7 +44,7 @@ jobs:
 
   wait:
     needs: [matrix, pass, fail]
-    if: always()
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
       - name: Wait
