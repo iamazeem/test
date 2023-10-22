@@ -17,11 +17,14 @@ jobs:
           context_secrets: '${{ toJson(secrets) }}'
           context_steps: '${{ toJson(steps) }}'
         run: |
-          for context in $(jq -r 'keys[] | select(startswith("context_"))' <<< $context_env); do
-            jq_cmd="jq '.$context' <<< $context_env"
-            context="$(cut -d '_' -f2 <<< "$context")"
+          echo '## Contexts' >> "$GITHUB_STEP_SUMMARY"
+          contexts=$(jq -r 'keys[] | select(startswith("context_"))' <<< $context_env)
+          echo "contexts: $contexts"
+          for context in $contexts; do
+            jq_cmd="jq '.$context' <<< '$context_env'"
+            echo "Dumping $context context"
             {
-              echo "### \`${context}\` context"
+              echo "### \`$(cut -d '_' -f2 <<< "$context")\` context"
               echo '```json'
               $jq_cmd
               echo '```'
