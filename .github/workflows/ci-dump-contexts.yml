@@ -8,25 +8,40 @@ jobs:
     environment: Dev
     steps:
       - name: Dump contexts
-        env:
-          context_github: '${{ toJson(github) }}'
-          context_env: '${{ toJson(env) }}'
-          context_vars: '${{ toJson(vars) }}'
-          context_job: '${{ toJson(job) }}'
-          context_runner: '${{ toJson(runner) }}'
-          context_secrets: '${{ toJson(secrets) }}'
-          context_steps: '${{ toJson(steps) }}'
         run: |
-          echo '## Contexts' >> "$GITHUB_STEP_SUMMARY"
-          contexts=$(jq -r 'keys[] | select(startswith("context_"))' <<< $context_env)
-          echo "contexts: $contexts"
-          for context in $contexts; do
-            jq_cmd="jq '.$context' <<< '$context_env'"
-            echo "Dumping $context context"
-            {
-              echo "### \`$(cut -d '_' -f2 <<< "$context")\` context"
-              echo '```json'
-              $jq_cmd
-              echo '```'
-            } >> "$GITHUB_STEP_SUMMARY"
-          done
+          {
+            echo "### `github` context"
+            echo '```json'
+            echo '${{ toJson(github) }}'
+            echo '```'
+
+            echo "### `env` context"
+            echo '```json'
+            echo '${{ toJson(env) }}'
+            echo '```'
+
+            echo "### `vars` context"
+            echo '```json'
+            echo '${{ toJson(vars) }}'
+            echo '```'
+
+            echo "### `runner` context"
+            echo '```json'
+            echo '${{ toJson(runner) }}'
+            echo '```'
+
+            echo "### `job` context"
+            echo '```json'
+            echo '${{ toJson(job) }}'
+            echo '```'
+
+            echo "### `secrets` context"
+            echo '```json'
+            echo '${{ toJson(secrets) }}'
+            echo '```'
+
+            echo "### `steps` context"
+            echo '```json'
+            echo '${{ toJson(steps) }}'
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
