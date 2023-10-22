@@ -10,37 +10,37 @@ jobs:
       - name: Dump contexts
         run: |
           {
-            echo "### `github` context"
+            echo '### `github` context'
             echo '```json'
             echo '${{ toJson(github) }}'
             echo '```'
 
-            echo "### `env` context"
+            echo '### `env` context'
             echo '```json'
             echo '${{ toJson(env) }}'
             echo '```'
 
-            echo "### `vars` context"
+            echo '### `vars` context'
             echo '```json'
             echo '${{ toJson(vars) }}'
             echo '```'
 
-            echo "### `runner` context"
+            echo '### `runner` context'
             echo '```json'
             echo '${{ toJson(runner) }}'
             echo '```'
 
-            echo "### `job` context"
+            echo '### `job` context'
             echo '```json'
             echo '${{ toJson(job) }}'
             echo '```'
 
-            echo "### `secrets` context"
+            echo '### `secrets` context'
             echo '```json'
             echo '${{ toJson(secrets) }}'
             echo '```'
 
-            echo "### `steps` context"
+            echo '### `steps` context'
             echo '```json'
             echo '${{ toJson(steps) }}'
             echo '```'
