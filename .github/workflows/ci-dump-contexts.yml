@@ -1,0 +1,29 @@
+name: dump_contexts
+
+on: workflow_dispatch
+
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    environment: Dev
+    steps:
+      - name: Dump contexts
+        env:
+          context_github: '${{ toJson(github) }}'
+          context_env: '${{ toJson(env) }}'
+          context_vars: '${{ toJson(vars) }}'
+          context_job: '${{ toJson(job) }}'
+          context_runner: '${{ toJson(runner) }}'
+          context_secrets: '${{ toJson(secrets) }}'
+          context_steps: '${{ toJson(steps) }}'
+        run: |
+          for context in $(jq -r 'keys[] | select(startswith("context_"))' <<< $context_env); do
+            jq_cmd="jq '.$context' <<< $context_env"
+            context="$(cut -d '_' -f2 <<< "$context")"
+            {
+              echo "### \`${context}\` context"
+              echo '```json'
+              $jq_cmd
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+          done
