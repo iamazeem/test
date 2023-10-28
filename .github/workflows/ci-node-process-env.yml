@@ -1,0 +1,23 @@
+name: node_process_env_test
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    env:
+      DB_USER: user
+
+    steps:
+      - name: Test
+        env:
+          DB_USER: user
+          SCRIPT: |
+            const config = {
+              user: process.env.GITHUB_ACTIONS ? 'user' : process.env.DB_USER || "root"
+            };
+            console.log(config);
+        run: |
+          cat "$SCRIPT" > test.js
+          node test.js
