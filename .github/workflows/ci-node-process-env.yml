@@ -19,5 +19,4 @@ jobs:
             };
             console.log(config);
         run: |
-          cat "$SCRIPT" > test.js
-          node test.js
+          node <<< $SCRIPT
