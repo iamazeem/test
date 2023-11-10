@@ -1,0 +1,37 @@
+name: build_orthanc_ohif_plugin
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup
+        run: |
+          sudo apt install -y tree g++-mingw-w64
+          # x86_64-w64-mingw32-g++
+
+      - name: Clone
+        run: |
+          hg clone -u default https://orthanc.uclouvain.be/hg/orthanc-ohif
+          tree orthanc-ohif
+
+      # - name: Build viewer
+      #   run: |
+      #     cd orthanc-ohif
+      #     ./../Resources/CreateOHIFDist.sh
+      #     cmake -S . -B viewer -DSTATIC_BUILD=ON -DCMAKE_BUILD_TYPE=Release
+      #     cmake --build viewer
+
+      - name: Build plugin
+        run: |
+          cd orthanc-ohif
+          mkdir build && cd build
+          cmake .. \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_TOOLCHAIN_FILE=../Resources/Orthanc/Toolchains/MinGW-W64-Toolchain64.cmake \
+            -DSTANDALONE_BUILD=ON \
+            -DSTATIC_BUILD=ON \
+            -DUSE_LEGACY_JSONCPP=ON
+          make
