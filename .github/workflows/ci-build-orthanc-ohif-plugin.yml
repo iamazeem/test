@@ -22,7 +22,11 @@ jobs:
           cd orthanc-ohif
           mkdir build && cd build
           ./../Resources/CreateOHIFDist.sh
-          cmake .. -DSTATIC_BUILD=ON -DCMAKE_BUILD_TYPE=Release
+          cmake .. \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_TOOLCHAIN_FILE=../Resources/Orthanc/Toolchains/MinGW-W64-Toolchain32.cmake \
+            -DSTANDALONE_BUILD=ON \
+            -DSTATIC_BUILD=ON
           make
 
       - name: Build plugin
@@ -32,6 +36,5 @@ jobs:
             -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_TOOLCHAIN_FILE=../Resources/Orthanc/Toolchains/MinGW-W64-Toolchain32.cmake \
             -DSTANDALONE_BUILD=ON \
-            -DSTATIC_BUILD=ON \
-            -DUSE_LEGACY_JSONCPP=ON
+            -DSTATIC_BUILD=ON
           make
