@@ -17,17 +17,17 @@ jobs:
           hg clone -u default https://orthanc.uclouvain.be/hg/orthanc-ohif
           tree orthanc-ohif
 
-      # - name: Build viewer
-      #   run: |
-      #     cd orthanc-ohif
-      #     ./../Resources/CreateOHIFDist.sh
-      #     cmake -S . -B viewer -DSTATIC_BUILD=ON -DCMAKE_BUILD_TYPE=Release
-      #     cmake --build viewer
-
-      - name: Build plugin
+      - name: Build viewer
         run: |
           cd orthanc-ohif
           mkdir build && cd build
+          ./../Resources/CreateOHIFDist.sh
+          cmake .. -DSTATIC_BUILD=ON -DCMAKE_BUILD_TYPE=Release
+          make
+
+      - name: Build plugin
+        run: |
+          cd orthanc-ohif/build
           cmake .. \
             -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_TOOLCHAIN_FILE=../Resources/Orthanc/Toolchains/MinGW-W64-Toolchain32.cmake \
