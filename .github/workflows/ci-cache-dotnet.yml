@@ -21,7 +21,7 @@ jobs:
 
       - name: Install dotnet
         if: ${{ steps.cache-dotnet.outputs.cache-hit != 'true' }}
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 7.0.x
 
