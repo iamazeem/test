@@ -3,7 +3,7 @@ name: octopus_cli_test
 on: workflow_dispatch
 
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
     steps:
     - name: Install Octopus CLI 🐙
@@ -19,4 +19,4 @@ jobs:
         OCTOPUS_PROJECT: '${{ secrets.OCTOPUS_PROJECT }}'
         OCTOPUS_CHANNEL: '${{ secrets.OCTOPUS_CHANNEL }}'
       run: |
-        octopus release list
+        octopus release list --project="$OCTOPUS_PROJECT"
