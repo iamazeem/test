@@ -1,0 +1,22 @@
+name: octopus_cli_test
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Octopus CLI 🐙
+      uses: OctopusDeploy/install-octopus-cli-action@v3
+      with:
+        version: '*'
+
+    - name: list-octopusdeploy-accounts
+      env:
+        OCTOPUS_URL: '${{ secrets.OCTOPUS_URL }}'
+        OCTOPUS_API_KEY: '${{ secrets.OCTOPUS_API_KEY }}'
+        OCTOPUS_SPACE: '${{ secrets.OCTOPUS_SPACE }}'
+        OCTOPUS_PROJECT: '${{ secrets.OCTOPUS_PROJECT }}'
+        OCTOPUS_CHANNEL: '${{ secrets.OCTOPUS_CHANNEL }}'
+      run: |
+        octopus release list
