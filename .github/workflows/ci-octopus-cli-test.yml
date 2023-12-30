@@ -7,11 +7,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Install Octopus CLI 🐙
-      uses: OctopusDeploy/install-octopus-cli-action@v3
-      with:
-        version: '*'
+      # uses: OctopusDeploy/install-octopus-cli-action@v3
+      # with:
+      #   version: '*'
+      run: |
+        curl -L https://github.com/OctopusDeploy/cli/raw/main/scripts/install.sh | bash
 
-    - name: list-octopusdeploy-accounts
+    - name: Deploy
       env:
         OCTOPUS_URL: '${{ secrets.OCTOPUS_URL }}'
         OCTOPUS_API_KEY: '${{ secrets.OCTOPUS_API_KEY }}'
