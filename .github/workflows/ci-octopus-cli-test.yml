@@ -9,7 +9,7 @@ jobs:
     - name: Install Octopus CLI 🐙
       uses: OctopusDeploy/install-octopus-cli-action@v3
       with:
-        version: '0.8.0'
+        version: '*'
 
     - name: list-octopusdeploy-accounts
       env:
