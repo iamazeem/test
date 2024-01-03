@@ -3,7 +3,7 @@ name: pwsh_env_var_test
 on: workflow_dispatch
 
 jobs:
-  job:
+  ci:
     runs-on: windows-latest
 
     steps:
