@@ -1,0 +1,17 @@
+name: pwsh_env_var_test
+
+on: workflow_dispatch
+
+jobs:
+  job:
+    runs-on: windows-latest
+
+    steps:
+      - name: Shell
+        run: echo "SHELL=$env:SHELL"
+
+      - name: Set
+        run: echo "BRANCH=$env:GITHUB_REF_NAME" >> $env:GITHUB_ENV
+
+      - name: Get
+        run: echo "BRANCH=$env:BRANCH"
