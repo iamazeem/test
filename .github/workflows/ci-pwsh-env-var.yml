@@ -7,6 +7,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      - name: Shell version
+        run: pwsh --version
+
       - name: Set
         env:
           REF: "v1.0.0"
