@@ -21,7 +21,7 @@ jobs:
         file_path: str = os.environ.get('GITHUB_ENV', None)
         with open(file_path, 'a') as f:
             f.write('ERRORS<<EOF\n')
-            f.write(errors_string)
+            f.write(errors_string + '\n')
             f.write('EOF\n')
 
     - name: Add comment
