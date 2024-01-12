@@ -8,9 +8,8 @@ jobs:
 
     env:
       COMMENT: |
-        Test Comment
-        - Line # 1
-        - Line # 2
+        Hello
+        World
 
     steps:
     - name: Add comment
