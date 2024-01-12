@@ -21,5 +21,5 @@ jobs:
             issue_number: 36,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: '${{ env.COMMENT }}'
+            body: `${{ env.COMMENT }}`
           })
