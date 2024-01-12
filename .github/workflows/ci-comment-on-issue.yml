@@ -6,12 +6,29 @@ jobs:
   ci:
     runs-on: ubuntu-latest
 
-    env:
-      COMMENT: |
-        Hello
-        World
-
     steps:
+    - name: Create comment
+      shell: python
+      run: |
+        import os
+        errors_list = [
+          "You have invalid email",
+          "You are too young",
+          "You are using the wrong provider for your rides"
+        ]
+        errors_string = '\n'.join(errors_list)
+        print(errors_string)
+        os.system(f"""{
+            echo 'ERRORS<<EOF'
+            {error_string}
+            echo 'EOF'
+          } >> $GITHUB_ENV""")
+        # file_path: str = os.environ.get('GITHUB_ENV', None)
+        # with open(file_path, 'a') as f:
+        #     f.write('ERRORS<<EOF')
+        #     f.write(errors_string)
+        #     f.write('EOF')
+
     - name: Add comment
       uses: actions/github-script@v6
       with:
@@ -21,5 +38,5 @@ jobs:
             issue_number: 36,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: `${{ env.COMMENT }}`
+            body: `${{ env.ERRORS }}`
           })
