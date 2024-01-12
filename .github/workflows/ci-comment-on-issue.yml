@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      COMMENT: >-
+      COMMENT: |
         Hello
         World
 
