@@ -18,16 +18,11 @@ jobs:
         ]
         errors_string = '\n'.join(errors_list)
         print(errors_string)
-        os.system(f"""{
-            echo 'ERRORS<<EOF'
-            {error_string}
-            echo 'EOF'
-          } >> $GITHUB_ENV""")
-        # file_path: str = os.environ.get('GITHUB_ENV', None)
-        # with open(file_path, 'a') as f:
-        #     f.write('ERRORS<<EOF')
-        #     f.write(errors_string)
-        #     f.write('EOF')
+        file_path: str = os.environ.get('GITHUB_ENV', None)
+        with open(file_path, 'a') as f:
+            f.write('ERRORS<<EOF')
+            f.write(errors_string)
+            f.write('EOF')
 
     - name: Add comment
       uses: actions/github-script@v6
