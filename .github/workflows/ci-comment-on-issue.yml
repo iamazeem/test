@@ -19,7 +19,7 @@ jobs:
         script: |
           github.rest.issues.createComment({
             issue_number: 36,
-            owner: '${{ github.repository_owner }}',
-            repo: '${{ github.repository }}',
+            owner: context.repo.owner,
+            repo: context.repo.owner,
             body: '${{ env.COMMENT }}'
           })
