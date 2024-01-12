@@ -1,0 +1,26 @@
+name: comment_on_issue
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    env:
+      COMMENT: |
+        Test Comment
+        - Line # 1
+        - Line # 2
+
+    steps:
+    - name: Add comment
+      uses: actions/github-script@v6
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          github.rest.issues.createComment({
+            issue_number: 36,
+            owner: ${{ github.repository_owner }},
+            repo: ${{ github.repository }},
+            body: ${{ env.COMMENT }}
+          })
