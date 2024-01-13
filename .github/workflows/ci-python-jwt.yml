@@ -1,0 +1,41 @@
+name: python_jwt
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup
+      env:
+        # https://stackoverflow.com/questions/72119316/generate-jwt-token-signed-with-rsa-key-in-python
+        GITHUBAPP_KEY: '${{ secrets.TEST_PRIVATE_KEY }}'
+      shell: bash
+      run: |
+        cat > secret.yaml << EOF
+        apiVersion: v1
+        kind: Secret
+        metadata:
+          name: xxx
+          namespace: xxx
+        type: Opaque
+        stringData:
+          GITHUBAPP_KEY: '${GITHUBAPP_KEY}'
+        EOF
+        eval "echo \"$(cat .deployment/secret.yaml)\"" > secret-new.yaml
+        ls -l secret*
+        pip install pyjwt
+
+    - name: JWT
+      shell: python
+      run: |
+        impport yaml, time, jwt
+        with open('secret.yaml') as f:
+          secret = yaml.safe_load(f)
+        key = secret['stringData']['GITHUBAPP_KEY']
+        print(f'{len(key)} | {key}')
+        now = int(time.time())
+        payload = {"iat": now, "exp": now, "iss": "123456"}
+        encrypted = jwt.encode(payload, key=key, algorithm="RS256")
+        print(f'encrypted: {encrypted}')
