@@ -23,14 +23,14 @@ jobs:
         stringData:
           GITHUBAPP_KEY: '${GITHUBAPP_KEY}'
         EOF
-        eval "echo \"$(cat .deployment/secret.yaml)\"" > secret-new.yaml
+        eval "echo \"$(cat secret.yaml)\"" > secret-new.yaml
         ls -l secret*
         pip install pyjwt
 
     - name: JWT
       shell: python
       run: |
-        impport yaml, time, jwt
+        import yaml, time, jwt
         with open('secret.yaml') as f:
           secret = yaml.safe_load(f)
         key = secret['stringData']['GITHUBAPP_KEY']
