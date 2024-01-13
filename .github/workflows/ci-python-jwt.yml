@@ -9,7 +9,6 @@ jobs:
     steps:
     - name: Create secret.yaml
       env:
-        # https://stackoverflow.com/questions/72119316/generate-jwt-token-signed-with-rsa-key-in-python
         GITHUBAPP_KEY: '${{ secrets.TEST_PRIVATE_KEY }}'
       shell: bash
       run: |
