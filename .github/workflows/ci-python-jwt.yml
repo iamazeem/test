@@ -29,7 +29,7 @@ jobs:
       shell: python
       run: |
         import yaml, time, jwt
-        with open('secret.yaml') as f:
+        with open('secret-new.yaml') as f:
             secret = yaml.safe_load(f)
         key = secret['stringData']['GITHUBAPP_KEY'].encode().replace(b'\\n', b'\n')
         print(f'{len(key)} | {key}')
