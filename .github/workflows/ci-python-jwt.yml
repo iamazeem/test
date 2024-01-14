@@ -32,8 +32,7 @@ jobs:
       shell: python
       run: |
         import os, time, jwt
-        # key = os.environ['GITHUBAPP_KEY'].encode().replace(b'\\n', b'\n')
-        key = os.environ['GITHUBAPP_KEY']
+        key = os.environ['GITHUBAPP_KEY'].encode().replace(b'\\n', b'\n')
         print(f'{len(key)} | {key}')
         now = int(time.time())
         payload = {"iat": now, "exp": now, "iss": "123456"}
