@@ -26,15 +26,14 @@ jobs:
         ls -l secret*
 
     - name: Set GITHUBAPP_KEY env var
-      run: |
-        GITHUBAPP_KEY=$(yq -e '.stringData.GITHUBAPP_KEY' secret-new.yaml)
-        echo "GITHUBAPP_KEY=$GITHUBAPP_KEY" >> "$GITHUB_ENV"
+      run: echo "GITHUBAPP_KEY=$(yq -e '.stringData.GITHUBAPP_KEY' secret-new.yaml)" >> "$GITHUB_ENV"
 
     - name: JWT
       shell: python
       run: |
         import os, time, jwt
-        key = os.environ['GITHUBAPP_KEY'].encode().replace(b'\\n', b'\n')
+        # key = os.environ['GITHUBAPP_KEY'].encode().replace(b'\\n', b'\n')
+        key = os.environ['GITHUBAPP_KEY']
         print(f'{len(key)} | {key}')
         now = int(time.time())
         payload = {"iat": now, "exp": now, "iss": "123456"}
