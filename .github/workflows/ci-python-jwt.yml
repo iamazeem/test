@@ -22,7 +22,8 @@ jobs:
         stringData:
           GITHUBAPP_KEY: '${GITHUBAPP_KEY}'
         EOF
-        eval "echo \"$(cat secret.yaml)\"" > secret-new.yaml
+        # eval "echo \"$(cat secret.yaml)\"" > secret-new.yaml
+        cat secret.yaml | yq -e '.stringData.GITHUBAPP_KEY |= strenv(GITHUBAPP_KEY)' > secret-new.yaml
         ls -l secret*
 
     - name: JWT
