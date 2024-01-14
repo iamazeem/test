@@ -12,7 +12,7 @@ jobs:
         GITHUBAPP_KEY: '${{ secrets.TEST_PRIVATE_KEY }}'
       shell: bash
       run: |
-        cat > secret.yaml << EOF
+        cat > secret.yaml << 'EOF'
         apiVersion: v1
         kind: Secret
         metadata:
