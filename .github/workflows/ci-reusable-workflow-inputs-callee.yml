@@ -1,0 +1,22 @@
+name: reusable_workflow_inputs_callee
+
+on:
+  workflow_call:
+    inputs:
+      input:
+        description: 'input'
+        required: true
+        type: string
+      output:
+        description: 'output'
+        required: true
+        type: string
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check
+      run: |
+        echo 'inputs.input:  ${{ inputs.input }}'
+        echo 'inputs.output: ${{ inputs.output }}'

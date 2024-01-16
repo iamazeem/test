@@ -1,0 +1,37 @@
+name: reusable_workflow_inputs_caller
+
+on:
+  workflow_dispatch:
+    inputs:
+      input:
+        description: 'input'
+        type: string
+        required: true
+        default: 'INPUT'
+
+jobs:
+  set:
+    runs-on: ubuntu-latest
+    outputs:
+      output: ${{ steps.set.outputs.output }}
+    steps:
+    - name: Set
+      id: set
+      run: |
+        output='OUTPUT'
+        echo "output=$output" >> "$GITHUB_OUTPUT"
+  get:
+    runs-on: ubuntu-latest
+    needs: set
+    steps:
+    - name: Get
+      run: |
+        echo 'inputs.input:  ${{ inputs.input }}'
+        echo 'steps.set.outputs.output: ${{ needs.set.outputs.output }}'
+
+  callee:
+    name: callee
+    needs: [set, get]
+    uses: ./.github/workflows/ci-reusable-workflow-inputs-callee.yml
+    with:
+      test: ${{ inputs.input }}
