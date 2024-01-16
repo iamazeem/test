@@ -2,4 +2,4 @@
 
 [![ci](https://github.com/iamazeem/test/actions/workflows/ci.yml/badge.svg)](https://github.com/iamazeem/test/actions/workflows/ci.yml)
 
-Just testing some stuff via GitHub Actions.
+Just testing some stuff with GitHub Actions.
