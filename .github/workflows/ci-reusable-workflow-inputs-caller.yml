@@ -26,8 +26,10 @@ jobs:
     steps:
     - name: Get
       run: |
-        echo 'inputs.input:  ${{ inputs.input }}'
-        echo 'steps.set.outputs.output: ${{ needs.set.outputs.output }}'
+        {
+          echo 'inputs.input:  ${{ inputs.input }}'
+          echo 'steps.set.outputs.output: ${{ needs.set.outputs.output }}'
+        } | tee -a "$GITHUB_STEP_SUMMARY"
 
   callee:
     name: callee
