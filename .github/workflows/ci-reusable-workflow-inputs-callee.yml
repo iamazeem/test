@@ -22,5 +22,7 @@ jobs:
           echo '```yml'
           echo 'inputs.input: ${{ inputs.input }}'
           echo 'inputs.output: ${{ inputs.output }}'
+          echo 'github.event.inputs.input: ${{ github.event.inputs.input }}'
+          echo 'github.event.inputs.output: ${{ github.event.inputs.output }}'
           echo '```'
         } | tee -a "$GITHUB_STEP_SUMMARY"
