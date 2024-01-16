@@ -20,7 +20,7 @@ jobs:
       run: |
         {
           echo '```yml'
-          echo 'inputs.input:  ${{ inputs.input }}'
+          echo 'inputs.input: ${{ inputs.input }}'
           echo 'inputs.output: ${{ inputs.output }}'
           echo '```'
         } | tee -a "$GITHUB_STEP_SUMMARY"
