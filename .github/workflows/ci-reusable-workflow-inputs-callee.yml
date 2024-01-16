@@ -18,5 +18,7 @@ jobs:
     steps:
     - name: Check
       run: |
-        echo 'inputs.input:  ${{ inputs.input }}'
-        echo 'inputs.output: ${{ inputs.output }}'
+        {
+          echo 'inputs.input:  ${{ inputs.input }}'
+          echo 'inputs.output: ${{ inputs.output }}'
+        } | tee -a "$GITHUB_STEP_SUMMARY"
