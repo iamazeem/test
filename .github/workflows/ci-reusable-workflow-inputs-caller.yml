@@ -34,4 +34,4 @@ jobs:
     needs: [set, get]
     uses: ./.github/workflows/ci-reusable-workflow-inputs-callee.yml
     with:
-      test: ${{ inputs.input }}
+      input: ${{ inputs.input }}
