@@ -1,0 +1,16 @@
+name: tar_test
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: tar
+      run: |
+        tar cvf test.tar.gz /*
+        ls -l
