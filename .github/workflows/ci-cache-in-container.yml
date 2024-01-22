@@ -19,7 +19,7 @@ jobs:
           gcc-arm-none-eabi --version
 
       - name: Cache Tools
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: tools
         with:
           path: |
