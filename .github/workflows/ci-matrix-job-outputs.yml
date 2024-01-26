@@ -17,6 +17,11 @@ jobs:
         VALUE: ${{ matrix.value }}
       run: |
         echo "VALUE=$VALUE" | tee -a "$GITHUB_OUTPUT" "$GITHUB_STEP_SUMMARY"
+        {
+          echo '```json'
+          echo '${{ toJson(steps) }}'
+          echo '```'
+        } | tee -a "$GITHUB_STEP_SUMMARY"
 
   check:
     needs: matrix
