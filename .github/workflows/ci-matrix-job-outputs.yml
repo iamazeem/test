@@ -19,7 +19,9 @@ jobs:
         echo "VALUE=$VALUE" | tee -a "$GITHUB_OUTPUT" "$GITHUB_STEP_SUMMARY"
         {
           echo '```json'
-          echo '${{ toJson(steps) }}'
+          cat "$GITHUB_OUTPUT"
+          echo
+          echo '${{ toJson(matrix) }}'
           echo '```'
         } | tee -a "$GITHUB_STEP_SUMMARY"
 
@@ -35,5 +37,7 @@ jobs:
           echo "VALUE=$VALUE"
           echo '```json'
           echo '${{ toJson(needs) }}'
+          echo
+          echo '${{ toJson(matrix) }}'
           echo '```'
         } | tee -a "$GITHUB_STEP_SUMMARY"
