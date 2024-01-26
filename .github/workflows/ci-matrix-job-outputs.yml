@@ -11,12 +11,12 @@ jobs:
     outputs:
       VALUE: ${{ steps.set.outputs.VALUE }}
     steps:
-    - name: Step [matrix.value=${{ matrix.value }}]
+    - name: Set [matrix.value=${{ matrix.value }}]
       id: set
       env:
         VALUE: ${{ matrix.value }}
       run: |
-        echo "VALUE=$VALUE" | tee -a "$GITHUB_OUTPUT"
+        echo "VALUE=$VALUE" | tee -a "$GITHUB_OUTPUT" "$GITHUB_STEP_SUMMARY"
 
   check:
     needs: matrix
