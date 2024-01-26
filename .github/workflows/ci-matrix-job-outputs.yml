@@ -28,5 +28,7 @@ jobs:
       run: |
         {
           echo "VALUE=$VALUE"
+          echo '```json'
           echo '${{ toJson(needs) }}'
+          echo '```'
         } | tee -a "$GITHUB_STEP_SUMMARY"
