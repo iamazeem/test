@@ -26,4 +26,7 @@ jobs:
       env:
         VALUE: ${{ needs.matrix.outputs.VALUE }}
       run: |
-        echo "VALUE=$VALUE" | tee -a "$GITHUB_STEP_SUMMARY"
+        {
+          echo "VALUE=$VALUE"
+          echo '${{ toJson(needs) }}'
+        } | tee -a "$GITHUB_STEP_SUMMARY"
