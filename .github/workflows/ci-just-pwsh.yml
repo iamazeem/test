@@ -1,0 +1,24 @@
+name: just_pwsh
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up just
+      uses: taiki-e/install-action@just
+
+    - name: Set up justfile
+      run: |
+        cat > justfile << 'EOF'
+        set shell := ["pwsh", "-c"]
+        hello:
+            echo "Hello!"
+        EOF
+        cat justfile
+
+    - name: Run
+      run: |
+        just -l
+        just
