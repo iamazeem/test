@@ -11,6 +11,7 @@ jobs:
       uses: taiki-e/install-action@just
 
     - name: Set up justfile
+      id: set-up-justfile
       run: |
         cat > justfile << 'EOF'
         set shell := ["pwsh", "-c"]
@@ -18,10 +19,13 @@ jobs:
             echo "Hello!"
         EOF
         {
-          cat justfile 
+          echo '```shell'
+          cat justfile
+          echo '```' 
         } | tee -a "$GITHUB_STEP_SUMMARY"
 
-    - name: Run
+    - name: Run just
+      id: run-just
       run: |
         {
           echo '```shell'
