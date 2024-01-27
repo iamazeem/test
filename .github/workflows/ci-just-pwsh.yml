@@ -17,11 +17,15 @@ jobs:
         hello:
             echo "Hello!"
         EOF
-        cat justfile
+        {
+          cat justfile 
+        } | tee -a "$GITHUB_STEP_SUMMARY"
 
     - name: Run
       run: |
         {
+          echo '```shell'
           just -l
           just
+          echo '```'
         } | tee -a "$GITHUB_STEP_SUMMARY"
