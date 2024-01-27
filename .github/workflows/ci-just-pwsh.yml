@@ -5,6 +5,7 @@ on: workflow_dispatch
 jobs:
   ci:
     runs-on: ubuntu-latest
+
     steps:
     - name: Set up just
       uses: taiki-e/install-action@just
@@ -20,5 +21,7 @@ jobs:
 
     - name: Run
       run: |
-        just -l
-        just
+        {
+          just -l
+          just
+        } | tee -a "$GITHUB_STEP_SUMMARY"
