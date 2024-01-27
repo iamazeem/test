@@ -6,6 +6,10 @@ jobs:
   ci:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        shell: pwsh
+
     steps:
     - name: Set up just
       uses: taiki-e/install-action@just
@@ -29,7 +33,7 @@ jobs:
       shell: bash
       run: |
         {
-          echo '*Output*'
+          echo '`$ just hello`'
           echo '```shell'
           just hello
           echo '```'
