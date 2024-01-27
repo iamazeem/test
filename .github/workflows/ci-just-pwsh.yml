@@ -19,6 +19,7 @@ jobs:
           Write-Output "Hello!"
         EOF
         {
+          echo '`justfile`'
           echo '```shell'
           cat justfile
           echo '```' 
@@ -28,14 +29,13 @@ jobs:
       shell: bash
       run: |
         {
+          echo '*Output*'
           echo '```shell'
-          just -l
-          just
+          just hello
           echo '```'
         } | tee -a "$GITHUB_STEP_SUMMARY"
 
     - name: Run just (pwsh)
       shell: pwsh
       run: |
-        just -l
-        just
+        just hello
