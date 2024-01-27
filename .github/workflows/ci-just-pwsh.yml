@@ -6,10 +6,6 @@ jobs:
   ci:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        shell: pwsh
-
     steps:
     - name: Set up just
       uses: taiki-e/install-action@just
