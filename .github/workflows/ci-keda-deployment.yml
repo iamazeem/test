@@ -12,11 +12,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check minikube
-      run: |
-        minikube version
-        minikube start
-        minikube status
+    - name: Start minikube
+      uses: medyagh/setup-minikube@latest
+      id: minikube
+      with:
+        minikube-version: 1.12.3
+        kubernetes-version: v1.16.4
+        driver: docker
+
+    # - name: Start minikube
+    #   run: |
+    #     minikube version
+    #     minikube start
+    #     minikube status
 
     - name: Deploy KEDA
       env:
@@ -31,7 +39,6 @@ jobs:
 
         echo "Set up keda"
         $KUBECTL apply -f $KEDA_DEPLOYMENT
-
         KEDA_NAMESPACE="keda"
         KEDA_DEPLOYMENTS=("keda-operator" "keda-metrics-apiserver")
         for deployment in "${KEDA_DEPLOYMENTS[@]}"; do
@@ -41,5 +48,11 @@ jobs:
               exit 1
             fi
         done
-
         echo "SUCCESS: keda is ready!"
+
+        $KUBECTL get pods -A
+
+        echo "Deleting keda deployment"
+        $KUBECTL delete -f $KEDA_DEPLOYMENT
+        echo
+        echo "--- [DONE] ---"
