@@ -12,14 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # - name: Start minikube
-    #   uses: medyagh/setup-minikube@latest
-    #   id: minikube
-    #   with:
-    #     minikube-version: 1.12.3
-    #     kubernetes-version: v1.16.4
-    #     driver: docker
-
     - name: Start minikube
       run: |
         minikube version
@@ -46,6 +38,7 @@ jobs:
             if ! $KUBECTL -n $KEDA_NAMESPACE rollout status --timeout=$TIMEOUT "deployment/$deployment"; then
               $KUBECTL -n $KEDA_NAMESPACE get pods
               $KUBECTL -n $KEDA_NAMESPACE describe pods
+              $KUBECTL -n $KEDA_NAMESPACE logs "deployment/$deployment"
               exit 1
             fi
         done
