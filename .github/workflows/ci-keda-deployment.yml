@@ -12,19 +12,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Start minikube
-      uses: medyagh/setup-minikube@latest
-      id: minikube
-      with:
-        minikube-version: 1.12.3
-        kubernetes-version: v1.16.4
-        driver: docker
-
     # - name: Start minikube
-    #   run: |
-    #     minikube version
-    #     minikube start
-    #     minikube status
+    #   uses: medyagh/setup-minikube@latest
+    #   id: minikube
+    #   with:
+    #     minikube-version: 1.12.3
+    #     kubernetes-version: v1.16.4
+    #     driver: docker
+
+    - name: Start minikube
+      run: |
+        minikube version
+        minikube start
+        minikube status
 
     - name: Deploy KEDA
       env:
