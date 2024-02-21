@@ -45,6 +45,7 @@ jobs:
             echo "Waiting for deployment/$deployment to be ready"
             if ! $KUBECTL -n $KEDA_NAMESPACE rollout status --timeout=$TIMEOUT "deployment/$deployment"; then
               $KUBECTL -n $KEDA_NAMESPACE get pods
+              $KUBECTL -n $KEDA_NAMESPACE describe pods
               exit 1
             fi
         done
