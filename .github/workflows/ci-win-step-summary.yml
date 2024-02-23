@@ -8,12 +8,14 @@ jobs:
     steps:
     - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- Step 1"
     - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- Step 2"
+    - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- Step 3"
 
   job2:
       runs-on: windows-latest
       steps:
       - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- Step 1"
       - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- Step 2"
+      - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- Step 3"
       - run: |
           $summary = Get-Content -Path $env:GITHUB_STEP_SUMMARY
-          "$summary\n- Step 3 (overwritten)" > $env:GITHUB_STEP_SUMMARY
+          "$summary`n- Step 4 (overwritten)" > $env:GITHUB_STEP_SUMMARY
