@@ -6,6 +6,7 @@ jobs:
   job1:
     runs-on: windows-latest
     steps:
+    - run: Get-Content -Path $env:GITHUB_STEP_SUMMARY
     - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- Step 1"
     - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- Step 2"
     - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- Step 3"
@@ -13,6 +14,7 @@ jobs:
   job2:
       runs-on: windows-latest
       steps:
+      - run: Get-Content -Path $env:GITHUB_STEP_SUMMARY
       - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- Step 1"
       - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- Step 2"
       - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- Step 3"
