@@ -26,7 +26,7 @@ jobs:
   job3:
     runs-on: windows-latest
     steps:
-    - run: '"# Job 1"  | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append'
+    - run: '"# Job 3"  | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append'
     - run: '"- Step 1" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append'
     - run: '"- Step 2" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append'
     - run: '"- Step 3" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append'
@@ -37,7 +37,15 @@ jobs:
       run:
         shell: bash
     steps:
-    - run: echo "# Job 1"  >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "# Job 4"  >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "- Step 1" >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "- Step 2" >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "- Step 3" >> "$GITHUB_STEP_SUMMARY"
+
+  job5:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "# Job 5"  >> "$GITHUB_STEP_SUMMARY"
     - run: echo "- Step 1" >> "$GITHUB_STEP_SUMMARY"
     - run: echo "- Step 2" >> "$GITHUB_STEP_SUMMARY"
     - run: echo "- Step 3" >> "$GITHUB_STEP_SUMMARY"
