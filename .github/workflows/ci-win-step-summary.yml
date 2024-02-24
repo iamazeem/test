@@ -37,7 +37,7 @@ jobs:
       run:
         shell: bash
     steps:
-    - run: '"# Job 1"  >> "$GITHUB_STEP_SUMMARY"'
-    - run: '"- Step 1" >> "$GITHUB_STEP_SUMMARY"'
-    - run: '"- Step 2" >> "$GITHUB_STEP_SUMMARY"'
-    - run: '"- Step 3" >> "$GITHUB_STEP_SUMMARY"'
+    - run: echo "# Job 1"  >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "- Step 1" >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "- Step 2" >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "- Step 3" >> "$GITHUB_STEP_SUMMARY"
