@@ -3,57 +3,45 @@ name: win_step_summary
 on: workflow_dispatch
 
 jobs:
-  job1:
-    runs-on: windows-latest
-    steps:
-    - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "# Job 1"
-    - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- Step 1"
-    - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- Step 2"
-    - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- Step 3"
-
-  job2:
+  win-add-content:
       runs-on: windows-latest
       steps:
-      - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "# Job 2"
-      - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- Step 1"
-      - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- Step 2"
-      - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- Step 3"
-      - run: |
-          # $summary = Get-Content -Path $env:GITHUB_STEP_SUMMARY -Encoding utf8
-          # "$summary`n- Step 4 (overwritten)" > $env:GITHUB_STEP_SUMMARY
-          "- Step 4 (overwritten)" > $env:GITHUB_STEP_SUMMARY
+      - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "# Heading"
+      - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- Item  1"
+      - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- Item  2"
+      - run: Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- Item  3"
 
-  job3:
+  win-out-file:
     runs-on: windows-latest
     steps:
-    - run: '"# Job 3"  | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append'
-    - run: '"- Step 1" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append'
-    - run: '"- Step 2" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append'
-    - run: '"- Step 3" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append'
+    - run: '"# Heading" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append'
+    - run: '"- Item  1" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append'
+    - run: '"- Item  2" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append'
+    - run: '"- Item  3" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append'
 
-  job4:
+  win-bash:
     runs-on: windows-latest
     defaults:
       run:
         shell: bash
     steps:
-    - run: echo "# Job 4"  >> "$GITHUB_STEP_SUMMARY"
-    - run: echo "- Step 1" >> "$GITHUB_STEP_SUMMARY"
-    - run: echo "- Step 2" >> "$GITHUB_STEP_SUMMARY"
-    - run: echo "- Step 3" >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "# Heading" >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "- Item  1" >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "- Item  2" >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "- Item  3" >> "$GITHUB_STEP_SUMMARY"
 
-  job5:
+  ubuntu-bash:
     runs-on: ubuntu-latest
     steps:
-    - run: echo "# Job 5"  >> "$GITHUB_STEP_SUMMARY"
-    - run: echo "- Step 1" >> "$GITHUB_STEP_SUMMARY"
-    - run: echo "- Step 2" >> "$GITHUB_STEP_SUMMARY"
-    - run: echo "- Step 3" >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "# Heading" >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "- Item  1" >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "- Item  2" >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "- Item  3" >> "$GITHUB_STEP_SUMMARY"
 
-  job6:
+  macos-bash:
     runs-on: macos-latest
     steps:
-    - run: echo "# Job 6"  >> "$GITHUB_STEP_SUMMARY"
-    - run: echo "- Step 1" >> "$GITHUB_STEP_SUMMARY"
-    - run: echo "- Step 2" >> "$GITHUB_STEP_SUMMARY"
-    - run: echo "- Step 3" >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "# Heading" >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "- Item  1" >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "- Item  2" >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "- Item  3" >> "$GITHUB_STEP_SUMMARY"
