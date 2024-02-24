@@ -21,4 +21,4 @@ jobs:
       - run: |
           # $summary = Get-Content -Path $env:GITHUB_STEP_SUMMARY -Encoding utf8
           # "$summary`n- Step 4 (overwritten)" > $env:GITHUB_STEP_SUMMARY
-          "`n- Step 4 (overwritten)" > $env:GITHUB_STEP_SUMMARY
+          "- Step 4 (overwritten)" > $env:GITHUB_STEP_SUMMARY
