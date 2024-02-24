@@ -49,3 +49,11 @@ jobs:
     - run: echo "- Step 1" >> "$GITHUB_STEP_SUMMARY"
     - run: echo "- Step 2" >> "$GITHUB_STEP_SUMMARY"
     - run: echo "- Step 3" >> "$GITHUB_STEP_SUMMARY"
+
+  job6:
+    runs-on: macos-latest
+    steps:
+    - run: echo "# Job 6"  >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "- Step 1" >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "- Step 2" >> "$GITHUB_STEP_SUMMARY"
+    - run: echo "- Step 3" >> "$GITHUB_STEP_SUMMARY"
