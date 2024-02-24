@@ -30,4 +30,14 @@ jobs:
     - run: '"- Step 1" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append'
     - run: '"- Step 2" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append'
     - run: '"- Step 3" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append'
-    - run: Get-Content -Path $env:GITHUB_STEP_SUMMARY
+
+  job4:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - run: '"# Job 1"  >> "$GITHUB_STEP_SUMMARY"'
+    - run: '"- Step 1" >> "$GITHUB_STEP_SUMMARY"'
+    - run: '"- Step 2" >> "$GITHUB_STEP_SUMMARY"'
+    - run: '"- Step 3" >> "$GITHUB_STEP_SUMMARY"'
