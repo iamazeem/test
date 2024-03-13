@@ -1,0 +1,15 @@
+name: win_curl_jags
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: windows-latest
+
+    steps:
+    - name: Install jags (Windows)
+      shell: cmd
+      run: |
+        curl.exe --ca-native -o wjags.exe --url https://deac-fra.dl.sourceforge.net/project/mcmc-jags/JAGS/4.x/Windows/JAGS-4.3.1.exe
+        wjags.exe /S
+        del wjags.exe
