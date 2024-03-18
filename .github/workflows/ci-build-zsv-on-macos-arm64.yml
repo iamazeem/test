@@ -38,6 +38,9 @@ jobs:
         ./scripts/ci-build.sh
         ./$PREFIX/bin/zsv version
 
+    - name: Prepare build artifacts for upload
+      run: ./scripts/ci-prepare-artifacts-for-upload.sh
+
     - name: Upload (zsv-${{ env.TAG }}-${{ env.ARM64_MACOSX_GCC }}.zip)
       if: matrix.os == 'macos-14'
       uses: actions/upload-artifact@v4
