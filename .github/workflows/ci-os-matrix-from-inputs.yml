@@ -24,7 +24,8 @@ jobs:
     steps:
     - name: Check
       run: |
-        echo "${{ format('[{0}{1}{2}]', 'ubuntu-latest', 'a', 'b') }}"
+        echo "${{ format('Hello {0} {1} {2}', 'Mona', 'the', 'Octocat') }}"
+        # echo "${{ format('[{0}{1}{2}]', 'ubuntu-latest', 'a', 'b') }}"
         # echo
         # echo '${{ fromJson(format('[{0}{1}{2}]', 'ubuntu-latest', '', '')) }}'
         # echo
