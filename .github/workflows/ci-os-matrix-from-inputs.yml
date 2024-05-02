@@ -17,7 +17,7 @@ jobs:
   ci:
     strategy:
       matrix:
-        os: ${{ inputs.os }}
+        os: ${{ toJson(fromJson(inputs.os)) }}
     runs-on: ${{ matrix.os }}
 
     steps:
