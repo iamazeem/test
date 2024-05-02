@@ -26,9 +26,4 @@ jobs:
       env:
         TEST: ${{ format('Hello {0} {1} {2}', 'Mona', 'the', 'Octocat') }}
       run: |
-        echo "$TESt"
-        # echo "${{ format('[{0}{1}{2}]', 'ubuntu-latest', 'a', 'b') }}"
-        # echo
-        # echo '${{ fromJson(format('[{0}{1}{2}]', 'ubuntu-latest', '', '')) }}'
-        # echo
-        # echo '${{ toJson(fromJson(format('[{0}{1}{2}]', 'ubuntu-latest', '', ''))) }}'
+        echo "$TEST"
