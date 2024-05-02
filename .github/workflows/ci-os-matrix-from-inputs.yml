@@ -12,15 +12,20 @@ on:
       windows:
         required: true
         type: boolean
-  
 
 jobs:
   ci:
-    strategy:
-      matrix:
-        os: ${{ fromJson(format('[{0}{1}{2}]', 'ubuntu-latest', '', '')) }}
-    runs-on: ${{ matrix.os }}
+    # strategy:
+    #   matrix:
+    #     os: ${{ fromJson(format('[{0}{1}{2}]', 'ubuntu-latest', '', '')) }}
+    # runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     steps:
-    - name: matrix.os
-      run: echo '${{ matrix.os }}'
+    - name: Check
+      run: |
+        echo '${{ format('[{0}{1}{2}]', 'ubuntu-latest', '', '') }}'
+        echo
+        echo '${{ fromJson(format('[{0}{1}{2}]', 'ubuntu-latest', '', '')) }}'
+        echo
+        echo '${{ toJson(fromJson(format('[{0}{1}{2}]', 'ubuntu-latest', '', ''))) }}'
