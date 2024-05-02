@@ -18,10 +18,7 @@ jobs:
   ci:
     strategy:
       matrix:
-        os:
-        - ${{ inputs.ubuntu && 'ubuntu-latest' || null }}
-        - ${{ inputs.macos && 'macos-latest' || null }}
-        - ${{ inputs.windows && 'windows-latest' || null }}
+        os: ${{ fromJson(format('[{0}{1}{2}]', inputs.ubuntu && 'ubuntu-latest', '', '')) }}
     runs-on: ${{ matrix.os }}
 
     steps:
