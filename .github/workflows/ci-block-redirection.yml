@@ -1,0 +1,58 @@
+name: block_redirection
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Block Redirect 1 (GITHUB_ENV) - set
+      run: |
+        {
+          echo "ENV1=env1" >>"$GITHUB_ENV"
+          echo "ENV2=env2" >>"$GITHUB_ENV"
+        }
+
+    - name: Block Redirect 1 (GITHUB_ENV) - get
+      run: |
+        echo "ENV1=$ENV1"
+        echo "ENV2=$ENV2"
+
+    - name: Block Redirect 2 (GITHUB_ENV) - set
+      run: |
+        {
+          echo "ENV3=env3" >>"$GITHUB_ENV"
+          echo "ENV4=env4" >>"$GITHUB_ENV"
+        }
+
+    - name: Block Redirect 2 (GITHUB_ENV) - get
+      run: |
+        echo "ENV3=$ENV3"
+        echo "ENV4=$ENV4"
+
+    - name: Block Redirect 1 (GITHUB_OUTPUT) - set
+      id: r1
+      run: |
+        {
+          echo "OUT1=out1" >>"$GITHUB_OUTPUT"
+          echo "OUT2=out2" >>"$GITHUB_OUTPUT"
+        }
+
+    - name: Block Redirect 1 (GITHUB_OUTPUT) - get
+      run: |
+        echo "OUT1=${{ steps.r1.outputs.OUT1 }}"
+        echo "OUT2=${{ steps.r1.outputs.OUT2 }}"
+
+    - name: Block Redirect 2 (GITHUB_OUTPUT) - set
+      id: r2
+      run: |
+        {
+          echo "OUT3=out3" >>"$GITHUB_OUTPUT"
+          echo "OUT4=out4" >>"$GITHUB_OUTPUT"
+        }
+
+    - name: Block Redirect 2 (GITHUB_OUTPUT) - get
+      run: |
+        echo "OUT3=${{ steps.r2.outputs.OUT3 }}"
+        echo "OUT4=${{ steps.r2.outputs.OUT4 }}"
