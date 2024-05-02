@@ -7,26 +7,20 @@ on:
         description: Select OS
         type: choice
         options:
-        - "ubuntu-latest"
-        - "windows-latest"
-        - "macos-latest"
-        - ubuntu-latest, macos-latest, windows-latest
-        default: ubuntu-latest
+        - '["ubuntu-latest"]'
+        - '["windows-latest"]'
+        - '["macos-latest"]'
+        - '["ubuntu-latest", "macos-latest", "windows-latest"]'
+        default: '["ubuntu-latest"]'
         required: true
 
 jobs:
   ci:
-    # strategy:
-    #   matrix:
-    #     os: ${{ fromJson(format('[{0}{1}{2}]', 'ubuntu-latest', '', '')) }}
-    # runs-on: ${{ matrix.os }}
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: ${{ fromJson(inputs.os) }}
+    runs-on: ${{ matrix.os }}
 
     steps:
     - name: Check
-      env:
-        OS: ${{ format('[{0}]', inputs.os) }}
-        OS_JSON: ${{ toJson(fromJson('["ubuntu","macos","windows"]')) }}
-      run: |
-        echo "$OS"
-        echo "$OS_JSON"
+      run: echo '${{ inputs.os }} | ${{ matrix.os }}'
