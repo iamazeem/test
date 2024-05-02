@@ -23,6 +23,7 @@ jobs:
 
     steps:
     - name: Check
+      env:
+        OS: ${{ format('[{0}{1}{2}]', inputs.ubuntu && 'ubuntu-latest' , '', '') }}
       run: |
-        echo "${{ format('Hello {0} {1} {2}', 'Mona', 'the', 'Octocat') }}"
-        echo "${{ format('[{0}{1}{2}]', 'ubuntu-latest', 'a', 'b') }}"
+        echo "$OS"
