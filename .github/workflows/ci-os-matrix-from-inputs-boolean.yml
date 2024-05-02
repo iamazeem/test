@@ -1,0 +1,34 @@
+name: os_matrix_from_inputs_boolean
+
+on:
+  workflow_dispatch:
+    inputs:
+      ubuntu:
+        description: Ubuntu
+        type: boolean
+        required: true
+        default: true
+      macos:
+        description: MacOS
+        type: boolean
+        required: false
+        default: false
+      windows:
+        description: Windows
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  ci:
+    # strategy:
+    #   matrix:
+    #     os: ${{ fromJson(inputs.os) }}
+    # runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check
+      env:
+        JSON: ${{ join('a b c') }}
+      run: echo "$JSON"
