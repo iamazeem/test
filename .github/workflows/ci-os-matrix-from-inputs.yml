@@ -3,15 +3,16 @@ name: os_matrix_from_inputs
 on:
   workflow_dispatch:
     inputs:
-      ubuntu:
+      os:
+        description: Select OS
+        type: choice
+        options:
+        - ubuntu-latest
+        - windows-latest
+        - macos-latest
+        - ubuntu-latest, macos-latest, windows-latest
+        default: ubuntu-latest
         required: true
-        type: boolean
-      macos:
-        required: true
-        type: boolean
-      windows:
-        required: true
-        type: boolean
 
 jobs:
   ci:
@@ -24,6 +25,8 @@ jobs:
     steps:
     - name: Check
       env:
-        OS: ${{ format('[{0}{1}{2}]', inputs.ubuntu && 'ubuntu-latest' , '', '') }}
+        OS: ${{ format('[{0}]', inputs.os) }}
+        OS_JSON: ${{ fromJson(format('[{0}]', inputs.os)) }}
       run: |
         echo "$OS"
+        echo "$OS_JSON"
