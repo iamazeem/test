@@ -3,23 +3,27 @@ name: os_matrix_from_inputs
 on:
   workflow_dispatch:
     inputs:
-      os:
-        description: 'OS'
-        type: choice
-        options:
-        - "[ubuntu-latest]"
-        - "[windows-latest]"
-        - "[macos-latest]"
-        - "[ubuntu-latest, windows-latest, macos-latest]"
-        default: "[ubuntu-latest]"
+      ubuntu:
+        required: true
+        type: boolean
+      macos:
+        required: true
+        type: boolean
+      windows:
+        required: true
+        type: boolean
+  
 
 jobs:
   ci:
     strategy:
       matrix:
-        os: ${{ toJson(inputs.os) }}
+        os:
+        - ${{ inputs.ubuntu && 'ubuntu-latest' }}
+        - ${{ inputs.macos && 'macos-latest' }}
+        - ${{ inputs.windows && 'windows-latest' }}
     runs-on: ${{ matrix.os }}
 
     steps:
-    - name: Print
-      run: echo '${{ runner.os }}'
+    - name: matrix.os
+      run: echo '${{ matrix.os }}'
