@@ -26,7 +26,7 @@ jobs:
     - name: Check
       env:
         OS: ${{ format('[{0}]', inputs.os) }}
-        OS_JSON: ${{ fromJson(format('[{0}]', inputs.os)) }}
+        OS_JSON: ${{ toJson(format('[{0}]', inputs.os)) }}
       run: |
         echo "$OS"
         echo "$OS_JSON"
