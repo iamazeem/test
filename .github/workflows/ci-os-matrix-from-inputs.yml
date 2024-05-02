@@ -7,17 +7,17 @@ on:
         description: 'OS'
         type: choice
         options:
-        - '[ubuntu-latest]'
-        - '[windows-latest]'
-        - '[macos-latest]'
-        - '[ubuntu-latest, windows-latest, macos-latest]'
-        default: '[ubuntu-latest]'
+        - ubuntu-latest
+        - windows-latest
+        - macos-latest
+        - ubuntu-latest, windows-latest, macos-latest
+        default: ubuntu-latest
 
 jobs:
   ci:
     strategy:
       matrix:
-        os: ${{ fromJson(inputs.os) }}
+        os: ${{ fromJson(format('[{0}]', inputs.os)) }}
     runs-on: ${{ matrix.os }}
 
     steps:
