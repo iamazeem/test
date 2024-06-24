@@ -25,7 +25,7 @@ jobs:
       run: pwd && ls -Gghl
 
     - name: Build iamazeem/cwm-keda-external-scaler
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         context: ./repoB
         tags: iamazeem/cwm-keda-external-scaler:latest
