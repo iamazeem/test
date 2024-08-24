@@ -1,0 +1,28 @@
+name: set_output_or
+
+on: workflow_dispatch
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+
+    outputs:
+      TAG: ${{ steps.tag.outputs.TAG || '0.0.0' }}
+
+    steps:
+    - name: Set tag
+      if: startsWith(github.ref, 'refs/tags/v')
+      id: tag
+      shell: bash
+      run: echo "TAG=$GITHUB_REF_NAME" >> "$GITHUB_OUTPUT"
+
+  ci:
+    needs: [tag]
+    runs-on: ubuntu-latest
+
+    env:
+      TAG: ${{ needs.tag.outputs.TAG }}
+
+    steps:
+    - name: Check
+      run: echo "$TAG"
