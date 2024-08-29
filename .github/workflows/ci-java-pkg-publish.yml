@@ -11,25 +11,32 @@ jobs:
       packages: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout [${{ github.repository }}]
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-java@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
         with:
           java-version: '11'
-          distribution: 'adopt'
+          distribution: 'temurin'
 
-      # https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry
-      - name: Publish Package
+      # # https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry
+      # - name: Publish Package
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   shell: bash
+      #   run: |
+      #     cd java/test
+      #     mvn package --batch-mode
+      #     java -cp target/test-1.0.jar test.Test
+      #     mvn deploy:deploy-file --batch-mode \
+      #       -DgroupId=test -DartifactId=test \
+      #       -Dversion=1.0 \
+      #       -Dfile=target/test-1.0.jar \
+      #       -DrepositoryId=github \
+      #       -Durl=https://maven.pkg.github.com/${{ github.repository }}
+
+      - name: Publish package
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        shell: bash
-        run: |
-          cd java/test
-          mvn package --batch-mode
-          java -cp target/test-1.0.jar test.Test
-          mvn deploy:deploy-file --batch-mode \
-            -DgroupId=test -DartifactId=test \
-            -Dversion=1.0 \
-            -Dfile=target/test-1.0.jar \
-            -DrepositoryId=github \
-            -Durl=https://maven.pkg.github.com/${{ github.repository }}
+        run: mvn --batch-mode deploy
