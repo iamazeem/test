@@ -1,4 +1,4 @@
-name: java-pkg-publish
+name: java_pkg_publish
 
 on: workflow_dispatch
 
@@ -39,4 +39,6 @@ jobs:
       - name: Publish package
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: mvn --batch-mode deploy
+        run: |
+          cd java/test
+          mvn --batch-mode deploy
