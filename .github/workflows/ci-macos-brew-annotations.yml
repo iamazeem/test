@@ -1,0 +1,12 @@
+name: macos_brew_annotations
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: macos-13
+
+    steps:
+    - name: Install
+      run: |
+        brew install --quiet autoconf libtool
