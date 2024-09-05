@@ -9,7 +9,7 @@ jobs:
     steps:
     - name: Test
       env:
-        CC: gcc-12
+        CC: clang
       run: |
         echo 'int main() { return 0; }' > test.c
         echo '-march=native'
