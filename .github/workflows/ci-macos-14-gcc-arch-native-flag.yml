@@ -9,7 +9,7 @@ jobs:
     steps:
     - name: Test
       env:
-        CC: clang
+        CC: gcc-13
       run: |
         $CC --version
         echo 'int main() { return 0; }' > test.c
