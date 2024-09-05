@@ -1,0 +1,26 @@
+name: macos_14_gcc_arch_native_flag
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: macos-14
+
+    steps:
+    - name: Test
+      env:
+        CC: gcc-12
+      run: |
+        echo 'int main() { return 0; }' > test.c
+        echo '-march=native'
+        if ! $CC -march=native -c -o test.o test.c; then
+          echo "ERROR!"
+        else
+          echo "DONE!"
+        fi
+        echo '-march=none'
+        if ! $CC -march=none -c -o test.o test.c; then
+          echo "ERROR!"
+        else
+          echo "DONE!"
+        fi
