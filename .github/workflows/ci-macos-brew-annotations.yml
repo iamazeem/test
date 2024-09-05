@@ -9,4 +9,4 @@ jobs:
     steps:
     - name: Install
       run: |
-        brew install --quiet autoconf libtool123
+        brew install --quiet autoconf libtool
