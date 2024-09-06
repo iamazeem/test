@@ -1,0 +1,18 @@
+name: install_sqlpackage
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install sqlpackage
+      run: |
+        wget https://aka.ms/sqlpackage-linux -O sqlpackage.zip
+        unzip sqlpackage.zip -d sqlpackage
+        chmod +x sqlpackage/sqlpackage
+        echo "$PWD/sqlpackage" >> $GITHUB_PATH
+
+    - name: Check sqlpackage
+      run: sqlpackage -version
