@@ -12,7 +12,7 @@ jobs:
         run: |
           echo 'TEST=123' >> "$GITHUB_ENV"
           echo 'TEST=123' >> "$GITHUB_OUTPUT"
-          echo 'TEST=123' >> "$GITHUB_SETP_SUMMARY"
+          echo 'TEST=123' >> "$GITHUB_STEP_SUMMARY"
 
       - name: Get
         run: |
