@@ -1,0 +1,21 @@
+name: env_files
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set
+        id: set
+        run: |
+          echo 'TEST=123' >> "$GITHUB_ENV"
+          echo 'TEST=123' >> "$GITHUB_OUTPUT"
+          echo 'TEST=123' >> "$GITHUB_SETP_SUMMARY"
+
+      - name: Get
+        run: |
+          cat "$GITHUB_ENV"
+          cat "$GITHUB_OUTPUT"
+          cat "$GITHUB_SETP_SUMMARY"
