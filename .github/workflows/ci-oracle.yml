@@ -1,0 +1,20 @@
+name: oracle
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set up Oracle container
+      uses: gvenzl/setup-oracle-free@v1
+      with:
+        container-name: oracle
+        container-runtime: docker
+        app-user: app_user
+        app-user-password: app_user_password
+        startup-scripts: ${{ github.workspace }}/oracle
