@@ -20,6 +20,4 @@ jobs:
         startup-scripts: ${{ github.workspace }}/oracle
 
     - name: Check Oracle container
-      run: |
-        echo "running? $(docker inspect -f {{.State.Running}} oracle)"
-        echo "healthy? $(docker inspect -f {{.State.Health}} oracle)"
+      run: echo "running? $(docker inspect -f {{.State.Running}} oracle)"
