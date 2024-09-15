@@ -26,4 +26,5 @@ jobs:
           excel.Quit()
 
       - name: Check
+        shell: bash
         run: ls -hl
