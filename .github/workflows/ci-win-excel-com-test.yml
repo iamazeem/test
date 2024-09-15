@@ -7,24 +7,29 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Setup
-        run: |
-          choco install office365business
-          pip install pywin32
-          python --version
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12.3'
 
-      - name: Run Python script
-        shell: python
-        run: |
-          import os
-          import win32com.client as win32
+    - name: Install Office
+      run: choco install office365business --params "'/productid:ExcelRetail /updates:FALSE'"
 
-          excel = win32.Dispatch("Excel.Application")
-          workbook = excel.Workbooks.Add()
-          workbook.SaveAs(os.getcwd() + '\\Created.xlsx')
-          workbook.Close()
-          excel.Quit()
+    - name: Install pywin32 
+      run: pip install pywin32
 
-      - name: Check
-        shell: bash
-        run: ls -hl
+    - name: Run Python script
+      shell: python
+      run: |
+        import os
+        import win32com.client as win32
+
+        excel = win32.Dispatch("Excel.Application")
+        workbook = excel.Workbooks.Add()
+        workbook.SaveAs(os.getcwd() + '\\Created.xlsx')
+        workbook.Close()
+        excel.Quit()
+
+    - name: Check
+      shell: bash
+      run: ls -hl
