@@ -28,8 +28,8 @@ jobs:
         import win32com.client as win32
         from PIL import ImageGrab
 
-        input_file = os.getcwd() + "sample.xlsx"
-        output_file = os.getcwd() + "sample.png"
+        input_file = os.path.join(os.getcwd(), "sample.xlsx")
+        output_file = os.path.join(os.getcwd(), "sample.png")
 
         try:
           excel = win32.Dispatch("Excel.Application")
