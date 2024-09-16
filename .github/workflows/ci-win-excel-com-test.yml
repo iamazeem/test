@@ -28,7 +28,7 @@ jobs:
         import win32com.client as win32
         from PIL import ImageGrab
 
-        input_file = os.path.join(os.getcwd(), "sample.xlsx")
+        input_file = os.path.join(os.getcwd(), "sample2.xlsx")
         output_file = os.path.join(os.getcwd(), "sample.png")
 
         try:
