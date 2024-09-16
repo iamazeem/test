@@ -19,7 +19,7 @@ jobs:
       run: choco install office365business --params "'/productid:ExcelRetail /updates:FALSE'"
 
     - name: Install pywin32 
-      run: pip install pywin32
+      run: pip install pywin32 ImageGrab pillow
 
     - name: Run Python script
       shell: python
