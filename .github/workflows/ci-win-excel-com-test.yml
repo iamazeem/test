@@ -7,12 +7,15 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Setup Python
+    - name: Checkout [${{ github.repository }}]
+      uses: actions/checkout@v4
+
+    - name: Setup Python 3.12.3
       uses: actions/setup-python@v5
       with:
         python-version: '3.12.3'
 
-    - name: Install Office
+    - name: Install Office 365 Business
       run: choco install office365business --params "'/productid:ExcelRetail /updates:FALSE'"
 
     - name: Install pywin32 
@@ -23,13 +26,35 @@ jobs:
       run: |
         import os
         import win32com.client as win32
+        from PIL import ImageGrab
 
-        excel = win32.Dispatch("Excel.Application")
-        workbook = excel.Workbooks.Add()
-        workbook.SaveAs(os.getcwd() + '\\Created.xlsx')
-        workbook.Close()
-        excel.Quit()
+        try:
+          excel = win32.Dispatch("Excel.Application")
+          excel.Visible = False
+          workbook = excel.Workbooks.Open("sample.xlsx")
+          worksheet = wb.Worksheets("Sheet1")
+          range = worksheet.UsedRange
+          range.CopyPicture(Format=2)
+          workbook.Close(True)
+          excel.Quit()
+
+          image = ImageGrab.grabclipboard()
+          if image is None:
+            print("[ERR] Image not found in clipboard!")
+          else:
+            image.save("sample.png", "PNG")
+            print("[ERR] Image saved successfully!")
+        except Exception as e:
+          print("[ERR] Failed to export image!")
+          raise e
 
     - name: Check
       shell: bash
-      run: ls -hl
+      run: ls -hl sample*
+
+    - name: Upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: sample.png
+        path: sample.png
+        if-no-files-found: error
