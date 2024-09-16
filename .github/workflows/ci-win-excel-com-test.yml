@@ -28,21 +28,24 @@ jobs:
         import win32com.client as win32
         from PIL import ImageGrab
 
+        input_file = os.getcwd() + "sample.xlsx"
+        output_file = os.getcwd() + "sample.png"
+
         try:
           excel = win32.Dispatch("Excel.Application")
           excel.Visible = False
-          workbook = excel.Workbooks.Open("sample.xlsx")
+          workbook = excel.Workbooks.Open(input_file, ReadOnly=True)
           worksheet = wb.Worksheets("Sheet1")
           range = worksheet.UsedRange
-          range.CopyPicture(Format=2)
-          workbook.Close(True)
+          range.CopyPicture(Appearance=1, Format=2)
+          workbook.Close(SaveChanges=False)
           excel.Quit()
 
           image = ImageGrab.grabclipboard()
           if image is None:
             print("[ERR] Image not found in clipboard!")
           else:
-            image.save("sample.png", "PNG")
+            image.save(output_file, "PNG")
             print("[ERR] Image saved successfully!")
         except Exception as e:
           print("[ERR] Failed to export image!")
