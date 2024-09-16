@@ -35,7 +35,7 @@ jobs:
           excel = win32.Dispatch("Excel.Application")
           excel.Visible = False
           workbook = excel.Workbooks.Open(input_file, ReadOnly=True)
-          worksheet = wb.Worksheets("Sheet1")
+          worksheet = workbook.Worksheets("Sheet1")
           range = worksheet.UsedRange
           range.CopyPicture(Appearance=1, Format=2)
           workbook.Close(SaveChanges=False)
