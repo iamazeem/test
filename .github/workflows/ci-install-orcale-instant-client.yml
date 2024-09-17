@@ -1,0 +1,42 @@
+name: install_orcale_instant_client
+
+on: workflow_dispatch
+
+jobs:
+  install:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        # os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: Install
+      run: |
+        echo "RUNNER_OS: $RUNNER_OS"
+        echo "RUNNER_ARCH: $RUNNER_ARCH"
+
+        if [[ $RUNNER_OS == "Linux" && $RUNNER_ARCH == "X64" ]]; then
+          sudo apt update
+          sudo apt install -y libaio1 alien
+
+          wget https://download.oracle.com/otn_software/linux/instantclient/oracle-instantclient-basic-linuxx64.rpm
+          wget https://download.oracle.com/otn_software/linux/instantclient/oracle-instantclient-sqlplus-linuxx64.rpm
+
+          sudo alien -i oracle-instantclient-basic-linuxx64.rpm
+          sudo alien -i oracle-instantclient-sqlplus-linuxx64.rpm
+
+          whereis sqlplus
+          sqlplus -h
+        elif [[ $RUNNER_OS == "macOS" ]]; then
+
+        elif [[ $RUNNER_OS == "Windows" ]]; then
+
+        else
+          echo "[ERR] Unsupported OS [$RUNNER_OS]!"
+          exit 1
+        fi
