@@ -45,6 +45,11 @@ jobs:
           echo "[INF] Setting path... [$INSTALL_DIR_PATH]"
           echo "$INSTALL_DIR_PATH" >> "$GITHUB_PATH"
 
+          # echo "LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH:$INSTALL_DIR_PATH\"" >> ~/.bashrc
+
+          sudo echo "$INSTALL_DIR_PATH" >> /etc/ld.so.conf.d/oracle-instantclient.conf
+          sudo ldconfig
+
           echo "[INF] Installed successfully!"
         elif [[ $RUNNER_OS == "macOS" && $RUNNER_ARCH == "X64" ]]; then
           echo "[INF] Installing on macOS..."
