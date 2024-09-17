@@ -36,10 +36,12 @@ jobs:
           INSTALL_BASE_DIR="$RUNNER_TEMP/oracle-instantclient"
 
           for ZIP in instantclient-*.zip; do
-            unzip -o "$ZIP" -d "$INSTALL_BASE_DIR"
+            unzip -q -o "$ZIP" -d "$INSTALL_BASE_DIR"
           done
 
-          INSTALL_DIR_PATH="$(realpath "$INSTALL_BASE_DIR/instantclient_*")"
+          INSTALL_DIR_PATH="$(realpath "$INSTALL_BASE_DIR"/instantclient_*)"
+          tree "$INSTALL_DIR_PATH"
+
           echo "[INF] Setting path... [$INSTALL_DIR_PATH]"
           echo "$INSTALL_DIR_PATH" >> "$GITHUB_PATH"
 
