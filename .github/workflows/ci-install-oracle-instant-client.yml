@@ -23,17 +23,27 @@ jobs:
         if [[ $RUNNER_OS == "Linux" && $RUNNER_ARCH == "X64" ]]; then
           echo "[INF] Installing on Linux..."
 
-          sudo apt update
-          sudo apt install -y libaio1 alien
+          URLS=(
+            https://download.oracle.com/otn_software/linux/instantclient/instantclient-basic-linuxx64.zip
+            https://download.oracle.com/otn_software/linux/instantclient/instantclient-sqlplus-linuxx64.zip
+          )
 
-          wget https://download.oracle.com/otn_software/linux/instantclient/oracle-instantclient-basic-linuxx64.rpm
-          wget https://download.oracle.com/otn_software/linux/instantclient/oracle-instantclient-sqlplus-linuxx64.rpm
+          for URL in "${URLS[@]}"; do
+            echo "[INF] Downloading archive... [URL: $URL]"
+            wget -q "$URL"
+          done
 
-          sudo alien -i oracle-instantclient-basic-linuxx64.rpm
-          sudo alien -i oracle-instantclient-sqlplus-linuxx64.rpm
+          INSTALL_BASE_DIR="$RUNNER_TEMP/oracle-instantclient"
 
-          whereis sqlplus
-          sqlplus -h
+          for ZIP in instantclient-*.zip; do
+            unzip -o "$ZIP" -d "$INSTALL_BASE_DIR"
+          done
+
+          INSTALL_DIR_PATH="$(realpath "$INSTALL_BASE_DIR/instantclient_*")"
+          echo "[INF] Setting path... [$INSTALL_DIR_PATH]"
+          echo "$INSTALL_DIR_PATH" >> "$GITHUB_PATH"
+
+          echo "[INF] Installed successfully!"
         elif [[ $RUNNER_OS == "macOS" && $RUNNER_ARCH == "X64" ]]; then
           echo "[INF] Installing on macOS..."
         elif [[ $RUNNER_OS == "Windows" && $RUNNER_ARCH == "X64" ]]; then
@@ -42,3 +52,6 @@ jobs:
           echo "[ERR] Unsupported OS and/or architecture!"
           exit 1
         fi
+
+    - name: Check
+      run: sqlplus -V
