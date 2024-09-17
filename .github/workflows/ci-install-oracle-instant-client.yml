@@ -33,7 +33,7 @@ jobs:
             wget -q "$URL"
           done
 
-          INSTALL_BASE_DIR="$RUNNER_TEMP/oracle-instantclient"
+          INSTALL_BASE_DIR="$PWD/oracle-instantclient"
 
           for ZIP in instantclient-*.zip; do
             unzip -q -o "$ZIP" -d "$INSTALL_BASE_DIR"
