@@ -43,7 +43,7 @@ jobs:
           tree "$INSTALL_DIR_PATH"
 
           cd "$INSTALL_DIR_PATH"
-          sqlplus -V
+          ./sqlplus -V
 
           echo "[INF] Setting path... [$INSTALL_DIR_PATH]"
           echo "$INSTALL_DIR_PATH" >> "$GITHUB_PATH"
