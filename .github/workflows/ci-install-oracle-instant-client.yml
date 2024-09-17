@@ -21,6 +21,8 @@ jobs:
         echo "RUNNER_ARCH: $RUNNER_ARCH"
 
         if [[ $RUNNER_OS == "Linux" && $RUNNER_ARCH == "X64" ]]; then
+          echo "[INF] Installing on Linux..."
+
           sudo apt update
           sudo apt install -y libaio1 alien
 
@@ -32,11 +34,11 @@ jobs:
 
           whereis sqlplus
           sqlplus -h
-        elif [[ $RUNNER_OS == "macOS" ]]; then
-
-        elif [[ $RUNNER_OS == "Windows" ]]; then
-
+        elif [[ $RUNNER_OS == "macOS" && $RUNNER_ARCH == "X64" ]]; then
+          echo "[INF] Installing on macOS..."
+        elif [[ $RUNNER_OS == "Windows" && $RUNNER_ARCH == "X64" ]]; then
+          echo "[INF] Installing on Windows..."
         else
-          echo "[ERR] Unsupported OS [$RUNNER_OS]!"
+          echo "[ERR] Unsupported OS and/or architecture!"
           exit 1
         fi
