@@ -1,4 +1,4 @@
-name: install_orcale_instant_client
+name: install_oracle_instant_client
 
 on: workflow_dispatch
 
