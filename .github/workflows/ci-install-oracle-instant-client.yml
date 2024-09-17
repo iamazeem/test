@@ -42,7 +42,7 @@ jobs:
           INSTALL_DIR_PATH="$(realpath "$INSTALL_BASE_DIR"/instantclient_*)"
           tree "$INSTALL_DIR_PATH"
 
-          ./"$INSTALL_DIR_PATH"/sqlplus -V
+          "$INSTALL_DIR_PATH"/sqlplus -V
 
           echo "[INF] Setting path... [$INSTALL_DIR_PATH]"
           echo "$INSTALL_DIR_PATH" >> "$GITHUB_PATH"
