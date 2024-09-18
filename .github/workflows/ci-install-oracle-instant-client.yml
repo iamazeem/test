@@ -44,17 +44,17 @@ jobs:
 
           sleep 0.5
 
-          cd "$INSTALL_DIR_PATH"
-          export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$PWD"
-          echo "$LD_LIBRARY_PATH"
-          ./sqlplus -V
+          # cd "$INSTALL_DIR_PATH"
+          # export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$PWD"
+          # echo "$LD_LIBRARY_PATH"
+          # ./sqlplus -V
 
           echo "[INF] Setting path... [$INSTALL_DIR_PATH]"
           echo "$INSTALL_DIR_PATH" >> "$GITHUB_PATH"
 
-          echo "LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH:$INSTALL_DIR_PATH\"" >> ~/.bashrc
+          # echo "LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH:$INSTALL_DIR_PATH\"" >> ~/.bashrc
 
-          sudo echo "$INSTALL_DIR_PATH" > /etc/ld.so.conf.d/oracle-instantclient.conf
+          echo "$INSTALL_DIR_PATH" | tee -a /etc/ld.so.conf.d/oracle-instantclient.conf
           sudo ldconfig
 
           echo "[INF] Installed successfully!"
