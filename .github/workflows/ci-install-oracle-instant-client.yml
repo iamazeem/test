@@ -91,6 +91,30 @@ jobs:
 
           echo "[INF] Installed successfully!"
         elif [[ $RUNNER_OS == "macOS" && $RUNNER_ARCH == "X64" ]]; then
+          echo "[INF] Installing on Linux..."
+
+          URLS=(
+            https://download.oracle.com/otn_software/mac/instantclient/instantclient-basic-macos.zip
+            https://download.oracle.com/otn_software/mac/instantclient/instantclient-sqlplus-macos.zip
+          )
+
+          for URL in "${URLS[@]}"; do
+            echo "[INF] Downloading... [$URL]"
+            wget -q "$URL"
+          done
+
+          INSTALL_BASE_DIR="$GITHUB_WORKSPACE/oracle-instantclient"
+
+          for ZIP in instantclient-*.zip; do
+            unzip -q -o "$ZIP" -d "$INSTALL_BASE_DIR"
+          done
+
+          INSTALL_DIR_PATH="$(realpath "$INSTALL_BASE_DIR"/instantclient_*)"
+          tree "$INSTALL_DIR_PATH"
+
+          echo "[INF] Setting path... [$INSTALL_DIR_PATH]"
+          echo "$INSTALL_DIR_PATH" >> "$GITHUB_PATH"
+
           echo "[INF] Installing on macOS..."
         elif [[ $RUNNER_OS == "macOS" && $RUNNER_ARCH == "ARM64" ]]; then
           echo "[INF] Installing on macOS..."
