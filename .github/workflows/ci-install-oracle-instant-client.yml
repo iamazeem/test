@@ -129,16 +129,6 @@ jobs:
             wget -q "$URL"
           done
 
-          INSTALL_BASE_DIR="$GITHUB_WORKSPACE/oracle-instantclient"
-
-          hdiutil mount instantclient-basic-macos.arm64-23.3.0.23.09.dmg
-
-          cd /Volumes/instantclient-basic-macos.arm64-23.3.0.23.09
-          sh ./install_ic.sh
-
-          /usr/bin/hdiutil unmount /Volumes/instantclient-basic-macos.arm64-23.3.0.23.09
-
-
           for DMG in instantclient-*.dmg; do
             hdiutil mount "$DMG"
             VOLULME="${DMG%????}"
