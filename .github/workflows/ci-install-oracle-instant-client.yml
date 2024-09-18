@@ -26,13 +26,6 @@ jobs:
           GRANT CONNECT, RESOURCE TO test;
           GRANT CREATE TABLE TO test;
           ALTER SESSION SET CURRENT_SCHEMA = test;
-          CREATE TABLE Test
-          (
-            ID INT
-          );
-          INSERT INTO Test (ID) VALUES(123);
-          INSERT INTO Test (ID) VALUES(456);
-          SELECT * FROM Test;
         EOF
         cat init.sql
 
@@ -103,9 +96,21 @@ jobs:
           exit 1
         fi
 
-    - name: Check OIC
+    - name: Check sqlplus
       run: |
         whereis sqlplus
         sqlplus -V
-        sqlplus -s test/test@localhost:1521/FREEPDB1 <<< "INSERT INTO Test (ID) VALUES(789);"
+
+    - name: Run SQL queries
+      run: |
+        sqlplus -s test/test@localhost:1521/FREEPDB1 <<EOF
+          CREATE TABLE Test
+          (
+            ID INT
+          );
+          INSERT INTO Test (ID) VALUES(123);
+          INSERT INTO Test (ID) VALUES(456);
+          INSERT INTO Test (ID) VALUES(789);
+        EOF
+
         sqlplus -s test/test@localhost:1521/FREEPDB1 <<< "SELECT * FROM Test;"
