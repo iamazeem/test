@@ -6,8 +6,7 @@ jobs:
   install:
     strategy:
       matrix:
-        os: [windows-latest]
-        # os: [ubuntu-latest, macos-13, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-13, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
 
     defaults:
