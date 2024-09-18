@@ -1,5 +1,7 @@
 name: install_oracle_instant_client
 
+# https://www.oracle.com/database/technologies/instant-client/downloads.html
+
 on: workflow_dispatch
 
 jobs:
@@ -57,6 +59,7 @@ jobs:
 
     - name: Install Oracle Instant Client (OIC)
       run: |
+        echo "RUNNER_ENVIRONMENT: $RUNNER_ENVIRONMENT"
         echo "RUNNER_OS: $RUNNER_OS"
         echo "RUNNER_ARCH: $RUNNER_ARCH"
 
