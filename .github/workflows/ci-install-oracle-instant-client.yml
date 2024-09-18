@@ -42,17 +42,8 @@ jobs:
           INSTALL_DIR_PATH="$(realpath "$INSTALL_BASE_DIR"/instantclient_*)"
           tree "$INSTALL_DIR_PATH"
 
-          sleep 0.5
-
-          # cd "$INSTALL_DIR_PATH"
-          # export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$PWD"
-          # echo "$LD_LIBRARY_PATH"
-          # ./sqlplus -V
-
           echo "[INF] Setting path... [$INSTALL_DIR_PATH]"
           echo "$INSTALL_DIR_PATH" >> "$GITHUB_PATH"
-
-          # echo "LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH:$INSTALL_DIR_PATH\"" >> ~/.bashrc
 
           echo "$INSTALL_DIR_PATH" | sudo tee /etc/ld.so.conf.d/oracle-instantclient.conf
           sudo ldconfig
