@@ -131,17 +131,20 @@ jobs:
 
           ls -Gghl *.dmg
 
+          INSTALL_BASE_DIR="$PWD"
+
           for DMG in instantclient-*.dmg; do
+            cd "$INSTALL_BASE_DIR"
             echo "[INF] Mounting... [$DMG]"
             hdiutil mount "$DMG"
             sleep 1
-            VOLULME="$(ls /Volumes/${DMG%??????????}*)"
-            echo "[INF] VOLULME: $VOLULME"
-            cd "$VOLULME"
+            # VOLULME="$(ls /Volumes/${DMG%??????????}*)"
+            # echo "[INF] VOLULME: $VOLULME"
+            cd /Volumes/instantclient-*
             echo "[INF] Running install script..."
             ./install_ic.sh
-            echo "[INF] Unmounting... [$VOLULME]"
-            hdiutil unmount "$VOLULME"
+            echo "[INF] Unmounting..."
+            hdiutil unmount /Volumes/instantclient-*
           done
 
           INSTALL_DIR_PATH="$(realpath "$INSTALL_BASE_DIR"/instantclient_*)"
