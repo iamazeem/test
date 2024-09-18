@@ -153,6 +153,33 @@ jobs:
           echo "$INSTALL_DIR_PATH" >> "$GITHUB_PATH"
 
           echo "[INF] Installed successfully!"
+        elif [[ $RUNNER_OS == "Windows" && $RUNNER_ARCH == "X86" ]]; then
+          echo "[INF] Installing on Windows..."
+          choco install wget --no-progress
+
+          URLS=(
+            https://download.oracle.com/otn_software/nt/instantclient/instantclient-basic-nt.zip
+            https://download.oracle.com/otn_software/nt/instantclient/instantclient-sqlplus-nt.zip
+          )
+
+          for URL in "${URLS[@]}"; do
+            echo "[INF] Downloading... [$URL]"
+            wget -q "$URL"
+          done
+
+          INSTALL_BASE_DIR="$GITHUB_WORKSPACE/oracle-instantclient"
+
+          for ZIP in instantclient-*.zip; do
+            unzip -q -o "$ZIP" -d "$INSTALL_BASE_DIR"
+          done
+
+          INSTALL_DIR_PATH="$(realpath "$INSTALL_BASE_DIR"/instantclient_*)"
+          ls -Gghl "$INSTALL_DIR_PATH"
+
+          echo "[INF] Setting path... [$INSTALL_DIR_PATH]"
+          echo "$INSTALL_DIR_PATH" >> "$GITHUB_PATH"
+
+          echo "[INF] Installed successfully!"
         elif [[ $RUNNER_OS == "Windows" && $RUNNER_ARCH == "X64" ]]; then
           echo "[INF] Installing on Windows..."
           choco install wget --no-progress
