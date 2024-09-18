@@ -129,11 +129,16 @@ jobs:
             wget -q "$URL"
           done
 
+          ls -Gghl *.dmg
+
           for DMG in instantclient-*.dmg; do
+            echo "[INF] Mounting... [$DMG]"
             hdiutil mount "$DMG"
             VOLULME="${DMG%????}"
             cd /Volumes/"$VOLULME"
+            echo "[INF] Running install script..."
             ./install_ic.sh
+            echo "[INF] Unmounting... [$VOLULME]"
             /usr/bin/hdiutil unmount /Volumes/"$VOLULME"
           done
 
