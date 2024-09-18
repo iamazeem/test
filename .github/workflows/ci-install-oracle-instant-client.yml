@@ -47,6 +47,7 @@ jobs:
     - name: Check Oracle container logs for errors
       run: |
         docker container ls
+        sleep 1s
         docker container logs oracledb | tee /tmp/oracledb.log
         if grep 'ERROR' /tmp/oracledb.log >/dev/null; then
           echo "[ERR] Something went wrong!"
