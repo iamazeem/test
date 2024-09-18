@@ -134,7 +134,7 @@ jobs:
           for DMG in instantclient-*.dmg; do
             echo "[INF] Mounting... [$DMG]"
             hdiutil mount "$DMG"
-            sleep 1s
+            sleep 1
             VOLULME="${DMG%????}"
             cd /Volumes/"$VOLULME"*
             echo "[INF] Running install script..."
