@@ -144,7 +144,7 @@ jobs:
             echo "[INF] Running install script..."
             ./install_ic.sh
             echo "[INF] Unmounting..."
-            hdiutil unmount /Volumes/instantclient-*
+            hdiutil unmount /Volumes/instantclient-* -force
           done
 
           INSTALL_DIR_PATH="$(realpath "$INSTALL_BASE_DIR"/instantclient_*)"
