@@ -135,9 +135,9 @@ jobs:
             echo "[INF] Mounting... [$DMG]"
             hdiutil mount "$DMG"
             sleep 1
-            VOLULME="${DMG%??????????}"
+            VOLULME="$(ls ${DMG%??????????}*)"
             echo "[INF] VOLULME: $VOLULME"
-            cd /Volumes/"$(ls "$VOLULME"*)"
+            cd /Volumes/"$VOLULME"
             echo "[INF] Running install script..."
             ./install_ic.sh
             echo "[INF] Unmounting... [$VOLULME]"
