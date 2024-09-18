@@ -120,8 +120,8 @@ jobs:
           echo "[INF] Installing on macOS..."
 
           URLS=(
-            https://download.oracle.com/otn_software/mac/instantclient/instantclient-basic-macos-arm64.zip
-            https://download.oracle.com/otn_software/mac/instantclient/instantclient-sqlplus-macos-arm64.zip
+            https://download.oracle.com/otn_software/mac/instantclient/instantclient-basic-macos-arm64.dmg
+            https://download.oracle.com/otn_software/mac/instantclient/instantclient-sqlplus-macos-arm64.dmg
           )
 
           for URL in "${URLS[@]}"; do
@@ -131,8 +131,20 @@ jobs:
 
           INSTALL_BASE_DIR="$GITHUB_WORKSPACE/oracle-instantclient"
 
-          for ZIP in instantclient-*.zip; do
-            unzip -q -o "$ZIP" -d "$INSTALL_BASE_DIR"
+          hdiutil mount instantclient-basic-macos.arm64-23.3.0.23.09.dmg
+
+          cd /Volumes/instantclient-basic-macos.arm64-23.3.0.23.09
+          sh ./install_ic.sh
+
+          /usr/bin/hdiutil unmount /Volumes/instantclient-basic-macos.arm64-23.3.0.23.09
+
+
+          for DMG in instantclient-*.dmg; do
+            hdiutil mount "$DMG"
+            VOLULME="${DMG%????}"
+            cd /Volumes/"$VOLULME"
+            ./install_ic.sh
+            /usr/bin/hdiutil unmount /Volumes/"$VOLULME"
           done
 
           INSTALL_DIR_PATH="$(realpath "$INSTALL_BASE_DIR"/instantclient_*)"
