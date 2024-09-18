@@ -29,7 +29,7 @@ jobs:
           )
 
           for URL in "${URLS[@]}"; do
-            echo "[INF] Downloading archive... [URL: $URL]"
+            echo "[INF] Downloading... [$URL]"
             wget -q "$URL"
           done
 
@@ -45,7 +45,8 @@ jobs:
           sleep 0.5
 
           cd "$INSTALL_DIR_PATH"
-          export LD_LIBRARy_PATH="$LD_LIBRARy_PATH:$PWD" 
+          export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$PWD"
+          echo "$LD_LIBRARY_PATH"
           ./sqlplus -V
 
           echo "[INF] Setting path... [$INSTALL_DIR_PATH]"
@@ -53,8 +54,8 @@ jobs:
 
           echo "LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH:$INSTALL_DIR_PATH\"" >> ~/.bashrc
 
-          # sudo echo "$INSTALL_DIR_PATH" >> /etc/ld.so.conf.d/oracle-instantclient.conf
-          # sudo ldconfig
+          sudo echo "$INSTALL_DIR_PATH" > /etc/ld.so.conf.d/oracle-instantclient.conf
+          sudo ldconfig
 
           echo "[INF] Installed successfully!"
         elif [[ $RUNNER_OS == "macOS" && $RUNNER_ARCH == "X64" ]]; then
@@ -67,4 +68,6 @@ jobs:
         fi
 
     - name: Check
-      run: sqlplus -V
+      run: |
+        whereis sqlplus
+        sqlplus -V
