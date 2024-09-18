@@ -6,7 +6,7 @@ jobs:
   install:
     strategy:
       matrix:
-        os: [macos-13]
+        os: [macos-latest]
         # os: [ubuntu-latest, macos-13, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
 
@@ -91,7 +91,7 @@ jobs:
 
           echo "[INF] Installed successfully!"
         elif [[ $RUNNER_OS == "macOS" && $RUNNER_ARCH == "X64" ]]; then
-          echo "[INF] Installing on Linux..."
+          echo "[INF] Installing on macOS..."
 
           URLS=(
             https://download.oracle.com/otn_software/mac/instantclient/instantclient-basic-macos.zip
@@ -115,9 +115,33 @@ jobs:
           echo "[INF] Setting path... [$INSTALL_DIR_PATH]"
           echo "$INSTALL_DIR_PATH" >> "$GITHUB_PATH"
 
-          echo "[INF] Installing on macOS..."
+          echo "[INF] Installed successfully!"
         elif [[ $RUNNER_OS == "macOS" && $RUNNER_ARCH == "ARM64" ]]; then
           echo "[INF] Installing on macOS..."
+
+          URLS=(
+            https://download.oracle.com/otn_software/mac/instantclient/instantclient-basic-macos-arm64.zip
+            https://download.oracle.com/otn_software/mac/instantclient/instantclient-sqlplus-macos-arm64.zip
+          )
+
+          for URL in "${URLS[@]}"; do
+            echo "[INF] Downloading... [$URL]"
+            wget -q "$URL"
+          done
+
+          INSTALL_BASE_DIR="$GITHUB_WORKSPACE/oracle-instantclient"
+
+          for ZIP in instantclient-*.zip; do
+            unzip -q -o "$ZIP" -d "$INSTALL_BASE_DIR"
+          done
+
+          INSTALL_DIR_PATH="$(realpath "$INSTALL_BASE_DIR"/instantclient_*)"
+          ls -Gghl "$INSTALL_DIR_PATH"
+
+          echo "[INF] Setting path... [$INSTALL_DIR_PATH]"
+          echo "$INSTALL_DIR_PATH" >> "$GITHUB_PATH"
+
+          echo "[INF] Installed successfully!"
         elif [[ $RUNNER_OS == "Windows" && $RUNNER_ARCH == "X64" ]]; then
           echo "[INF] Installing on Windows..."
         else
