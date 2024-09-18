@@ -32,7 +32,7 @@ jobs:
           );
           INSERT INTO Test (ID) VALUES(123);
           INSERT INTO Test (ID) VALUES(456);
-          SELECT ID FROM Test;
+          SELECT * FROM Test;
         EOF
         cat init.sql
 
@@ -101,4 +101,5 @@ jobs:
       run: |
         whereis sqlplus
         sqlplus -V
+        sqlplus -s test/test@localhost:1521/FREEPDB1 <<< "INSERT INTO Test (ID) VALUES(789);"
         sqlplus -s test/test@localhost:1521/FREEPDB1 <<< "SELECT * FROM Test;"
