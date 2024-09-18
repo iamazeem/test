@@ -42,7 +42,10 @@ jobs:
           INSTALL_DIR_PATH="$(realpath "$INSTALL_BASE_DIR"/instantclient_*)"
           tree "$INSTALL_DIR_PATH"
 
+          sleep 0.5
+
           cd "$INSTALL_DIR_PATH"
+          export LD_LIBRARy_PATH="$LD_LIBRARy_PATH:$PWD" 
           ./sqlplus -V
 
           echo "[INF] Setting path... [$INSTALL_DIR_PATH]"
