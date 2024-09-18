@@ -156,6 +156,7 @@ jobs:
           echo "[INF] Installed successfully!"
         elif [[ $RUNNER_OS == "Windows" && $RUNNER_ARCH == "X64" ]]; then
           echo "[INF] Installing on Windows..."
+          choco install wget --no-progress
 
           URLS=(
             https://download.oracle.com/otn_software/nt/instantclient/instantclient-basic-windows.zip
