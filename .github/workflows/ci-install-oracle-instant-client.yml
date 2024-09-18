@@ -15,7 +15,46 @@ jobs:
         shell: bash
 
     steps:
-    - name: Install
+    - name: Create setup script
+      run: |
+        pwd
+        mkdir scripts
+        cd scripts
+        cat >init.sql <<EOF
+          ALTER SESSION SET CONTAINER = FREEPDB1;
+          CREATE USER test IDENTIFIED BY test QUOTA UNLIMITED ON USERS;
+          GRANT CONNECT, RESOURCE TO test;
+          GRANT CREATE TABLE TO test;
+          ALTER SESSION SET CURRENT_SCHEMA = test;
+          CREATE TABLE Test
+          (
+            ID INT
+          );
+          INSERT INTO Test (ID) VALUES(123);
+          INSERT INTO Test (ID) VALUES(456);
+          SELECT ID FROM Test;
+        EOF
+        cat init.sql
+
+    - name: Setup Oracle container
+      uses: gvenzl/setup-oracle-free@v1
+      with:
+        container-runtime: docker
+        app-user: app_user
+        app-user-password: app_user_password
+        setup-scripts: ${{ github.workspace }}/scripts
+
+    - name: Check Oracle container logs for errors
+      run: |
+        docker container ls
+        docker container logs oracledb | tee /tmp/oracledb.log
+        if grep 'ERROR' /tmp/oracledb.log >/dev/null; then
+          echo "[ERR] Something went wrong!"
+          echo "[ERR] See above logs for more details."
+          exit 1
+        fi
+
+    - name: Install Oracle Instant Client (OIC)
       run: |
         echo "RUNNER_OS: $RUNNER_OS"
         echo "RUNNER_ARCH: $RUNNER_ARCH"
@@ -58,7 +97,8 @@ jobs:
           exit 1
         fi
 
-    - name: Check
+    - name: Check OIC
       run: |
         whereis sqlplus
         sqlplus -V
+        sqlplus -s test/test@localhost:1521/FREEPDB1 <<< "SELECT * FROM Test;"
