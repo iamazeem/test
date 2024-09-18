@@ -6,8 +6,7 @@ jobs:
   install:
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        # os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
 
     defaults:
@@ -16,6 +15,7 @@ jobs:
 
     steps:
     - name: Create setup script
+      if: ${{ runner.os == 'Linux' }}
       run: |
         pwd
         mkdir scripts
@@ -30,6 +30,7 @@ jobs:
         cat init.sql
 
     - name: Setup Oracle container
+      if: ${{ runner.os == 'Linux' }}
       uses: gvenzl/setup-oracle-free@v1
       with:
         container-runtime: docker
@@ -38,6 +39,7 @@ jobs:
         setup-scripts: ${{ github.workspace }}/scripts
 
     - name: Check Oracle container logs for errors
+      if: ${{ runner.os == 'Linux' }}
       run: |
         docker container ls
         while : ; do
@@ -102,6 +104,7 @@ jobs:
         sqlplus -V
 
     - name: Run SQL queries
+      if: ${{ runner.os == 'Linux' }}
       run: |
         sqlplus -s test/test@localhost:1521/FREEPDB1 <<EOF
           CREATE TABLE Test
