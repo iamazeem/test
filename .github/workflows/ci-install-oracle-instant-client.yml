@@ -147,7 +147,7 @@ jobs:
             hdiutil unmount /Volumes/instantclient-* -force
           done
 
-          INSTALL_DIR_PATH="$(realpath "$INSTALL_BASE_DIR"/instantclient_*)"
+          INSTALL_DIR_PATH="$(realpath /Users/runner/Downloads/instantclient_*)"
           ls -Gghl "$INSTALL_DIR_PATH"
 
           echo "[INF] Setting path... [$INSTALL_DIR_PATH]"
