@@ -140,8 +140,6 @@ jobs:
             echo "[INF] Mounting... [$DMG]"
             hdiutil mount "$DMG"
             sleep 1
-            # VOLULME="$(ls /Volumes/${DMG%??????????}*)"
-            # echo "[INF] VOLULME: $VOLULME"
             cd /Volumes/instantclient-*
             echo "[INF] Running install script..."
             ./install_ic.sh
