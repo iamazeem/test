@@ -136,11 +136,12 @@ jobs:
             hdiutil mount "$DMG"
             sleep 1
             VOLULME="${DMG%??????????}"
+            echo "[INF] VOLULME: $VOLULME"
             cd /Volumes/"$(ls "$VOLULME"*)"
             echo "[INF] Running install script..."
             ./install_ic.sh
             echo "[INF] Unmounting... [$VOLULME]"
-            /usr/bin/hdiutil unmount /Volumes/"$VOLULME"
+            hdiutil unmount /Volumes/"$VOLULME"
           done
 
           INSTALL_DIR_PATH="$(realpath "$INSTALL_BASE_DIR"/instantclient_*)"
