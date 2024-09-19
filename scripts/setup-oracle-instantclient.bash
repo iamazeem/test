@@ -83,15 +83,11 @@ elif [[ $RUNNER_OS == "macOS" ]]; then
     done
 
     for DMG in instantclient-*.dmg; do
-        cd "$INSTALL_BASE_DIR"
         echo "[INF] Installing... [$DMG]"
-        echo "[INF] - Mounting..."
+        cd "$INSTALL_BASE_DIR"
         hdiutil mount -quiet "$DMG"
         cd /Volumes/instantclient-*
-        echo "[INF] - Running install script..."
-        cat ./install_ic.sh
-        ./install_ic.sh
-        echo "[INF] - Unmounting..."
+        ./install_ic.sh >/dev/null
         hdiutil unmount -force -quiet /Volumes/instantclient-*
     done
 
