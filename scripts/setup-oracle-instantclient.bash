@@ -11,8 +11,6 @@ echo "[INF] RUNNER_OS: $RUNNER_OS"
 echo "[INF] RUNNER_ARCH: $RUNNER_ARCH"
 
 if [[ $RUNNER_OS == "Linux" ]]; then
-    echo "[INF] Installing on $RUNNER_OS..."
-
     URLS=()
     if [[ $RUNNER_ARCH == "X86" ]]; then
         URLS=(
@@ -42,7 +40,7 @@ if [[ $RUNNER_OS == "Linux" ]]; then
 
     for URL in "${URLS[@]}"; do
         echo "[INF] Downloading... [$URL]"
-        wget -q "$URL"
+        wget --quiet "$URL"
     done
 
     ls -Gghl ./*.zip
@@ -64,10 +62,8 @@ if [[ $RUNNER_OS == "Linux" ]]; then
     echo "$INSTALL_DIR_PATH" | sudo tee /etc/ld.so.conf.d/oracle-instantclient.conf
     sudo ldconfig
 
-    echo "[INF] Installed successfully!"
+    echo "[INF] Installed successfully! [$INSTALL_DIR_PATH]"
 elif [[ $RUNNER_OS == "macOS" ]]; then
-    echo "[INF] Installing on $RUNNER_OS..."
-
     URLS=()
     if [[ $RUNNER_ARCH == "X86" || $RUNNER_ARCH == "X64" ]]; then
         URLS=(
@@ -92,10 +88,8 @@ elif [[ $RUNNER_OS == "macOS" ]]; then
 
     for URL in "${URLS[@]}"; do
         echo "[INF] Downloading... [$URL]"
-        wget -q "$URL"
+        wget --quiet "$URL"
     done
-
-    ls -Gghl ./*.dmg
 
     for DMG in instantclient-*.dmg; do
         cd "$INSTALL_BASE_DIR"
@@ -105,24 +99,15 @@ elif [[ $RUNNER_OS == "macOS" ]]; then
         echo "[INF] Running install script..."
         ./install_ic.sh
         echo "[INF] Unmounting..."
-        hdiutil unmount /Volumes/instantclient-* -force
+        hdiutil unmount -force -quiet /Volumes/instantclient-*
     done
 
     INSTALL_DIR_PATH="$(realpath /Users/"$USER"/Downloads/instantclient_*)"
-    echo "[INF] INSTALL_DIR_PATH: $INSTALL_DIR_PATH"
-
-    ls -Gghl "$INSTALL_DIR_PATH"
-
     echo "[INF] Setting path... [$INSTALL_DIR_PATH]"
     echo "$INSTALL_DIR_PATH" >>"$GITHUB_PATH"
 
-    echo "[INF] Installed successfully!"
+    echo "[INF] Installed successfully! [$INSTALL_DIR_PATH]"
 elif [[ $RUNNER_OS == "Windows" ]]; then
-    echo "[INF] Installing on $RUNNER_OS..."
-
-    echo "[INF] Installing wget..."
-    choco install wget --no-progress
-
     URLS=()
     if [[ $RUNNER_ARCH == "X86" ]]; then
         URLS=(
@@ -139,6 +124,9 @@ elif [[ $RUNNER_OS == "Windows" ]]; then
         exit 1
     fi
 
+    echo "[INF] Installing wget..."
+    choco install wget --no-progress
+
     INSTALL_BASE_DIR="$RUNNER_TEMP/oracle-instantclient"
     echo "[INF] INSTALL_BASE_DIR: $INSTALL_BASE_DIR"
 
@@ -147,10 +135,8 @@ elif [[ $RUNNER_OS == "Windows" ]]; then
 
     for URL in "${URLS[@]}"; do
         echo "[INF] Downloading... [$URL]"
-        wget -q "$URL"
+        wget --quiet "$URL"
     done
-
-    ls -Gghl ./*.zip
 
     for ZIP in instantclient-*.zip; do
         echo "[INF] Extracting... [$ZIP]"
@@ -158,14 +144,10 @@ elif [[ $RUNNER_OS == "Windows" ]]; then
     done
 
     INSTALL_DIR_PATH="$(realpath "$INSTALL_BASE_DIR"/instantclient_*)"
-    echo "[INF] INSTALL_DIR_PATH: $INSTALL_DIR_PATH"
-
-    ls -Gghl "$INSTALL_DIR_PATH"
-
     echo "[INF] Setting path... [$INSTALL_DIR_PATH]"
     echo "$INSTALL_DIR_PATH" >>"$GITHUB_PATH"
 
-    echo "[INF] Installed successfully!"
+    echo "[INF] Installed successfully! [$INSTALL_DIR_PATH]"
 else
     echo "[ERR] Unsupported OS! [$RUNNER_OS]"
     exit 1
