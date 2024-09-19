@@ -57,9 +57,13 @@ jobs:
 
     - name: Checkout [${{ github.repository }}]
       uses: actions/checkout@v4
+      with:
+        sparse-checkout: |
+          scripts/setup-oracle-instantclient.bash
+        sparse-checkout-cone-mode: false
 
     - name: Install Oracle Instant Client (OIC)
-      run: bash ./scripts/setup-oracle-instantclient.bash
+      run: ./scripts/setup-oracle-instantclient.bash
 
     - name: Check sqlplus version
       run: sqlplus -V
