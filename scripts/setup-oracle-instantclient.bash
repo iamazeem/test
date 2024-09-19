@@ -76,7 +76,7 @@ elif [[ $RUNNER_OS == "macOS" && $RUNNER_ARCH == "ARM64" ]]; then
     wget -q "$URL"
     done
 
-    ls -Gghl "*.dmg"
+    ls -Gghl ./*.dmg
 
     INSTALL_BASE_DIR="$PWD"
 
