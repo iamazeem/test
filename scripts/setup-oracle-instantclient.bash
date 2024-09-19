@@ -98,6 +98,7 @@ elif [[ $RUNNER_OS == "macOS" ]]; then
     ls -Gghl ./*.dmg
 
     for DMG in instantclient-*.dmg; do
+        cd "$INSTALL_BASE_DIR"
         echo "[INF] Mounting... [$DMG]"
         hdiutil mount "$DMG"
         cd /Volumes/instantclient-*
