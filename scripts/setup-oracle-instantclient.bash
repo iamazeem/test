@@ -43,8 +43,6 @@ if [[ $RUNNER_OS == "Linux" ]]; then
         wget --quiet "$URL"
     done
 
-    ls -Gghl ./*.zip
-
     for ZIP in instantclient-*.zip; do
         echo "[INF] Extracting... [$ZIP]"
         unzip -q -o "$ZIP"
@@ -53,8 +51,6 @@ if [[ $RUNNER_OS == "Linux" ]]; then
     INSTALL_DIR_PATH="$(realpath "$INSTALL_BASE_DIR"/instantclient_*)"
     echo "[INF] INSTALL_DIR_PATH: $INSTALL_DIR_PATH"
 
-    ls -Gghl "$INSTALL_DIR_PATH"
-
     echo "[INF] Setting path... [$INSTALL_DIR_PATH]"
     echo "$INSTALL_DIR_PATH" >>"$GITHUB_PATH"
 
@@ -62,7 +58,7 @@ if [[ $RUNNER_OS == "Linux" ]]; then
     echo "$INSTALL_DIR_PATH" | sudo tee /etc/ld.so.conf.d/oracle-instantclient.conf
     sudo ldconfig
 
-    echo "[INF] Installed successfully! [$INSTALL_DIR_PATH]"
+    echo "[INF] Installed successfully!"
 elif [[ $RUNNER_OS == "macOS" ]]; then
     URLS=()
     if [[ $RUNNER_ARCH == "X86" || $RUNNER_ARCH == "X64" ]]; then
@@ -106,7 +102,7 @@ elif [[ $RUNNER_OS == "macOS" ]]; then
     echo "[INF] Setting path... [$INSTALL_DIR_PATH]"
     echo "$INSTALL_DIR_PATH" >>"$GITHUB_PATH"
 
-    echo "[INF] Installed successfully! [$INSTALL_DIR_PATH]"
+    echo "[INF] Installed successfully!"
 elif [[ $RUNNER_OS == "Windows" ]]; then
     URLS=()
     if [[ $RUNNER_ARCH == "X86" ]]; then
@@ -147,7 +143,7 @@ elif [[ $RUNNER_OS == "Windows" ]]; then
     echo "[INF] Setting path... [$INSTALL_DIR_PATH]"
     echo "$INSTALL_DIR_PATH" >>"$GITHUB_PATH"
 
-    echo "[INF] Installed successfully! [$INSTALL_DIR_PATH]"
+    echo "[INF] Installed successfully!"
 else
     echo "[ERR] Unsupported OS! [$RUNNER_OS]"
     exit 1
