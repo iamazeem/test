@@ -57,16 +57,20 @@ jobs:
           exit 1
         fi
 
-    - name: Checkout [${{ github.repository }}]
-      uses: actions/checkout@v4
-      with:
-        sparse-checkout: |
-          scripts/setup-oracle-instantclient.bash
-        sparse-checkout-cone-mode: false
+    # - name: Checkout [${{ github.repository }}]
+    #   uses: actions/checkout@v4
+    #   with:
+    #     sparse-checkout: |
+    #       scripts/setup-oracle-instantclient.bash
+    #     sparse-checkout-cone-mode: false
+
+    # - name: Set up Oracle Instant Client
+    #   id: setup
+    #   run: ./scripts/setup-oracle-instantclient.bash
 
     - name: Set up Oracle Instant Client
       id: setup
-      run: ./scripts/setup-oracle-instantclient.bash
+      uses: iamazeem/setup-oracle-instant-client-action@v1
 
     - name: Check output parameter [install-path]
       run: echo '${{ steps.setup.outputs.install-path }}'
