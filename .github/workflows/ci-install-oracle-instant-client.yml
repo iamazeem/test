@@ -16,10 +16,12 @@ jobs:
     steps:
     - name: Create setup script
       if: ${{ runner.os == 'Linux' }}
+      env:
+        SCRIPTS_DIR: ${{ runner.temp }}/scripts
       run: |
         pwd
-        mkdir scripts
-        cd scripts
+        mkdir "$SCRIPTS_DIR"
+        cd "$SCRIPTS_DIR"
         cat >init.sql <<EOF
           ALTER SESSION SET CONTAINER = FREEPDB1;
           CREATE USER test IDENTIFIED BY test QUOTA UNLIMITED ON USERS;
@@ -29,14 +31,14 @@ jobs:
         EOF
         cat init.sql
 
-    - name: Setup Oracle container
+    - name: Setup Oracle container on Linux runner
       if: ${{ runner.os == 'Linux' }}
       uses: gvenzl/setup-oracle-free@v1
       with:
         container-runtime: docker
         app-user: app_user
         app-user-password: app_user_password
-        setup-scripts: ${{ github.workspace }}/scripts
+        setup-scripts: ${{ runner.temp }}/scripts
 
     - name: Check Oracle container logs for errors
       if: ${{ runner.os == 'Linux' }}
