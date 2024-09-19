@@ -133,7 +133,7 @@ fi
 echo "[INF] Setting PATH... [$INSTALL_PATH]"
 echo "$INSTALL_PATH" >>"$GITHUB_PATH"
 
-echo "[INF] Setting output parameter..."
+echo "[INF] Setting output parameter... [install-path]"
 echo "install-path=$INSTALL_PATH" >>"$GITHUB_OUTPUT"
 
 echo "[INF] Installed successfully!"
