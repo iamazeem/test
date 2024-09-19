@@ -82,8 +82,6 @@ elif [[ $RUNNER_OS == "macOS" ]]; then
         wget --quiet "$URL"
     done
 
-    cat ./install_ic.sh
-
     for DMG in instantclient-*.dmg; do
         cd "$INSTALL_BASE_DIR"
         echo "[INF] Installing... [$DMG]"
@@ -91,6 +89,7 @@ elif [[ $RUNNER_OS == "macOS" ]]; then
         hdiutil mount -quiet "$DMG"
         cd /Volumes/instantclient-*
         echo "[INF] - Running install script..."
+        cat ./install_ic.sh
         ./install_ic.sh
         echo "[INF] - Unmounting..."
         hdiutil unmount -force -quiet /Volumes/instantclient-*
