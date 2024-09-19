@@ -33,8 +33,6 @@ if [[ $RUNNER_OS == "Linux" ]]; then
     fi
 
     INSTALL_BASE_DIR="$RUNNER_TEMP/oracle-instantclient"
-    echo "[INF] Install directory: $INSTALL_BASE_DIR"
-
     mkdir -p "$INSTALL_BASE_DIR"
     cd "$INSTALL_BASE_DIR"
 
@@ -49,14 +47,15 @@ if [[ $RUNNER_OS == "Linux" ]]; then
     done
 
     INSTALL_DIR_PATH="$(realpath "$INSTALL_BASE_DIR"/instantclient_*)"
-    echo "[INF] INSTALL_DIR_PATH: $INSTALL_DIR_PATH"
-
     echo "[INF] Setting path... [$INSTALL_DIR_PATH]"
     echo "$INSTALL_DIR_PATH" >>"$GITHUB_PATH"
 
     echo "[INF] Running ldconfig..."
     echo "$INSTALL_DIR_PATH" | sudo tee /etc/ld.so.conf.d/oracle-instantclient.conf
-    sudo ldconfig
+    if [[ $(sudo ldconfig) != "$INSTALL_DIR_PATH" ]]; then
+        echo "[ERR] ldconfig failed!"
+        exit 1
+    fi
 elif [[ $RUNNER_OS == "macOS" ]]; then
     URLS=()
     if [[ $RUNNER_ARCH == "X86" || $RUNNER_ARCH == "X64" ]]; then
@@ -75,8 +74,6 @@ elif [[ $RUNNER_OS == "macOS" ]]; then
     fi
 
     INSTALL_BASE_DIR="$RUNNER_TEMP/oracle-instantclient"
-    echo "[INF] Install directory: $INSTALL_BASE_DIR"
-
     mkdir -p "$INSTALL_BASE_DIR"
     cd "$INSTALL_BASE_DIR"
 
@@ -85,14 +82,17 @@ elif [[ $RUNNER_OS == "macOS" ]]; then
         wget --quiet "$URL"
     done
 
+    cat ./install_ic.sh
+
     for DMG in instantclient-*.dmg; do
         cd "$INSTALL_BASE_DIR"
-        echo "[INF] Mounting... [$DMG]"
+        echo "[INF] Installing... [$DMG]"
+        echo "[INF] - Mounting..."
         hdiutil mount -quiet "$DMG"
         cd /Volumes/instantclient-*
-        echo "[INF] Running install script..."
+        echo "[INF] - Running install script..."
         ./install_ic.sh
-        echo "[INF] Unmounting..."
+        echo "[INF] - Unmounting..."
         hdiutil unmount -force -quiet /Volumes/instantclient-*
     done
 
@@ -117,7 +117,10 @@ elif [[ $RUNNER_OS == "Windows" ]]; then
     fi
 
     echo "[INF] Installing wget..."
-    choco install wget --no-progress
+    if ! choco install wget --no-progress >/dev/null; then
+        echo "[ERR] Failed to install wget!"
+        exit 1
+    fi
 
     INSTALL_BASE_DIR="$RUNNER_TEMP/oracle-instantclient"
     echo "[INF] Install directory: $INSTALL_BASE_DIR"
