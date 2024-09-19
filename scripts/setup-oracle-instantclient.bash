@@ -2,13 +2,13 @@
 
 set -eo pipefail
 
-# https://www.oracle.com/database/technologies/instant-client/downloads.html
-
 echo "[INF] Installing Oracle Instant Client..."
 
 echo "[INF] - RUNNER_ENVIRONMENT: $RUNNER_ENVIRONMENT"
 echo "[INF] - RUNNER_OS: $RUNNER_OS"
 echo "[INF] - RUNNER_ARCH: $RUNNER_ARCH"
+
+INSTALL_PATH=
 
 if [[ $RUNNER_OS == "Linux" ]]; then
     URLS=()
@@ -44,9 +44,9 @@ if [[ $RUNNER_OS == "Linux" ]]; then
         unzip -q -o "$ZIP"
     done
 
+    rm -rf "$RUNNER_TEMP"/*.zip
+
     INSTALL_PATH="$(realpath "$RUNNER_TEMP"/instantclient_*)"
-    echo "[INF] Setting path... [$INSTALL_PATH]"
-    echo "$INSTALL_PATH" >>"$GITHUB_PATH"
 
     echo "[INF] Running ldconfig..."
     echo "$INSTALL_PATH" | sudo tee /etc/ld.so.conf.d/oracle-instantclient.conf
@@ -84,9 +84,9 @@ elif [[ $RUNNER_OS == "macOS" ]]; then
         hdiutil unmount -force -quiet /Volumes/instantclient-*
     done
 
+    rm -rf "$RUNNER_TEMP"/*.dmg
+
     INSTALL_PATH="$(realpath /Users/"$USER"/Downloads/instantclient_*)"
-    echo "[INF] Setting path... [$INSTALL_PATH]"
-    echo "$INSTALL_PATH" >>"$GITHUB_PATH"
 elif [[ $RUNNER_OS == "Windows" ]]; then
     URLS=()
     if [[ $RUNNER_ARCH == "X86" ]]; then
@@ -122,12 +122,18 @@ elif [[ $RUNNER_OS == "Windows" ]]; then
         unzip -q -o "$ZIP"
     done
 
+    rm -rf "$RUNNER_TEMP"/*.zip
+
     INSTALL_PATH="$(realpath "$RUNNER_TEMP"/instantclient_*)"
-    echo "[INF] Setting path... [$INSTALL_PATH]"
-    echo "$INSTALL_PATH" >>"$GITHUB_PATH"
 else
     echo "[ERR] Unsupported OS! [$RUNNER_OS]"
     exit 1
 fi
+
+echo "[INF] Setting PATH... [$INSTALL_PATH]"
+echo "$INSTALL_PATH" >>"$GITHUB_PATH"
+
+echo "[INF] Setting output parameter..."
+echo "install-path=$INSTALL_PATH" >>"$GITHUB_OUTPUT"
 
 echo "[INF] Installed successfully!"
