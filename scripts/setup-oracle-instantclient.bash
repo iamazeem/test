@@ -52,7 +52,7 @@ if [[ $RUNNER_OS == "Linux" ]]; then
 
     echo "[INF] Running ldconfig..."
     echo "$INSTALL_DIR_PATH" | sudo tee /etc/ld.so.conf.d/oracle-instantclient.conf
-    if [[ $(sudo ldconfig) != "$INSTALL_DIR_PATH" ]]; then
+    if [[ $(sudo ldconfig | tr -d '\n') != "$INSTALL_DIR_PATH" ]]; then
         echo "[ERR] ldconfig failed!"
         exit 1
     fi
