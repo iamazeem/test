@@ -63,7 +63,11 @@ jobs:
         sparse-checkout-cone-mode: false
 
     - name: Install Oracle Instant Client (OIC)
+      id: install
       run: ./scripts/setup-oracle-instantclient.bash
+
+    - name: Check output parameter [install-path]
+      run: echo '${{ steps.install.outputs.install-path }}'
 
     - name: Check sqlplus version
       run: sqlplus -V
