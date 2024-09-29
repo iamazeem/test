@@ -1,0 +1,25 @@
+name: redis_service_container
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    services:
+      redistester:
+        image: redis:7.2.1-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+        - 6380:6379
+
+    steps:
+    - name: Install redis-tools
+      run: sudo apt install -y redis-tools
+
+    - name: PING
+      run: redis-cli -h localhost -p 9380 PING
