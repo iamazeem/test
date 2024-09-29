@@ -17,6 +17,9 @@ jobs:
           - 9600:9600
 
     steps:
+    - name: Update
+      run: sudo apt update && sudo apt upgrade -y
+
     - name: Check
       run: |
         curl -X GET "https://localhost:9200" -ku admin:bgnYFGR2RhN3SCX
