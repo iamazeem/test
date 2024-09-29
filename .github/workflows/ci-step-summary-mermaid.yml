@@ -1,0 +1,21 @@
+name: step_summary_mermaid
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Test
+      run: |
+        {
+          echo "### Test (mermaid)"
+          echo '```mermaid'
+          echo 'xychart-beta'
+          echo '    title "Benchmarks (select) - [lower = faster]"'
+          echo '    x-axis [zsv, xsv, tsv-utils]'
+          echo '    y-axis "milliseconds (ms)" 0 --> 0.5'
+          echo '    bar [0.1, 0.3, 0.2]'
+          echo '```'
+        } >>"$GITHUB_STEP_SUMMARY"
