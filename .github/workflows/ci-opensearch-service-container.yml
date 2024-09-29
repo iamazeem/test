@@ -17,8 +17,8 @@ jobs:
           - 9600:9600
 
     steps:
-    # - name: Update
-    #   run: sudo apt update && sudo apt upgrade -y
+    - name: Update
+      run: sudo apt update && sudo apt upgrade -y
 
     - name: Check
       run: |
