@@ -1,0 +1,24 @@
+name: opensearch_service_container
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    services:
+      opensearch:
+        image: opensearchproject/opensearch:latest
+        options: >-
+          -e OPENSEARCH_INITIAL_ADMIN_PASSWORD=bgnYFGR2RhN3SCX
+          -e "discovery.type=single-node"
+        ports:
+          - 9200:9200
+          - 9600:9600
+
+    steps:
+    - name: Check
+      run: |
+        curl -X GET "https://localhost:9200" -ku admin:bgnYFGR2RhN3SCX
+        curl -X GET "https://localhost:9200/_cat/nodes?v" -ku admin:bgnYFGR2RhN3SCX
+        curl -X GET "https://localhost:9200/_cat/plugins?v" -ku admin:bgnYFGR2RhN3SCX
