@@ -1,0 +1,24 @@
+name: tmux_test
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install tmux
+      run: |
+        sudo apt update
+        sudo apt install -y tmux
+
+    - name: Test
+      run: |
+        tmux new-session -d -x -s test "bash -l"
+        tmux list-sessions
+        tmux send-keys -t test "pwd"
+        tmux send-keys -t test Enter
+        tmux capture-pane -p > test.log
+        cat test.log
+        tmux send-keys -t test "exit"
+        tmux send-keys -t test Enter
