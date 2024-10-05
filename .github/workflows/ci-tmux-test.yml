@@ -14,11 +14,12 @@ jobs:
 
     - name: Test
       run: |
-        tmux new-session -d -s test "bash -l"
+        tmux new-session -d -s test "date && sleep 5s"
         tmux list-sessions
-        tmux send-keys -t test "pwd"
-        tmux send-keys -t test Enter
+        # tmux send-keys -t test "pwd"
+        # tmux send-keys -t test Enter
         tmux capture-pane -p > test.log
         cat test.log
-        tmux send-keys -t test "exit"
-        tmux send-keys -t test Enter
+        # tmux send-keys -t test "exit"
+        # tmux send-keys -t test Enter
+        tmux kill-session -t test
