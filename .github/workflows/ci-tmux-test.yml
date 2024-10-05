@@ -14,7 +14,7 @@ jobs:
 
     - name: Test
       run: |
-        tmux new-session -d -x -s test "bash -l"
+        tmux new-session -d -s test "bash -l"
         tmux list-sessions
         tmux send-keys -t test "pwd"
         tmux send-keys -t test Enter
