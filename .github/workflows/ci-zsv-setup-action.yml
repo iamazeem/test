@@ -1,0 +1,18 @@
+name: zsv_setup_action
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up zsv+zsvlib
+      id: setup
+      uses: liquidaty/zsv/setup-action@setup-action
+
+    - name: Check output parameter [install-path]
+      run: echo '${{ steps.setup.outputs.install-path }}'
+
+    - name: Check version
+      run: zsv version
