@@ -9,7 +9,7 @@ jobs:
     steps:
     - name: Set up zsv+zsvlib
       id: setup
-      uses: liquidaty/zsv/setup-action@setup-action
+      uses: liquidaty/zsv/setup-action@main
 
     - name: Check output parameter [install-path]
       run: echo '${{ steps.setup.outputs.install-path }}'
