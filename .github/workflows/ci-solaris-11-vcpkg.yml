@@ -14,9 +14,13 @@ jobs:
         prepare: |
           pkg install git gcc
         run: |
-          pwd
-          ls -lah
-          whoami
-          cat /etc/release
           git --version
           gcc --version
+
+          git clone https://github.com/microsoft/vcpkg.git
+          cd vcpkg && ./bootstrap-vcpkg.sh
+
+          # export VCPKG_ROOT=/path/to/vcpkg
+          # export PATH=$VCPKG_ROOT:$PATH
+
+          ./vcpkg install zlib
