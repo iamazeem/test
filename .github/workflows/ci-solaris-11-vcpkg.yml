@@ -1,0 +1,26 @@
+name: solaris_11_vcpkg
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Solaris 11
+      uses: vmactions/solaris-vm@v1
+      with:
+        usesh: true
+        prepare: |
+          pkgutil -y -i git gcc-11
+        run: |
+          pwd
+          ls -lah
+          whoami
+          env
+          psrinfo -vp
+          cat /etc/release
+          psrinfo -v
+          echo "::memstat" | mdb -k
+          git --version
+          gcc --version
