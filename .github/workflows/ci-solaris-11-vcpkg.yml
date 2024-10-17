@@ -14,8 +14,8 @@ jobs:
         usesh: true
         prepare: |
           pkg install git gcc
-          alias tar=gtar
         run: |
+          alias tar=gtar
           git clone https://github.com/microsoft/vcpkg.git
           cd vcpkg
           ./bootstrap-vcpkg.sh
