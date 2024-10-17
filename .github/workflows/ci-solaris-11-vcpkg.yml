@@ -12,7 +12,7 @@ jobs:
       with:
         usesh: true
         prepare: |
-          pkgutil -y -i git gcc-11
+          pkg install -y git gcc
         run: |
           pwd
           ls -lah
