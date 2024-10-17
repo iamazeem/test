@@ -13,7 +13,7 @@ jobs:
         copyback: false
         usesh: true
         prepare: |
-          pkg install git gcc tar
+          pkg install git gcc archiver/gnu-tar
         run: |
           git clone https://github.com/microsoft/vcpkg.git
           cd vcpkg
