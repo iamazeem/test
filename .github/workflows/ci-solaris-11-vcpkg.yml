@@ -10,17 +10,13 @@ jobs:
     - name: Solaris 11
       uses: vmactions/solaris-vm@v1
       with:
+        copyback: false
         usesh: true
         prepare: |
           pkg install git gcc
+          alias tar=gtar
         run: |
-          git --version
-          gcc --version
-
           git clone https://github.com/microsoft/vcpkg.git
-          cd vcpkg && ./bootstrap-vcpkg.sh
-
-          # export VCPKG_ROOT=/path/to/vcpkg
-          # export PATH=$VCPKG_ROOT:$PATH
-
+          cd vcpkg
+          ./bootstrap-vcpkg.sh
           ./vcpkg install zlib
