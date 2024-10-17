@@ -12,7 +12,7 @@ jobs:
       with:
         usesh: true
         prepare: |
-          pkgutil -y -i git gcc
+          pkg install git gcc
         run: |
           pwd
           ls -lah
