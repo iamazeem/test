@@ -1,4 +1,4 @@
-name: conatiner_services
+name: postgres_services_container
 
 on: workflow_dispatch
 
