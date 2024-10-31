@@ -24,8 +24,8 @@ jobs:
     steps:
       - name: Install postgresql-client (psql)
         run: |
-          apt update -y
-          apt install -y postgresql-client
+          sudo apt update -y
+          sudo apt install -y postgresql-client
           psql --version
 
       - name: Check DB connection
