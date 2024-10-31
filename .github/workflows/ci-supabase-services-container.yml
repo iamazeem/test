@@ -11,8 +11,8 @@ jobs:
         image: supabase/postgres:15.6.1.133
         env:
           POSTGRES_PASSWORD: postgres
-          POSTGRES_USER: postgres
-          # POSTGRES_DB: test_db
+          # POSTGRES_USER: postgres
+          POSTGRES_DB: test_db
         ports:
         - 5432:5432
         options: >-
@@ -30,7 +30,7 @@ jobs:
 
       - name: Check
         run: |
-          psql "postgresql://postgres:postgres@localhost:5432" <<EOF
+          psql "postgresql://postgres:postgres@localhost:5432/test_db" <<EOF
             CREATE TABLE test (id INT);
             INSERT INTO test (id) VALUES (123);
             INSERT INTO test (id) VALUES (456);
