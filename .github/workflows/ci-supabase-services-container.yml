@@ -29,7 +29,7 @@ jobs:
 
       - name: Check
         run: |
-          psql "postgresql://postgres:postgres@localhost:5432/test_db" <<EOF
+          psql "postgresql://postgres:postgres@localhost:5432" <<EOF
             CREATE TABLE test (id INT);
             INSERT INTO test (id) VALUES (123);
             INSERT INTO test (id) VALUES (456);
