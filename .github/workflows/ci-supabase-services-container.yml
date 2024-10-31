@@ -30,7 +30,7 @@ jobs:
 
       - name: Check DB connection
         run: |
-          psql "postgresql://postgres:postgres@postgres:5432" <<EOF
+          psql "postgresql://postgres:postgres@localhost:5432" <<EOF
             CREATE TABLE test (id INT);
             INSERT INTO test (id) VALUES (123);
             INSERT INTO test (id) VALUES (456);
