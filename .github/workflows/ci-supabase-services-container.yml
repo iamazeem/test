@@ -11,7 +11,7 @@ jobs:
         image: supabase/postgres:15.6.1.133
         env:
           POSTGRES_PASSWORD: postgres
-          # POSTGRES_USER: postgres
+          POSTGRES_USER: postgres
           # POSTGRES_DB: test_db
         ports:
         - 5432:5432
@@ -28,7 +28,7 @@ jobs:
           sudo apt install -y postgresql-client
           psql --version
 
-      - name: Check DB connection
+      - name: Check
         run: |
           psql "postgresql://postgres:postgres@localhost:5432" <<EOF
             CREATE TABLE test (id INT);
