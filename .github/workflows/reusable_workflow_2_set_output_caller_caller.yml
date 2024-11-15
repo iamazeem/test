@@ -20,5 +20,5 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         for (( i=0; i<RUNS; i++ )); do
-          gh workflow run reusable_workflow_2_set_output_caller
+          gh workflow run reusable_workflow_2_set_output_caller --repo "$GITHUB_REPOSITORY"
         done
