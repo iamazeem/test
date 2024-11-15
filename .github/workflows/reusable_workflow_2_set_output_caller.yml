@@ -13,5 +13,5 @@ jobs:
     steps:
     - name: Get
       run: |
-        echo "success=${{ steps.set.outputs.success }}"
-        echo "failure=${{ steps.set.outputs.failure }}"
+        echo "success=${{ needs.set.outputs.success }}"
+        echo "failure=${{ needs.set.outputs.failure }}"
