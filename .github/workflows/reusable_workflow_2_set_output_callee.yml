@@ -20,12 +20,12 @@ jobs:
       # failure: ${{ steps.set.outputs.failure }}
       success: ${{ steps.set.outcome  == 'success' }}
       failure: ${{ steps.set.outcome  == 'failure' }}
-      complete: |-
-        ${{
+      complete: |
+        '${{
           steps.set.outcome  == 'success' &&
           steps.get.outcome  == 'success' &&
           steps.fail.outcome == 'failure'
-        }}
+        }}'
 
     steps:
     - name: Set
