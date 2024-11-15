@@ -1,0 +1,29 @@
+name: reusable_workflow_2_set_output_callee
+
+on:
+  workflow_call:
+    outputs:
+      success:
+        value: ${{ jobs.set.outputs.success }}
+      failure:
+        value: ${{ jobs.set.outputs.failure }}
+
+jobs:
+  set:
+    runs-on: ubuntu-latest
+
+    outputs:
+      success: ${{ steps.set.outputs.success }}
+      failure: ${{ steps.set.outputs.failure }}
+
+    steps:
+    - name: Set
+      id: set
+      run: |
+        echo "success=true" >> "$GITHUB_OUTPUT"
+        echo "failure=false" >> "$GITHUB_OUTPUT"
+
+    - name: Get
+      run: |
+        echo "success=${{ steps.set.outputs.success }}"
+        echo "failure=${{ steps.set.outputs.failure }}"
