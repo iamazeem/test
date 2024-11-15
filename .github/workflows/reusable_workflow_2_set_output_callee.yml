@@ -21,8 +21,10 @@ jobs:
     - name: Set
       id: set
       run: |
-        echo "success=true" >> "$GITHUB_OUTPUT"
-        echo "failure=false" >> "$GITHUB_OUTPUT"
+        {
+          echo "success=true"
+          echo "failure=false"
+        } | tee -a "$GITHUB_OUTPUT" "$GITHUB_STEP_SUMMARY"
 
     - name: Get
       run: |

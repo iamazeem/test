@@ -24,5 +24,7 @@ jobs:
         SUCCESS: ${{ needs.set.outputs.success == 'true' && 'OK' || 'NOK' }}
         FAILURE: ${{ needs.set.outputs.failure == 'true' && 'OK' || 'NOK' }}
       run: |
-        echo "SUCCESS=$SUCCESS"
-        echo "FAILURE=$FAILURE"
+        {
+          echo "SUCCESS=$SUCCESS"
+          echo "FAILURE=$FAILURE"
+        } | tee -a "$GITHUB_STEP_SUMMARY"
