@@ -1,0 +1,24 @@
+name: reusable_workflow_2_set_output_caller_caller
+run-name: caller_caller
+
+on:
+  workflow_dispatch:
+    inputs:
+      runs:
+        description: 'Runs'
+        type: number
+        default: 2
+        required: false
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Run
+      env:
+        RUNS: ${{ inputs.runs }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        for (( i=0; i<RUNS; i++ )); do
+          gh workflow run reusable_workflow_2_set_output_caller
+        done
