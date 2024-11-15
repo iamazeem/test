@@ -14,8 +14,10 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      success: ${{ steps.set.outputs.success }}
-      failure: ${{ steps.set.outputs.failure }}
+      # success: ${{ steps.set.outputs.success }}
+      # failure: ${{ steps.set.outputs.failure }}
+      success: ${{ steps.set.outcome  == 'success' }}
+      failure: ${{ steps.set.outcome  == 'failure' }}
 
     steps:
     - name: Set
