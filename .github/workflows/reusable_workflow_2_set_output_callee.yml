@@ -8,6 +8,8 @@ on:
         value: ${{ jobs.set.outputs.success }}
       failure:
         value: ${{ jobs.set.outputs.failure }}
+      all:
+        value: ${{ jobs.set.outputs.all }}
 
 jobs:
   set:
@@ -18,6 +20,12 @@ jobs:
       # failure: ${{ steps.set.outputs.failure }}
       success: ${{ steps.set.outcome  == 'success' }}
       failure: ${{ steps.set.outcome  == 'failure' }}
+      all: |
+        ${{
+          steps.set.outcome  == 'success' &&
+          steps.get.outcome  == 'success' &&
+          steps.fail.outcome == 'failure'
+        }}
 
     steps:
     - name: Set
@@ -29,6 +37,12 @@ jobs:
         } | tee -a "$GITHUB_OUTPUT" "$GITHUB_STEP_SUMMARY"
 
     - name: Get
+      id: get
       run: |
         echo "success=${{ steps.set.outputs.success }}"
         echo "failure=${{ steps.set.outputs.failure }}"
+
+    - name: Fail
+      id: fail
+      continue-on-error: true
+      run: exit 1
