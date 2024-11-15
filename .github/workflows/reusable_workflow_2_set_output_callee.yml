@@ -46,3 +46,6 @@ jobs:
       id: fail
       continue-on-error: true
       run: exit 1
+
+    - name: Fail Status
+      run: echo '${{ steps.fail.outcome }}'
