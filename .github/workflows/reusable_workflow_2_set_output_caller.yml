@@ -1,4 +1,5 @@
 name: reusable_workflow_2_set_output_caller
+run-name: caller
 
 on: workflow_dispatch
 

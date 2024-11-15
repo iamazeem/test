@@ -1,4 +1,5 @@
 name: reusable_workflow_2_set_output_callee
+run-name: callee
 
 on:
   workflow_call:
