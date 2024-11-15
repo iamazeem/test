@@ -8,8 +8,8 @@ on:
         value: ${{ jobs.set.outputs.success }}
       failure:
         value: ${{ jobs.set.outputs.failure }}
-      all:
-        value: ${{ jobs.set.outputs.all }}
+      complete:
+        value: ${{ jobs.set.outputs.complete }}
 
 jobs:
   set:
@@ -20,7 +20,7 @@ jobs:
       # failure: ${{ steps.set.outputs.failure }}
       success: ${{ steps.set.outcome  == 'success' }}
       failure: ${{ steps.set.outcome  == 'failure' }}
-      all: |
+      complete: |
         ${{
           steps.set.outcome  == 'success' &&
           steps.get.outcome  == 'success' &&

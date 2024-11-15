@@ -18,13 +18,16 @@ jobs:
       run: |
         echo "success=${{ needs.set.outputs.success }}"
         echo "failure=${{ needs.set.outputs.failure }}"
+        echo "complete=${{ needs.set.outputs.complete }}"
 
     - name: Compare
       env:
         SUCCESS: ${{ needs.set.outputs.success == 'true' && 'OK' || 'NOK' }}
         FAILURE: ${{ needs.set.outputs.failure == 'true' && 'OK' || 'NOK' }}
+        COMPLETE: ${{ needs.set.outputs.complete == 'true' && 'OK' || 'NOK' }}
       run: |
         {
           echo "SUCCESS=$SUCCESS"
           echo "FAILURE=$FAILURE"
+          echo "COMPLETE=$COMPLETE"
         } | tee -a "$GITHUB_STEP_SUMMARY"
