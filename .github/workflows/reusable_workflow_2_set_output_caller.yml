@@ -5,9 +5,11 @@ on: workflow_dispatch
 
 jobs:
   set:
+    name: callee
     uses: ./.github/workflows/reusable_workflow_2_set_output_callee.yml
 
   get:
+    name: caller-get
     needs: set
     runs-on: ubuntu-latest
 
