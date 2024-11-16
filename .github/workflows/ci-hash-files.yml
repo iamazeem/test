@@ -22,12 +22,15 @@ jobs:
             const hash = await glob.hashFiles(path);
             console.log(hash);
 
+      - name: Hash [hashFiles + *]
+        run: echo "${{ hashFiles('hash-test/*/test.json') }}"
+
       - name: Hash [hashFiles + **]
         run: echo "${{ hashFiles('hash-test/**/test.json') }}"
 
       - name: Hash [hashFiles + env var]
         env:
-          FILE: hash-test/${{ env.DIR }}/test.json
+          FILE: hash-test/${{ inputs.DIR }}/test.json
         run: echo "${{ hashFiles(env.FILE) }}"
 
       - name: Hash [hashFiles + format]
