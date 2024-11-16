@@ -22,7 +22,7 @@ jobs:
 
       - name: Check
         env:
-          HASH: ${{ steps.id.outputs.result }}
+          HASH: ${{ steps.hash.outputs.result }}
         run: echo "$HASH"
 
       - name: Hash [hashFiles + *]
