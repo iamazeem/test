@@ -15,12 +15,15 @@ jobs:
 
       - name: Generate Hash [actions/github-script]
         uses: actions/github-script@v7
+        id: hash
         with:
           result-encoding: string
-          script: |
-            const path = 'hash-test/' + process.env.DIR + '/test.json';
-            const hash = await glob.hashFiles(path);
-            console.log(hash);
+          script: return glob.hashFiles('hash-test/' + process.env.DIR + '/test.json');
+
+      - name: Check
+        env:
+          HASH: ${{ steps.id.outputs.result }}
+        run: echo "$HASH"
 
       - name: Hash [hashFiles + *]
         run: echo "${{ hashFiles('hash-test/*/test.json') }}"
