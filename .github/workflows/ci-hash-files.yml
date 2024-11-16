@@ -18,9 +18,11 @@ jobs:
         with:
           result-encoding: string
           script: |
-            const path = 'hash-test/' + process.env.DIR + '/test.json';
-            const hash = await glob.hashFiles(path);
+            const path = process.env.GITHUB_WORKSPACE + '/hash-test/' + process.env.DIR + '/test.json';
+            console.log(path);
+            const hash = await glob.hashFiles('test.json', 'hash-test/' + process.env.DIR);
             console.log(hash);
+            console.log(glob.hashFiles('test.json', './hash-test/' + process.env.DIR));
 
       - name: Hash [hashFiles + **]
         run: echo "${{ hashFiles('hash-test/**/test.json') }}"
