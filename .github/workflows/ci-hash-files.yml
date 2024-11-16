@@ -28,7 +28,7 @@ jobs:
             console.log(hash);
 
       - name: Hash [hashFiles + **]
-        run: echo "${{ hashFiles(hash-test/**/test.json) }}"
+        run: echo "${{ hashFiles('hash-test/**/test.json') }}"
 
       - name: Hash [hashFiles + env var]
         env:
