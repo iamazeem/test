@@ -1,0 +1,33 @@
+name: hash_files_test
+
+on: workflow_dispatch
+
+env:
+  DIR: files
+
+jobs:
+  hash:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate Hash [actions/github-script]
+        uses: actions/github-script@v7
+        with:
+          result-encoding: string
+          script: |
+            const hash = glob.hashFiles('test.json', 'hash-test/' + `DIR`);
+            console.log('HASH:', hash);
+
+      - name: Hash [hashFiles + env var]
+        env:
+          FILE: hash-test/${{ env.DIR }}/test.json
+        run: echo "HASH=${{ hashFiles(env.FILE) }}"
+
+      - name: Hash [hashFiles + format]
+        run: echo "HASH=${{ hashFiles(format('hash-test/{0}/test.json', env.DIR)) }}"
+
+      - name: Hash [hashFiles + join]
+        run: echo "HASH=${{ hashFiles(join(['hash-test', env.DIR, 'test.json'], '/')) }}"
