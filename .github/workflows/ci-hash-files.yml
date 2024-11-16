@@ -18,7 +18,7 @@ jobs:
         id: hash
         with:
           result-encoding: string
-          script: return glob.hashFiles('hash-test/' + process.env.DIR + '/test.json');
+          script: return glob.hashFiles('hash-test/' + ${{ env.DIR }} + '/test.json');
 
       - name: Check
         env:
