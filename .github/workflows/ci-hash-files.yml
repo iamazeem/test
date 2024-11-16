@@ -20,8 +20,15 @@ jobs:
         with:
           result-encoding: string
           script: |
+            console.log(`DIR`);
+            console.log(process.env.DIR);
+            console.log('hash-test/' + `DIR`);
+            console.log('hash-test/' + process.env.DIR);
             const hash = await glob.hashFiles('test.json', 'hash-test/' + process.env.DIR);
             console.log(hash);
+
+      - name: Hash [hashFiles + **]
+        run: echo "${{ hashFiles(hash-test/**/test.json) }}"
 
       - name: Hash [hashFiles + env var]
         env:
@@ -32,9 +39,3 @@ jobs:
         env:
           HASH: ${{ hashFiles(format('hash-test/{0}/test.json', env.DIR)) }}
         run: echo "$HASH"
-
-      - name: Hash [hashFiles + join]
-        env:
-          FILE: ${{ join(fromJson('["hash-test", env.DIR, "test.json"]'), '/') }}
-          HASH: ${{ hashFiles(join(fromJson('["hash-test", env.DIR, "test.json"]'), '/')) }}
-        run: echo "$FILE | $HASH"
