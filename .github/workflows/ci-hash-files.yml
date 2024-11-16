@@ -30,7 +30,7 @@ jobs:
 
       - name: Hash [hashFiles + env var]
         env:
-          FILE: hash-test/${{ inputs.DIR }}/test.json
+          FILE: hash-test/${{ env.DIR }}/test.json
         run: echo "${{ hashFiles(env.FILE) }}"
 
       - name: Hash [hashFiles + format]
