@@ -27,7 +27,11 @@ jobs:
         run: echo "HASH=${{ hashFiles(env.FILE) }}"
 
       - name: Hash [hashFiles + format]
-        run: echo "HASH=${{ hashFiles(format('hash-test/{0}/test.json', env.DIR)) }}"
+        env:
+          HASH: ${{ hashFiles(format('hash-test/{0}/test.json', env.DIR)) }}
+        run: echo "HASH=$HASH"
 
       - name: Hash [hashFiles + join]
-        run: echo "HASH=${{ hashFiles(join(['hash-test', env.DIR, 'test.json'], '/')) }}"
+        env:
+          HASH: ${{ hashFiles(join('["hash-test", env.DIR, "test.json"]', '/')) }}
+        run: echo "HASH=$HASH"
