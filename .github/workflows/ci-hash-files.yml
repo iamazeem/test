@@ -20,11 +20,7 @@ jobs:
         with:
           result-encoding: string
           script: |
-            console.log(`DIR`);
-            console.log(process.env.DIR);
-            console.log('hash-test/' + `DIR`);
-            console.log('hash-test/' + process.env.DIR);
-            const hash = await glob.hashFiles('test.json', 'hash-test/' + process.env.DIR);
+            const hash = await glob.hashFiles('hash-test/' + process.env.DIR + 'test.json');
             console.log(hash);
 
       - name: Hash [hashFiles + **]
