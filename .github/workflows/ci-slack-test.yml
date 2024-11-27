@@ -3,35 +3,35 @@ name: slack_test
 on: workflow_dispatch
 
 jobs:
-  ci:
+  set-payload:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Payload
-      env:
-        payload: |
-          {
-            "blocks": [
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": ":large_green_circle: *Build succeeded* :large_green_circle:\n<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View details>\n\n*Developer:* ${{ github.actor }}\n*Repository:* ${{ github.repository }}\n*Branch:* ${{ github.ref_name }}\n*Commit Message:* ${{ github.event.head_commit.message }}"
-                }
-              },
-              {
-                "type": "divider"
-              }
-            ]
-          }
-      run: |
-        echo "$payload" > payload.json
-        jq . payload.json
+    - name: Checkout
+      uses: actions/checkout@4
+      with:
+        sparse-checkout: |
+          slack_payload.json
+
+    - name: Upload payload file
+      uses: actions/upload-artifact@v4
+      with:
+        name: slack_payload
+        path: slack_payload.json
+
+  send-message:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download payload file
+      uses: actions/download-artifact@v4
+      with:
+        name: slack_payload
 
     - name: Send message to Slack
       uses: slackapi/slack-github-action@v2
       with:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook
-        payload-file-path: payload.json
+        payload-file-path: slack_payload.json
         payload-templated: true
