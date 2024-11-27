@@ -20,6 +20,7 @@ jobs:
         path: slack_payload.json
 
   send-message:
+    needs: set-payload
     runs-on: ubuntu-latest
 
     steps:
