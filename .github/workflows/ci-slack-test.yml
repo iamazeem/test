@@ -25,7 +25,7 @@ jobs:
             ]
           }
       run: |
-        cat "$payload" > payload.json
+        echo "$payload" > payload.json
         jq . payload.json
 
     - name: Send message to Slack
