@@ -26,7 +26,8 @@ jobs:
           }
       run: |
         echo "$payload" > payload.json
-        jq . payload.json
+        cat payload.json
+        cat payload.json | jq .
 
     - name: Send message to Slack
       uses: slackapi/slack-github-action@v2
