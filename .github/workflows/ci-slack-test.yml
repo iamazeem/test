@@ -3,7 +3,7 @@ name: slack_test
 on: workflow_dispatch
 
 jobs:
-  set-payload:
+  slack:
     runs-on: ubuntu-latest
 
     steps:
@@ -13,21 +13,16 @@ jobs:
         sparse-checkout: |
           slack_payload.json
 
-    - name: Upload payload file
-      uses: actions/upload-artifact@v4
+    - name: Set env vars
+      env:
+        GITHUB_EVENT_HEAD_COMMIT_MESSAGE: '${{ github.event.head_commit.message }}'
+      uses: iamazeem/substitute-action@v1
       with:
-        name: slack_payload
-        path: slack_payload.json
+        input-files: |
+          slack_payload.json
 
-  send-message:
-    needs: set-payload
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Download payload file
-      uses: actions/download-artifact@v4
-      with:
-        name: slack_payload
+    - name: Dump payload file
+      run: cat slack_payload.json
 
     - name: Send message to Slack
       uses: slackapi/slack-github-action@v2
@@ -35,4 +30,3 @@ jobs:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook
         payload-file-path: slack_payload.json
-        payload-templated: true

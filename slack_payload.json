@@ -4,7 +4,7 @@
       "type": "section",
       "text": {
         "type": "mrkdwn",
-        "text": ":large_green_circle: *Build succeeded* :large_green_circle:\n<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View details>\n\n*Developer:* ${{ github.actor }}\n*Repository:* ${{ github.repository }}\n*Branch:* ${{ github.ref_name }}\n*Commit Message:* ${{ github.event.head_commit.message }}"
+        "text": ":large_green_circle: *Build succeeded* :large_green_circle:\n<https://github_com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}|View details>\n\n*Developer:* ${GITHUB_ACTOR}\n*Repository:* ${GITHUB_REPOSITORY}\n*Branch:* ${GITHUB_REF_NAME}\n*Commit Message:* ${GITHUB_EVENT_HEAD_COMMIT_MESSAGE}"
       }
     },
     {
