@@ -9,7 +9,7 @@ jobs:
     steps:
     - name: Payload
       env:
-        playload: |
+        payload: |
           {
             "blocks": [
               {
@@ -26,8 +26,7 @@ jobs:
           }
       run: |
         echo "$payload" > payload.json
-        cat payload.json
-        cat payload.json | jq .
+        jq . payload.json
 
     - name: Send message to Slack
       uses: slackapi/slack-github-action@v2
