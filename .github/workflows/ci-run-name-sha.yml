@@ -1,5 +1,5 @@
 name: run_name_sha
-run-name: w-${{ fromJson(github['sha'])[0] }}
+run-name: w-${{ fromJson(toJson(github.sha))[0] }}
 
 on: workflow_dispatch
 
