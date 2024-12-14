@@ -1,0 +1,17 @@
+name: issue_close_on_open
+
+on:
+  issues:
+    types:
+    - opened
+
+jobs:
+  close:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Close Issue
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        ISSUE: ${{ github.event.number }}
+      run: gh issue close --comment "Autoclosing issue #$ISSUE" "$ISSUE"
