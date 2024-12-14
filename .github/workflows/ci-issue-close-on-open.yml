@@ -14,4 +14,4 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         ISSUE: ${{ github.event.number }}
-      run: gh issue close --comment "Autoclosing issue #$ISSUE" "$ISSUE"
+      run: gh issue close --comment "Autoclosing issue $ISSUE" "$ISSUE"
