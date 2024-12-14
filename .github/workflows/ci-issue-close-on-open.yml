@@ -6,12 +6,13 @@ on:
     - opened
 
 jobs:
-  close:
+  close-issue:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Close Issue
+    - name: Close
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        REPO: ${{ github.repository }}
         ISSUE: ${{ github.event.issue.number }}
-      run: gh issue close --comment "Autoclosing issue $ISSUE" "$ISSUE"
+      run: gh issue close --repo "$REPO" --comment "Autoclosing issue $ISSUE" "$ISSUE"
