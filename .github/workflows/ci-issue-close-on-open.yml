@@ -9,6 +9,9 @@ jobs:
   close-issue:
     runs-on: ubuntu-latest
 
+    permissions:
+      issues: write
+
     steps:
     - name: Close
       env:
