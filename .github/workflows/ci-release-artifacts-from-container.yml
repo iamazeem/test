@@ -1,11 +1,17 @@
 name: release_artifacts_from_container
 
-on: workflow_dispatch
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     container: alpine:latest
+
+    defaults:
+      run:
+        shell: bash
 
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
