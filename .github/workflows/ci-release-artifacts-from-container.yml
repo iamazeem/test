@@ -26,4 +26,5 @@ jobs:
 
     - name: Upload release artifact
       run: |
+        git config --global --add safe.directory "$PWD"
         gh release upload "v0.0.1" "LICENSE"
