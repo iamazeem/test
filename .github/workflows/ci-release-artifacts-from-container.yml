@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-22.04
     container: alpine:latest
 
+    permissions:
+      contents: write
+
     defaults:
       run:
         shell: bash
