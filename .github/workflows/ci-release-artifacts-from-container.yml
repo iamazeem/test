@@ -1,0 +1,27 @@
+name: release_artifacts_from_container
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    container: alpine:latest
+
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+    - name: Set up dependencies
+      shell: sh
+      run: apk add bash git
+
+    - name: Generate test.txt artifact
+      run: echo 'test' >test.txt
+
+    - name: Upload release artifact
+      env:
+        ARTIFACT: test.txt
+      run: |
+        gh release upload "$GITHUB_REF_NAME" "$ARTIFACT"
