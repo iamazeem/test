@@ -1,8 +1,6 @@
 name: release_artifacts_from_container
 
-on:
-  release:
-    types: [published]
+on: workflow_dispatch
 
 jobs:
   release:
@@ -24,4 +22,4 @@ jobs:
       env:
         ARTIFACT: test.txt
       run: |
-        gh release upload "$GITHUB_REF_NAME" "$ARTIFACT"
+        gh release upload "v0.0.1" "test.txt"
