@@ -15,6 +15,13 @@ jobs:
       shell: sh
       run: apk add bash git
 
+    - name: Set up GitHub CLI
+      run: |
+        wget https://github.com/cli/cli/releases/download/v2.63.2/gh_2.63.2_linux_amd64.tar.gz
+        tar xvf gh_2.63.2_linux_amd64.tar.gz
+        cp gh_2.63.2_linux_amd64/bin/gh /usr/bin
+        rm -rf gh_2.63.2_linux_amd64
+
     - name: Generate test.txt artifact
       run: echo 'test' >test.txt
 
