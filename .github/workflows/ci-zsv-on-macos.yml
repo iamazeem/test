@@ -1,4 +1,4 @@
-name: zsv_on_macos_arm64
+name: zsv_on_macos
 
 on: workflow_dispatch
 
