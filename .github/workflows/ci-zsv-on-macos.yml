@@ -17,6 +17,7 @@ jobs:
       run: |
         xcodebuild -version
         sudo rm -rf /Applications/Xcode.app
+        xcodebuild -version || true
 
     - name: Tap and install
       run: |
