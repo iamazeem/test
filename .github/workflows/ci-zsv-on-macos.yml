@@ -6,14 +6,17 @@ jobs:
   ci:
     strategy:
       matrix:
-        os: [macos-13, macos-14]
+        # os: [macos-13, macos-14]
+        os: [macos-14]
 
     runs-on: ${{ matrix.os }}
     timeout-minutes: 5
 
     steps:
     - name: Check xcode version
-      run: xcodebuild -version
+      run: |
+        xcodebuild -version
+        sudo rm -rf /Applications/Xcode.app
 
     - name: Tap and install
       run: |
