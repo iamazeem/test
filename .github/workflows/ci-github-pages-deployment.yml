@@ -1,0 +1,47 @@
+name: github_pages_deployment
+
+on:
+  push:
+    branches: [main]
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+    - name: Create site
+      env:
+        INDEX: |
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Test [${{ github.ref}} | ${{ github.ref_name }}]</title>
+          </head>
+          <body>
+            <h1>Test [${{ github.ref}} | ${{ github.ref_name }}]</h1>
+          </body>
+          </html>
+      run: |
+        mkdir site
+        cd site
+        echo "$INDEX" >index.html
+
+    - name: Upload GitHub Pages artifacts
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: site
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
