@@ -31,6 +31,7 @@ jobs:
           <body>
             <h1>Test</h1>
             <ul>
+              <li><code>github.event_name: ${{ github.event_name }}</code></li>
               <li><code>github.sha: ${{ github.sha }}</code></li>
               <li><code>github.ref: ${{ github.ref }}</code></li>
               <li><code>github.ref_name: ${{ github.ref_name }}</code></li>
