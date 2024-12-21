@@ -26,10 +26,15 @@ jobs:
           <!DOCTYPE html>
           <html>
           <head>
-            <title>Test [${{ github.ref}} | ${{ github.ref_name }}]</title>
+            <title>Test</title>
           </head>
           <body>
-            <h1>Test [${{ github.ref}} | ${{ github.ref_name }}]</h1>
+            <h1>Test</h1>
+            <ul>
+              <li><code>github.sha: ${{ github.sha }}</code></li>
+              <li><code>github.ref: ${{ github.ref }}</code></li>
+              <li><code>github.ref_name: ${{ github.ref_name }}</code></li>
+            </ul>
           </body>
           </html>
       run: |
