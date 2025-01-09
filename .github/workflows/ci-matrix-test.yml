@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: Print project-json variable
-        run: echo '${{ toJson(fromJson(needs.define-matrix.outputs.json-project)) }}' | jq -r '.include[].project'
+        run: echo '${{ needs.define-matrix.outputs.json-project }}' | jq -r '.include[].project'
 
   print-array-output:
     runs-on: ubuntu-latest
