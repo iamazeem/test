@@ -2,69 +2,99 @@ name: matrix_test
 
 on: workflow_dispatch
 
-env:
-  GH_TOKEN: ${{ secrets.GH_VARIABLE_PAT }}
-
 jobs:
-  matrix:
+  define-matrix:
     runs-on: ubuntu-latest
+
+    outputs:
+      json-project: ${{ steps.project-step.outputs.json-project }}
+
+    steps:
+      - name: Define Project String
+        id: project-step
+        run: echo 'json-project={"count":2,"include":[{"project":"1","config":"Debug"},{"project":"2","config":"Release"}]}' >>"$GITHUB_OUTPUT"
+
+  print-output:
+    runs-on: ubuntu-latest
+    needs: define-matrix
+    steps:
+      - name: Print project-json variable
+        run: echo '${{ toJson(needs.define-matrix.outputs.json-project) }}' | jq -r '.include[].project'
+
+  print-array-output:
+    runs-on: ubuntu-latest
+    needs: define-matrix
     strategy:
-      fail-fast: false
       matrix:
-        value: [1, 2, 3]
+        include: ${{ fromJson(needs.define-matrix.outputs.json-project).include }}
+
     steps:
-      - name: 'Step (matrix.value: ${{ matrix.value }})'
-        env:
-          VALUE: '${{ matrix.value }}'
-        run: |
-          [[ $VALUE == '1' ]]
+      - name: Print project-json variable
+        run: echo '${{ matrix.include.project }}'
 
-      - name: Set failure status for ${{ matrix.value }}
-        if: failure()
-        env:
-          KEY: ${{ format('{0}__{1}', github.job, matrix.value) }}
-          VALUE: ${{ format('{0}__{1}__{2}', github.run_id, github.run_number, github.run_attempt) }}
-        run: |
-          gh --repo '${{ github.repository }}' variable set "$KEY" --body "$VALUE"
+# env:
+#   GH_TOKEN: ${{ secrets.GH_VARIABLE_PAT }}
 
-  skip:
-    if: false
-    runs-on: ubuntu-latest
-    steps:
-      - name: Skip
-        run: exit 0
+# jobs:
+#   matrix:
+#     runs-on: ubuntu-latest
+#     strategy:
+#       fail-fast: false
+#       matrix:
+#         value: [1, 2, 3]
+#     steps:
+#       - name: 'Step (matrix.value: ${{ matrix.value }})'
+#         env:
+#           VALUE: '${{ matrix.value }}'
+#         run: |
+#           [[ $VALUE == '1' ]]
 
-  pass:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Pass
-        run: exit 0
+#       - name: Set failure status for ${{ matrix.value }}
+#         if: failure()
+#         env:
+#           KEY: ${{ format('{0}__{1}', github.job, matrix.value) }}
+#           VALUE: ${{ format('{0}__{1}__{2}', github.run_id, github.run_number, github.run_attempt) }}
+#         run: |
+#           gh --repo '${{ github.repository }}' variable set "$KEY" --body "$VALUE"
 
-  fail:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Fail
-        run: exit 1
+#   skip:
+#     if: false
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Skip
+#         run: exit 0
 
-  status:
-    needs: [matrix, skip, pass, fail]
-    if: always()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Dump needs JSON
-        run: |
-          {
-            echo '## `needs` JSON'
-            echo '```json'
-            echo '${{ toJson(needs) }}'
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
+#   pass:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Pass
+#         run: exit 0
 
-      - name: Dump variables
-        run: |
-          {
-            echo '## Variables'
-            echo '```'
-            gh --repo '${{ github.repository }}' variable list | grep 'MATRIX__'
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
+#   fail:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Fail
+#         run: exit 1
+
+#   status:
+#     needs: [matrix, skip, pass, fail]
+#     if: always()
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Dump needs JSON
+#         run: |
+#           {
+#             echo '## `needs` JSON'
+#             echo '```json'
+#             echo '${{ toJson(needs) }}'
+#             echo '```'
+#           } >> "$GITHUB_STEP_SUMMARY"
+
+#       - name: Dump variables
+#         run: |
+#           {
+#             echo '## Variables'
+#             echo '```'
+#             gh --repo '${{ github.repository }}' variable list | grep 'MATRIX__'
+#             echo '```'
+#           } >> "$GITHUB_STEP_SUMMARY"
