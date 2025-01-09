@@ -17,20 +17,22 @@ jobs:
   print-output:
     runs-on: ubuntu-latest
     needs: define-matrix
+
     steps:
       - name: Print project-json variable
-        run: echo '${{ toJson(needs.define-matrix.outputs.json-project) }}' | jq -r '.include[].project'
+        run: echo ${{ toJson(needs.define-matrix.outputs.json-project) }} | jq -r '.include[].project'
 
   print-array-output:
     runs-on: ubuntu-latest
     needs: define-matrix
+
     strategy:
       matrix:
         include: ${{ fromJson(needs.define-matrix.outputs.json-project).include }}
 
     steps:
       - name: Print project-json variable
-        run: echo '${{ matrix.include.project }}'
+        run: echo '${{ matrix.project }} | ${{ matrix.config }}'
 
 # env:
 #   GH_TOKEN: ${{ secrets.GH_VARIABLE_PAT }}
