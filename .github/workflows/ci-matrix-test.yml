@@ -28,7 +28,8 @@ jobs:
 
     strategy:
       matrix:
-        include: ${{ fromJson(needs.define-matrix.outputs.json-project).include }}
+        # include: ${{ fromJson(needs.define-matrix.outputs.json-project).include }}
+        include: ${{ fromJson(needs.define-matrix.outputs.json-project)['include'] }}
 
     steps:
       - name: Print project-json variable
