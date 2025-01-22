@@ -13,5 +13,5 @@ jobs:
         ts=$(date +%s%3N)
         tag="test-$ts"
         echo create tag "$tag"
-        git tag $tag
-        git push -f --tags
+        git tag "$tag"
+        git push -f "$tag"
