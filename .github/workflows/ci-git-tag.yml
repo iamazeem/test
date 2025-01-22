@@ -14,4 +14,4 @@ jobs:
         tag="test-$ts"
         echo create tag "$tag"
         git tag "$tag"
-        git push -f "$tag"
+        git push -f origin "$tag"
