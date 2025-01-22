@@ -1,0 +1,15 @@
+name: git_tag
+
+on: workflow_dispatch
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - run: |
+        ts=$(date +%s%3N)
+        tag="test-$ts"
+        echo create tag "$tag"
+        git tag $tag
+        git push -f origin --tags
