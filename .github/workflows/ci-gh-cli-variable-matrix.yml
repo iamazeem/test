@@ -23,7 +23,7 @@ jobs:
       - run: gh auth status
       - run: gh variable delete "$VAR" || true
       - run: gh variable set "$VAR" --body "$VAL"
-      - run: gh variable list
+      - run: gh variable list && sleep 2
 
   get:
     needs: set
@@ -36,6 +36,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    # - run: sleep 2
     - run: gh auth status
     - run: gh variable list
 
