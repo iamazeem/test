@@ -10,11 +10,14 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GH_VARIABLE_PAT }}
       TEST_VAR: 'test_var_value'
-      TEST_VAR_ENV: 'test_var_value_env'
+      # TEST_VAR_ENV: 'test_var_value_env'
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Check gh auth status
+        run: gh auth status
 
       - name: Delete
         run: |
