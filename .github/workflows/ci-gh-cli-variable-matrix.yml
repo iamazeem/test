@@ -30,4 +30,4 @@ jobs:
     #     value: ${{ fromJson(toJson(vars)) }}
 
     steps:
-    - run: echo '${{ toJson(vars) }}'
+    - run: echo '${{ join(vars.*) }}'
