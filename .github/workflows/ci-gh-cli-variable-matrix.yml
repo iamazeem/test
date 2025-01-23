@@ -12,13 +12,15 @@ jobs:
 
     env:
       GITHUB_TOKEN: ${{ secrets.GH_VARIABLE_PAT }}
+      VAR: VAR_${{ github.run_id }}
+      VAL: ${{ matrix.value }}
 
     steps:
       - uses: actions/checkout@v4
 
       - run: gh auth status
-      - run: gh variable delete ${{ matrix.value }} || true
-      - run: gh variable set 'VAR_${{ github.job }}' --body '${{ matrix.value }}'
+      - run: gh variable delete "$VAR" || true
+      - run: gh variable set "$VAR" --body "$VAL"
       - run: gh variable list
 
   get:
@@ -30,4 +32,5 @@ jobs:
     #     value: ${{ fromJson(toJson(vars)) }}
 
     steps:
-    - run: echo '${{ join(vars.*) }}'
+    - run: echo '${{ toJson(vars) }}'
+    - run: echo '${{ format('"{0}"', join(vars.*, '", "')) }}'
