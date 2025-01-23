@@ -12,7 +12,7 @@ jobs:
 
     env:
       GITHUB_TOKEN: ${{ secrets.GH_VARIABLE_PAT }}
-      VAR: VAR_${{ github.run_id }}
+      VAR: ${{ format('VAR_{0}_{1}_{2}', github.run_id, github.run_number, github.run_attempt) }}
       VAL: ${{ matrix.value }}
 
     steps:
@@ -33,4 +33,5 @@ jobs:
 
     steps:
     - run: echo '${{ toJson(vars) }}'
+    - run: echo '${{ join(vars.*) }}'
     - run: echo '${{ format('"{0}"', join(vars.*, '", "')) }}'
