@@ -25,9 +25,9 @@ jobs:
     needs: set
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        value: ${{ fromJson(toJson(vars)) }}
+    # strategy:
+    #   matrix:
+    #     value: ${{ fromJson(toJson(vars)) }}
 
     steps:
-    - run: echo '${{ matrix.value }}'
+    - run: echo '${{ toJson(vars) }}'
