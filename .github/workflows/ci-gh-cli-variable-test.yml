@@ -18,28 +18,28 @@ jobs:
 
       - name: Delete
         run: |
-          gh variable delete TEST_VAR
-          gh variable delete TEST_VAR_ENV --env Dev
+          gh variable delete TEST_VAR || true
+          # gh variable delete TEST_VAR_ENV --env Dev
 
       - name: List (repo)
         run: gh variable list
 
-      - name: List (env Dev)
-        run: gh variable list --env Dev
+      # - name: List (env Dev)
+      #   run: gh variable list --env Dev
 
       - name: Set (repo)
         run: gh variable set TEST_VAR --body "$TEST_VAR"
 
-      - name: Set (env Dev)
-        run: gh variable set TEST_VAR_ENV --body "$TEST_VAR_ENV" --env Dev
+      # - name: Set (env Dev)
+      #   run: gh variable set TEST_VAR_ENV --body "$TEST_VAR_ENV" --env Dev
 
       - name: List (repo)
         run: gh variable list
 
-      - name: List (env Dev)
-        run: gh variable list --env Dev
+      # - name: List (env Dev)
+      #   run: gh variable list --env Dev
 
       - name: Dump
         run: |
           echo 'TEST_VAR: ${{ vars.TEST_VAR }}'
-          echo 'TEST_VAR_ENV: ${{ vars.TEST_VAR_ENV }}'
+          # echo 'TEST_VAR_ENV: ${{ vars.TEST_VAR_ENV }}'
