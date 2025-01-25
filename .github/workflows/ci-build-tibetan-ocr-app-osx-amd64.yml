@@ -10,7 +10,7 @@ jobs:
     runs-on: macos-13
 
     env:
-      VERSION: v0.0.0
+      VERSION: '0.0.0'
 
     steps:
     - uses: actions/checkout@v4
