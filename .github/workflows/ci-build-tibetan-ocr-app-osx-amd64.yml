@@ -26,11 +26,11 @@ jobs:
       env:
         ARTIFACT_PATH: ${{ runner.os == 'macOS' && 'OSXBuild/*' || 'WindowsBuild/*' }}
       run: |
-        OS=$(echo "$RUNNER_OS" | tr '[[:upper:]]' '[[:lower:]]')
-        ARCH=$(echo "$RUNNER_ARCH" | tr '[[:upper:]]' '[[:lower:]]')
+        OS=$(echo "$RUNNER_OS" | tr '[:upper:]' '[:lower:]')
+        ARCH=$(echo "$RUNNER_ARCH" | tr '[:upper:]' '[:lower:]')
         {
           echo "VERSION=0.0.0"
-          echo "ARTIFACT_NAME=bdrc_ocr_$OS_$ARCH_$VERSION"
+          echo "ARTIFACT_NAME=bdrc_ocr_${OS}_${ARCH}_${VERSION}"
           echo "ARTIFACT_PATH=$ARTIFACT_PATH"
         } >>"$GITHUB_ENV"
 
