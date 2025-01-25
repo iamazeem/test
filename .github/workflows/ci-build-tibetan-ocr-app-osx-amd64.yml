@@ -1,4 +1,4 @@
-name: build_tibetan_ocr_app_osx_amd64
+name: build_tibetan_ocr_app
 
 on:
   push:
@@ -19,6 +19,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        repository: buda-base/tibetan-ocr-app
 
     - name: Set required env vars
       env:
