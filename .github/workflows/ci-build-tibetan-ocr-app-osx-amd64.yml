@@ -7,15 +7,30 @@ on:
 
 jobs:
   build:
-    runs-on: macos-13
+    strategy:
+      matrix:
+        os: [windows-latest, macos-13, macos-latest]
 
-    env:
-      VERSION: '0.0.0'
+    runs-on: ${{ matrix.os }}
+
+    defaults:
+      run:
+        shell: bash
 
     steps:
     - uses: actions/checkout@v4
-      with:
-        repository: buda-base/tibetan-ocr-app
+
+    - name: Set required env vars
+      env:
+        ARTIFACT_PATH: ${{ runner.os == 'macOS' && 'OSXBuild/*' || 'WindowsBuild/*' }}
+      run: |
+        OS=$(echo "$RUNNER_OS" | tr '[[:upper:]]' '[[:lower:]]')
+        ARCH=$(echo "$RUNNER_ARCH" | tr '[[:upper:]]' '[[:lower:]]')
+        {
+          echo "VERSION=0.0.0"
+          echo "ARTIFACT_NAME=bdrc_ocr_$OS_$ARCH_$VERSION"
+          echo "ARTIFACT_PATH=$ARTIFACT_PATH"
+        } >>"$GITHUB_ENV"
 
     - name: ccache
       uses: hendrikmuhs/ccache-action@v1.2
@@ -39,7 +54,8 @@ jobs:
         pip install -r requirements.txt
         pyside6-rcc resources.qrc -o resources.py
 
-    - name: Build with Nuitka (MacOS)
+    - name: Build with Nuitka (macOS)
+      if: ${{ runner.os == 'macOS' }}
       run: |
         python -m nuitka --standalone \
           --output-dir=OSXBuild \
@@ -47,8 +63,8 @@ jobs:
           --verbose \
           --company-name="Buddhist Digital Resource Center" \
           --product-name="Tibetan OCR App" \
-          --file-version=${{ env.VERSION }} \
-          --product-version=${{ env.VERSION }} \
+          --file-version='${{ env.VERSION }}' \
+          --product-version='${{ env.VERSION }}' \
           --macos-app-name="BDRC Tibetan OCR App" \
           --macos-signed-app-name="io.bdrc.ocrapp" \
           --macos-create-app-bundle \
@@ -57,8 +73,25 @@ jobs:
           --include-data-dir=./Models=Models \
           main.py
 
+    - name: Build with Nuitka (Windows)
+      if: ${{ runner.os == 'Windows' }}
+      run: |
+        python -m nuitka --standalone \
+          --windows-console-mode=disable \
+          --assume-yes-for-downloads \
+          --output-dir=WindowsBuild \
+          --plugin-enable=pyside6 \
+          --windows-icon-from-ico=logo.ico \
+          --company-name="Buddhist Digital Resource Center" \
+          --product-name="Tibetan OCR App" \
+          --file-version='${{ env.VERSION }}' \
+          --product-version='${{ env.VERSION }}' \
+          --include-data-dir=./Assets=Assets \
+          --include-data-dir=./Models=Models \
+          main.py
+
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: macos-build-${{ env.VERSION }}
-        path: 'OSXBuild/*'
+        name: ${{ env.ARTIFACT_NAME }}
+        path: ${{ env.ARTIFACT_PATH }}
