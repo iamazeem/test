@@ -28,8 +28,9 @@ jobs:
       run: |
         OS=$(echo "$RUNNER_OS" | tr '[:upper:]' '[:lower:]')
         ARCH=$(echo "$RUNNER_ARCH" | tr '[:upper:]' '[:lower:]')
+        VERSION="0.0.0"
         {
-          echo "VERSION=0.0.0"
+          echo "VERSION=$VERSION"
           echo "ARTIFACT_NAME=bdrc_ocr_${OS}_${ARCH}_${VERSION}"
           echo "ARTIFACT_PATH=$ARTIFACT_PATH"
         } >>"$GITHUB_ENV"
