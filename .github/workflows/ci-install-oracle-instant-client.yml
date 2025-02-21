@@ -6,8 +6,7 @@ jobs:
   install:
     strategy:
       matrix:
-        # os: [ubuntu-latest, macos-13, macos-latest, windows-latest]
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, macos-13, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
 
     defaults:
@@ -15,13 +14,6 @@ jobs:
         shell: bash
 
     steps:
-    # - name: Create libaio.so.1 symlink
-    #   if: ${{ runner.os == 'Linux' }}
-    #   run: |
-    #     if [[ -f /usr/lib/x86_64-linux-gnu/libaio.so.1t64 ]]; then
-    #       sudo ln -sr /usr/lib/x86_64-linux-gnu/libaio.so.1t64 /usr/lib/x86_64-linux-gnu/libaio.so.1
-    #     fi
-
     - name: Create setup script
       if: ${{ runner.os == 'Linux' }}
       env:
@@ -78,7 +70,7 @@ jobs:
 
     - name: Set up Oracle Instant Client
       id: setup
-      uses: iamazeem/setup-oracle-instant-client-action@1-fix-libaio-name-issue-on-ubuntu-24.04
+      uses: iamazeem/setup-oracle-instant-client-action@v2
 
     - name: Check output parameter [install-path]
       run: echo '${{ steps.setup.outputs.install-path }}'
