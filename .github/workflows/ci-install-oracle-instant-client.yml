@@ -15,6 +15,12 @@ jobs:
         shell: bash
 
     steps:
+    - name: Check OS
+      if: ${{ runner.os == 'Linux' }}
+      run: |
+        whereis libaio.so.1t64
+        exit 1
+
     - name: Create setup script
       if: ${{ runner.os == 'Linux' }}
       env:
