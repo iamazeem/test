@@ -18,10 +18,9 @@ jobs:
     - name: Check OS
       if: ${{ runner.os == 'Linux' }}
       run: |
-        sudo apt-get install -y libaio1
-        whereis libnsl.so.1
-        whereis libaio.so.1t64
-        exit 1
+        if [[ -f /usr/lib/x86_64-linux-gnu/libaio.so.1t64 ]]; then
+          sudo ln -sr /usr/lib/x86_64-linux-gnu/libaio.so.1t64 /usr/lib/x86_64-linux-gnu/libaio.so.1
+        fi
 
     - name: Create setup script
       if: ${{ runner.os == 'Linux' }}
