@@ -15,12 +15,12 @@ jobs:
         shell: bash
 
     steps:
-    - name: Check OS
-      if: ${{ runner.os == 'Linux' }}
-      run: |
-        if [[ -f /usr/lib/x86_64-linux-gnu/libaio.so.1t64 ]]; then
-          sudo ln -sr /usr/lib/x86_64-linux-gnu/libaio.so.1t64 libaio.so.1
-        fi
+    # - name: Create libaio.so.1 symlink
+    #   if: ${{ runner.os == 'Linux' }}
+    #   run: |
+    #     if [[ -f /usr/lib/x86_64-linux-gnu/libaio.so.1t64 ]]; then
+    #       sudo ln -sr /usr/lib/x86_64-linux-gnu/libaio.so.1t64 /usr/lib/x86_64-linux-gnu/libaio.so.1
+    #     fi
 
     - name: Create setup script
       if: ${{ runner.os == 'Linux' }}
@@ -78,7 +78,7 @@ jobs:
 
     - name: Set up Oracle Instant Client
       id: setup
-      uses: iamazeem/setup-oracle-instant-client-action@v1
+      uses: iamazeem/setup-oracle-instant-client-action@1-fix-libaio-name-issue-on-ubuntu-24.04
 
     - name: Check output parameter [install-path]
       run: echo '${{ steps.setup.outputs.install-path }}'
