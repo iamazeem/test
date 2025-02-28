@@ -15,4 +15,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         gh --version
-        gh workflow run ci-wd-test.yml --repo iamazeem/test
+        gh workflow run ci-wd-test-123.yml --repo iamazeem/test
