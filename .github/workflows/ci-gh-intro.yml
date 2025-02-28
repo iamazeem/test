@@ -1,7 +1,13 @@
 name: gh_intro
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀 ${{ inputs.emojis }}
 
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+    inputs:
+      emojis:
+        description: "emojis"
+        required: false
+        default: ":green_heart: :+1: :rocket:"
 
 jobs:
   Explore-GitHub-Actions:
