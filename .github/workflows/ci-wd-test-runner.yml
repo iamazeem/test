@@ -13,6 +13,7 @@ jobs:
     - name: Run
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        TAG: "v0.0.0"
       run: |
         gh --version
-        gh workflow run ci-wd-test-123.yml --repo iamazeem/test
+        gh workflow run ci-wd-test.yml -f tag_name="$TAG" --repo iamazeem/test
