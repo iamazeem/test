@@ -2,6 +2,9 @@ name: wd_test_runner
 
 on: workflow_dispatch
 
+permissions:
+  actions: write
+
 jobs:
   ci:
     runs-on: ubuntu-latest
