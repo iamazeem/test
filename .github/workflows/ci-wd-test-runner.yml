@@ -10,4 +10,6 @@ jobs:
     - name: Run
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: gh workflow run ci-wd-test.yml --repo iamazeem/test
+      run: |
+        gh --version
+        gh workflow run ci-wd-test.yml --repo iamazeem/test
