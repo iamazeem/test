@@ -10,4 +10,4 @@ jobs:
     - name: Run
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: gh workflow run --workflow ci-wd-test.yml
+      run: gh workflow run ci-wd-test.yml
