@@ -2,6 +2,9 @@ name: wd_test_runner
 
 on: workflow_dispatch
 
+permissions:
+  actions: write
+
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -9,5 +12,8 @@ jobs:
     steps:
     - name: Run
       env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: gh workflow run --workflow ci-wd-test.yml
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        TAG: "v0.0.0"
+      run: |
+        gh --version
+        gh workflow run ci-wd-test.yml -f tag_name="$TAG" --repo iamazeem/test

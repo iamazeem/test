@@ -1,6 +1,11 @@
 name: wd_test
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: "TAG"
+        required: true
 
 jobs:
   ci:
@@ -8,4 +13,6 @@ jobs:
 
     steps:
     - name: Test
-      run: echo
+      env:
+        TAG: ${{ inputs.tag_name }}
+      run: echo "$TAG"
