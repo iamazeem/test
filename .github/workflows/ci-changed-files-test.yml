@@ -27,19 +27,19 @@ jobs:
 
       - name: Changed files (py)
         id: changed-files-py
-        uses: tj-actions/changed-files@v45
+        uses: tj-actions/changed-files@v46
         with:
           files: '**.py'
 
       - name: Changed files (sh)
         id: changed-files-sh
-        uses: tj-actions/changed-files@v45
+        uses: tj-actions/changed-files@v46
         with:
           files: '**.sh'
 
       - name: Changed files (cpp)
         id: changed-files-yaml
-        uses: tj-actions/changed-files@v45
+        uses: tj-actions/changed-files@v46
         with:
           files: |
             **.yml
