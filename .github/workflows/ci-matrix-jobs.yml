@@ -14,12 +14,12 @@ jobs:
         shell: bash
     steps:
     - name: Step 1
-      run: sleep 5
+      run: sleep 10
     - name: Step 2
-      run: sleep 5
+      run: sleep 10
     - name: Step 3
       run: |
-        sleep 5
+        sleep 10
         if [[ $RUNNER_OS == 'Windows' ]]; then
           sleep 5
           exit 1
