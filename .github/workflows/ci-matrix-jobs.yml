@@ -15,5 +15,7 @@ jobs:
     steps:
     - name: Test
       run: |
-        sleep 5s
-        [[ $RUNNER_OS == 'Windows' ]] && exit 1
+        sleep 5
+        if [[ $RUNNER_OS == 'Windows' ]]; then
+          exit 1
+        fi
