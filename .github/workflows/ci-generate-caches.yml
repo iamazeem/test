@@ -1,0 +1,26 @@
+name: generate_caches
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Create sample files
+      run: |
+        for I in {1..2}; do
+          echo "Test $I: $RUN_ID" >"file$I.txt"
+        done
+
+    - name: Cache 1
+      uses: actions/cache@v4
+      with:
+        key: cache-1
+        path: file1.txt
+
+    - name: Cache 2
+      uses: actions/cache@v4
+      with:
+        key: cache-2
+        path: file2.txt
+  
