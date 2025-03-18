@@ -58,7 +58,7 @@ jobs:
       run:
         shell: bash
     steps:
-    - name: Step 3
+    - name: Step 1
       run: |
         sleep 5
         if [[ $RUNNER_OS == 'Windows' ]]; then
