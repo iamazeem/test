@@ -44,5 +44,7 @@ jobs:
         echo
 
         echo "$SCRIPT" > script.sh
+        cat script.sh
         chmod +x script.sh
+        ls -hl script.sh
         ./script.sh
