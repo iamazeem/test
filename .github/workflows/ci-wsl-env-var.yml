@@ -31,9 +31,8 @@ jobs:
       shell: wsl-bash {0}
       env:
         TEST_VAR_3: test789
-        # WSLENV: TEST_VAR_1:TEST_VAR_2:TEST_VAR_3
+        WSLENV: TEST_VAR_1:TEST_VAR_2:TEST_VAR_3
       run: |
-        echo '${{ toJson(env) }}' | jq -r 'to_entries | map("export " + .key + "=" + .value) | join("\n")'
         echo "TEST_VAR_1: $TEST_VAR_1"
         echo "TEST_VAR_2: $TEST_VAR_2"
         echo "TEST_VAR_3: $TEST_VAR_3"
