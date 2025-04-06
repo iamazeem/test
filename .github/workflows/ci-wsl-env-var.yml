@@ -31,3 +31,13 @@ jobs:
         echo "TEST_VAR_1: $TEST_VAR_1"
         echo "TEST_VAR_2: $TEST_VAR_2"
         echo "TEST_VAR_3: $TEST_VAR_3"
+
+        cat > script.sh <<EOF
+        #!/bin/bash
+
+        echo "TEST_VAR_1: $TEST_VAR_1"
+        echo "TEST_VAR_2: $TEST_VAR_2"
+        echo "TEST_VAR_3: $TEST_VAR_3"
+        EOF
+        chmod +x script.sh
+        ./script.sh
