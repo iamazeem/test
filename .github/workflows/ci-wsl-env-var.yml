@@ -1,6 +1,8 @@
 name: wsl_env_var
 
-on: workflow_dispatch
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   ci:
