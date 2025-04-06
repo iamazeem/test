@@ -19,7 +19,7 @@ jobs:
       uses: Vampire/setup-wsl@v5
       with:
         wsl-version: 2
-        # wsl-shell-command: bash -eo pipefail {0}
+        wsl-shell-command: bash --noprofile --norc -eo pipefail {0}
         distribution: Ubuntu-22.04
         use-cache: true
 
