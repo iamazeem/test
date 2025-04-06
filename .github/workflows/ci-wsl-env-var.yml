@@ -21,27 +21,28 @@ jobs:
         wsl-version: 2
         # wsl-shell-command: bash -eo pipefail {0}
         distribution: Ubuntu-22.04
+        use-cache: true
 
     - name: Check
       shell: wsl-bash {0}
       env:
         TEST_VAR_3: test789
         WSLENV: TEST_VAR_1:TEST_VAR_2:TEST_VAR_3
+        SCRIPT: |
+          #!/bin/sh
+
+          set -e
+
+          echo ">> Running $0"
+          echo "TEST_VAR_1: $TEST_VAR_1"
+          echo "TEST_VAR_2: $TEST_VAR_2"
+          echo "TEST_VAR_3: $TEST_VAR_3"
       run: |
         echo "TEST_VAR_1: $TEST_VAR_1"
         echo "TEST_VAR_2: $TEST_VAR_2"
         echo "TEST_VAR_3: $TEST_VAR_3"
         echo
 
-        cat > script.sh <<EOF
-        #!/bin/sh
-
-        set -e
-
-        echo ">> Running $0"
-        echo "TEST_VAR_1: $TEST_VAR_1"
-        echo "TEST_VAR_2: $TEST_VAR_2"
-        echo "TEST_VAR_3: $TEST_VAR_3"
-        EOF
+        echo "$SCRIPT" > script.sh
         chmod +x script.sh
         ./script.sh
