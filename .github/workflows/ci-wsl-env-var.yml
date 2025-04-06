@@ -1,0 +1,30 @@
+name: wsl_env_var
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: windows-2022
+
+    defaults:
+      run:
+        shell: bash
+
+    env:
+      TEST_VAR_1: test123
+      TEST_VAR_2: test456
+      WSLENV: TEST_VAR_1:TEST_VAR_2
+
+    steps:
+    - name: Set up WSL 2
+      uses: Vampire/setup-wsl@v5
+      with:
+        wsl-version: 2
+        # wsl-shell-command: bash -eo pipefail {0}
+        distribution: Ubuntu-22.04
+
+    - name: Check
+      shell: wsl-bash {0}
+      run: |
+        echo "TEST_VAR_1: $TEST_VAR_1"
+        echo "TEST_VAR_2: $TEST_VAR_2"
