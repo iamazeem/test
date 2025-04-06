@@ -27,7 +27,7 @@ jobs:
       shell: wsl-bash {0}
       env:
         TEST_VAR_3: test789
-        WSLENV: TEST_VAR_1:TEST_VAR_2:TEST_VAR_3
+        WSLENV: TEST_VAR_1:TEST_VAR_2:TEST_VAR_3:SCRIPT
         SCRIPT: |
           #!/bin/sh
 
