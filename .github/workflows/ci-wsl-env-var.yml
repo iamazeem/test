@@ -22,6 +22,7 @@ jobs:
         wsl-shell-command: bash --noprofile --norc -eo pipefail {0}
         distribution: Ubuntu-22.04
         use-cache: true
+        additional-packages: jq
 
     - name: Checkout
       uses: actions/checkout@v4
