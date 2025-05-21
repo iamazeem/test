@@ -60,7 +60,10 @@ jobs:
 
     - name: Patch index.html
       if: ${{ inputs.diff != '' }}
-      run: git apply <<<'${{ inputs.diff }}'
+      env:
+        DIFF: |
+          ${{ inputs.diff }}
+      run: git apply <<<"$DIFF"
 
     - name: Upload GitHub Pages artifacts
       uses: actions/upload-pages-artifact@v3
