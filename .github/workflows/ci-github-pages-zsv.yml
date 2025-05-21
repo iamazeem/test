@@ -9,22 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
-    permissions:
-      pages: write
-      id-token: write
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
     env:
       TAG: '0.0.0'
-      AMD64_LINUX_WASM: amd64-linux-wasm
+      PREFIX: amd64-linux-wasm
 
     steps:
-    - name: Set up emsdk
-      uses: mymindstorm/setup-emsdk@v14
-
     - name: Checkout
       uses: actions/checkout@v4
       with:
@@ -33,9 +22,20 @@ jobs:
     - name: Update version in index.html
       run: sed "s|__VERSION__|$TAG|g" -i playground/index.html
 
-    - name: Build with SIMD (${{ env.AMD64_LINUX_WASM }})
+    - name: Cache
+      uses: actions/cache@v4
+      id: cache
+      with:
+        key: ${{ env.PREFIX }}
+        path: ${{ env.PREFIX }}
+
+    - name: Set up emsdk
+      if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+      uses: mymindstorm/setup-emsdk@v14
+
+    - name: Build
+      if: ${{ steps.cache.outputs.cache-hit != 'true' }}
       env:
-        PREFIX: ${{ env.AMD64_LINUX_WASM }}
         CC: emcc
         MAKE: make
         RUN_TESTS: false
@@ -47,13 +47,28 @@ jobs:
       run: |
         emconfigure ./configure --enable-pic --disable-pie
         emmake make install NO_STDIN=1 NO_PLAYGROUND=0
-        cp "$PREFIX"/bin/cli.em.{js,wasm} playground
+
+    - name: Copy wasm and js files
+      run: cp "$PREFIX"/bin/cli.em.{js,wasm} playground
 
     - name: Upload GitHub Pages artifacts
       uses: actions/upload-pages-artifact@v3
       with:
         path: playground
 
+  deploy:
+    needs: ci
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
