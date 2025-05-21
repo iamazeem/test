@@ -30,11 +30,29 @@ jobs:
         path: ${{ env.PREFIX }}
 
     - name: Set up emsdk
-      if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+      # if: ${{ steps.cache.outputs.cache-hit != 'true' }}
       uses: mymindstorm/setup-emsdk@v14
 
+    - name: Patch
+      env:
+        DIFF: |
+          diff --git a/app/2json.c b/app/2json.c
+          index 206a610..6b1a886 100644
+          --- a/app/2json.c
+          +++ b/app/2json.c
+          @@ -377,5 +377,8 @@ int ZSV_MAIN_FUNC(ZSV_COMMAND)(int argc, const char *argv[], struct zsv_opts *op
+               fclose(opts.stream);
+             if (out && out != stdout)
+               fclose(out);
+          +
+          +  if (out == stdout)
+          +    fflush(stdout);
+             return err;
+           }
+      run: git apply <<<"$DIFF"
+
     - name: Build
-      if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+      # if: ${{ steps.cache.outputs.cache-hit != 'true' }}
       env:
         CC: emcc
         MAKE: make
@@ -50,24 +68,6 @@ jobs:
 
     - name: Copy wasm and js files
       run: cp "$PREFIX"/bin/cli.em.{js,wasm} playground
-
-    # - name: Patch index.html
-    #   env:
-    #     DIFF: |
-    #       diff --git a/playground/index.html b/playground/index.html
-    #       index b8e7b0b..3b87fc0 100644
-    #       --- a/playground/index.html
-    #       +++ b/playground/index.html
-    #       @@ -133,7 +133,7 @@
-    #                return (...args) => {
-    #                  const output = args.join(' ');
-    #                  if (zsvAutocompletionsPopulated) {
-    #       -            $('body').terminal().echo($.terminal.escape_brackets(output), { flush: false });
-    #       +            $('body').terminal().echo($.terminal.escape_brackets(output), { flush: false, raw: true });
-    #                  } else {
-    #                    parseFlagsAndCommands(output);
-    #                  }
-    #   run: git apply <<<"$DIFF"
 
     - name: Upload GitHub Pages artifacts
       uses: actions/upload-pages-artifact@v3
