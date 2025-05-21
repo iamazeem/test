@@ -46,7 +46,7 @@ jobs:
                fclose(out);
           +
           +  if (out == stdout)
-          +    fflush(stdout);
+          +    fprintf(stdout, "\n");
              return err;
            }
       run: git apply <<<"$DIFF"
