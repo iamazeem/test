@@ -53,22 +53,20 @@ jobs:
 
     - name: Patch index.html
       env:
-        CHANGES: |
+        DIFF: |
           diff --git a/playground/index.html b/playground/index.html
           index b8e7b0b..6138f15 100644
           --- a/playground/index.html
           +++ b/playground/index.html
           @@ -493,6 +493,7 @@
-              }
-          
-              function zsv(args) {
+               }
+
+               function zsv(args) {
           +      $('body').terminal().clear_buffer();
-                const start = performance.now();
-                const exitCode = Module.callMain(args);
-                if (exitCode === 0) {
-      run: |
-        echo "$CHANGES" > patch.diff
-        git apply patch.diff
+                 const start = performance.now();
+                 const exitCode = Module.callMain(args);
+                 if (exitCode === 0) {
+      run: git apply <<<"$DIFF"
 
     - name: Upload GitHub Pages artifacts
       uses: actions/upload-pages-artifact@v3
