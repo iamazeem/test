@@ -51,23 +51,23 @@ jobs:
     - name: Copy wasm and js files
       run: cp "$PREFIX"/bin/cli.em.{js,wasm} playground
 
-    - name: Patch index.html
-      env:
-        DIFF: |
-          diff --git a/playground/index.html b/playground/index.html
-          index b8e7b0b..3b87fc0 100644
-          --- a/playground/index.html
-          +++ b/playground/index.html
-          @@ -133,7 +133,7 @@
-                   return (...args) => {
-                     const output = args.join(' ');
-                     if (zsvAutocompletionsPopulated) {
-          -            $('body').terminal().echo($.terminal.escape_brackets(output), { flush: false });
-          +            $('body').terminal().echo($.terminal.escape_brackets(output), { flush: false, raw: true });
-                     } else {
-                       parseFlagsAndCommands(output);
-                     }
-      run: git apply <<<"$DIFF"
+    # - name: Patch index.html
+    #   env:
+    #     DIFF: |
+    #       diff --git a/playground/index.html b/playground/index.html
+    #       index b8e7b0b..3b87fc0 100644
+    #       --- a/playground/index.html
+    #       +++ b/playground/index.html
+    #       @@ -133,7 +133,7 @@
+    #                return (...args) => {
+    #                  const output = args.join(' ');
+    #                  if (zsvAutocompletionsPopulated) {
+    #       -            $('body').terminal().echo($.terminal.escape_brackets(output), { flush: false });
+    #       +            $('body').terminal().echo($.terminal.escape_brackets(output), { flush: false, raw: true });
+    #                  } else {
+    #                    parseFlagsAndCommands(output);
+    #                  }
+    #   run: git apply <<<"$DIFF"
 
     - name: Upload GitHub Pages artifacts
       uses: actions/upload-pages-artifact@v3
