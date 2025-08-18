@@ -8,7 +8,7 @@ jobs:
 
     steps:
     - name: Checkout test
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         path: repoA
 
@@ -16,7 +16,7 @@ jobs:
       run: pwd && ls -Gghl
 
     - name: Checkout iamazeem/cwm-keda-external-scaler
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         repository: iamazeem/cwm-keda-external-scaler
         path: repoB
