@@ -1,4 +1,4 @@
-name: macos_15_intel
+name: macos_15_intel_and_arm64
 
 on: workflow_dispatch
 
@@ -6,7 +6,7 @@ jobs:
   ci:
     strategy:
       matrix:
-        os: [macos-15-intel, macos-15-arm64]
+        os: [macos-15-intel, macos-15]
 
     runs-on: ${{ matrix.os }}
 
