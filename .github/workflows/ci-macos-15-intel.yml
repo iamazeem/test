@@ -4,8 +4,12 @@ on: workflow_dispatch
 
 jobs:
   ci:
-    runs-on: macos-15-intel
+    strategy:
+      matrix:
+        os: [macos-15-intel, macos-15-arm64]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
-    - name: Test
-      run: echo 'Test'
+    - name: Check
+      run: echo '${{ runner.arch }} | ${{ runner.os }} | ${{ runner.name }}'
