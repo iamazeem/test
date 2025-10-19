@@ -13,3 +13,9 @@ jobs:
     steps:
     - name: Check
       run: echo '${{ runner.arch }} | ${{ runner.os }} | ${{ runner.name }}'
+
+    - name: Install zsv
+      run: brew install zsv
+
+    - name: zsv version
+      run: zsv version
