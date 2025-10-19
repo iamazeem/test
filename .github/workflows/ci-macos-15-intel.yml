@@ -6,7 +6,7 @@ jobs:
   ci:
     strategy:
       matrix:
-        os: [macos-15-intel, macos-15]
+        os: [macos-15-intel, macos-latest, ubuntu-latest]
 
     runs-on: ${{ matrix.os }}
 
@@ -15,7 +15,9 @@ jobs:
       run: echo '${{ runner.arch }} | ${{ runner.os }} | ${{ runner.name }}'
 
     - name: Install zsv
-      run: brew install zsv
+      run: |
+        brew update
+        brew install zsv
 
     - name: zsv version
       run: zsv version
