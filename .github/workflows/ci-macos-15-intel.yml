@@ -6,7 +6,7 @@ jobs:
   ci:
     strategy:
       matrix:
-        os: [macos-15-intel, macos-latest, ubuntu-latest]
+        os: [macos-15-intel, macos-latest]
 
     runs-on: ${{ matrix.os }}
 
