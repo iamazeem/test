@@ -52,7 +52,7 @@ jobs:
       run: ls -hl dist/
 
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v4.3.1
+      uses: actions/upload-artifact@v5
       with:
         path: dist/
 
