@@ -86,14 +86,14 @@ jobs:
       run: ls -Gghl sample*.png
 
     - name: Upload [sample.png]
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: sample.png
         path: sample.png
         if-no-files-found: error
 
     - name: Upload [sample2.png (Input + Equipment)]
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: sample2.png
         path: sample2.png
