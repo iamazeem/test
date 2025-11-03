@@ -19,5 +19,7 @@ jobs:
           }
       run: |
         echo "$PRG" > prg.c
+        gcc --version
         gcc prg.c -o prg
+        ls -l
         ./prg
