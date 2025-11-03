@@ -1,0 +1,23 @@
+name: homebrew_linux_arm64
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-22.04-arm
+    container:
+      image: ghcr.io/homebrew/ubuntu22.04:main
+
+    steps:
+    - name: Build
+      env:
+        PRG: |
+          #include <stdio.h>
+          int main() {
+            printf("Testing...\n");
+            return 0;
+          }
+      run: |
+        echo "$PRG" > prg.c
+        gcc prg.c -o prg
+        ./prg
