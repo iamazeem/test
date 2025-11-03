@@ -11,15 +11,15 @@ jobs:
 
     steps:
     - name: Build
-      env:
-        PRG: |
-          #include <stdio.h>
-          int main() {
-            printf("Testing...\n");
-            return 0;
-          }
       run: |
-        echo "$PRG" > prg.c
+        cat << EOF > prg.c
+        #include <stdio.h>
+        int main() {
+          printf("Testing...\n");
+          return 0;
+        }
+        EOF
+        cat prg.c
         gcc --version
         gcc prg.c -o prg
         ls -l
