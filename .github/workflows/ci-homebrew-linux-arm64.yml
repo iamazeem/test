@@ -10,17 +10,12 @@ jobs:
       options: --user root
 
     steps:
+    - name: Checkout
+      uses: actions/checkout@v5
+      with:
+        repository: liquidaty/zsv
+
     - name: Build
       run: |
-        cat << EOF > prg.c
-        #include <stdio.h>
-        int main() {
-          printf("Testing...\n");
-          return 0;
-        }
-        EOF
-        cat prg.c
-        gcc --version
-        gcc prg.c -o prg
-        ls -l
-        ./prg
+        ./configure --prefix=$PWD/build
+        make install
