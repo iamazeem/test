@@ -17,15 +17,13 @@ jobs:
         msystem: MINGW64
         update: false
         install: >
-          perl
           git
           curl
-          make
-          jq
           base-devel
-          ncurses
-          ncurses-devel
           mingw-w64-x86_64-gcc
+          mingw-w64-x86_64-make
+          mingw-w64-x86_64-ncurses
+          mingw-w64-x86_64-jq
 
     - name: Configure Git for line endings
       run: git config --global core.autocrlf input
