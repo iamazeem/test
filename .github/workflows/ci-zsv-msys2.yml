@@ -23,7 +23,7 @@ jobs:
           mingw-w64-x86_64-gcc
           mingw-w64-x86_64-make
           mingw-w64-x86_64-ncurses
-          mingw-w64-x86_64-jq
+          mingw-w64-x86_64-pcre2
 
     - name: Configure Git for line endings
       run: git config --global core.autocrlf input
