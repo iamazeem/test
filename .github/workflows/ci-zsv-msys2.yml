@@ -17,10 +17,12 @@ jobs:
         msystem: MINGW64
         update: false
         install: >
+          perl
           git
           curl
           make
           base-devel
+          ncurses-devel
           mingw-w64-x86_64-gcc
 
     - name: Configure Git for line endings
@@ -33,5 +35,6 @@ jobs:
 
     - name: Build zsv
       run: |
+        export MSYS=winsymlinks:lnk
         ./configure --prefix=$PWD/build
         make install
