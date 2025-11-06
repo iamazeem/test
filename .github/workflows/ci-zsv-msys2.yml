@@ -36,7 +36,10 @@ jobs:
         repository: liquidaty/zsv
 
     - name: Build zsv
-      run: |
-        export MSYS=winsymlinks:lnk
-        ./configure --prefix=$PWD/build
-        make install
+      env:
+        MSYS: winsymlinks:lnk
+        PREFIX: amd64-windows-mingw
+        CC: gcc
+        MAKE: make
+        RUN_TESTS: true
+      run: ./scripts/ci-build.sh
