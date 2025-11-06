@@ -33,6 +33,5 @@ jobs:
 
     - name: Build zsv
       run: |
-        cd zsv
         ./configure --prefix=$PWD/build
         make install
