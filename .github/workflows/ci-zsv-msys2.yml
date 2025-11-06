@@ -21,7 +21,9 @@ jobs:
           git
           curl
           make
+          jq
           base-devel
+          ncurses
           ncurses-devel
           mingw-w64-x86_64-gcc
 
