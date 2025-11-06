@@ -1,0 +1,38 @@
+name: zsv_msys2
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: windows-latest
+
+    defaults: 
+      run:
+        shell: msys2 {0}
+
+    steps:
+    - name: Set up MSYS2
+      uses: msys2/setup-msys2@v2
+      with:
+        msystem: MINGW64
+        update: false
+        install: >
+          git
+          curl
+          make
+          base-devel
+          mingw-w64-x86_64-gcc
+
+    - name: Configure Git for line endings
+      run: git config --global core.autocrlf input
+
+    - name: Checkout
+      uses: actions/checkout@v5
+      with:
+        repository: liquidaty/zsv
+
+    - name: Build zsv
+      run: |
+        cd zsv
+        ./configure --prefix=$PWD/build
+        make install
