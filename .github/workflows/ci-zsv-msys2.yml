@@ -42,4 +42,5 @@ jobs:
         CC: gcc
         MAKE: make
         RUN_TESTS: true
+        ARTIFACT_DIR: .artifacts
       run: ./scripts/ci-build.sh
