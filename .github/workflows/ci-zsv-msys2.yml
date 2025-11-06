@@ -37,8 +37,10 @@ jobs:
       env:
         MSYS: winsymlinks:lnk
         PREFIX: amd64-windows-mingw
-        CC: gcc
+        CC: x86_64-w64-mingw32-gcc
         MAKE: make
         RUN_TESTS: true
         ARTIFACT_DIR: .artifacts
+        SKIP_TAR_ARCHIVE: true
+        SKIP_ZIP_ARCHIVE: true
       run: ./scripts/ci-build.sh
