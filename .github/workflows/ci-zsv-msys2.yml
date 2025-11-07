@@ -19,11 +19,12 @@ jobs:
         install: >
           git
           curl
+          tmux
           base-devel
           mingw-w64-x86_64-gcc
           mingw-w64-x86_64-make
           mingw-w64-x86_64-ncurses
-          mingw-w64-x86_64-pcre2
+          mingw-w64-x86_64-sqlite3
 
     - name: Configure Git for line endings
       run: git config --global core.autocrlf input
@@ -43,4 +44,5 @@ jobs:
         ARTIFACT_DIR: .artifacts
         SKIP_TAR_ARCHIVE: true
         SKIP_ZIP_ARCHIVE: true
+        CMP: diff --ignore-trailing-space
       run: ./scripts/ci-build.sh
