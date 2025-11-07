@@ -9,5 +9,8 @@ jobs:
     steps:
     - name: Test
       run: echo 'Test'
+    
+    - name: Installed software
+      run: apt list --installed
 
   ci-1: *base
