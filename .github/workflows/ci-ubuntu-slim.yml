@@ -1,0 +1,13 @@
+name: ubuntu_slim
+
+on: workflow_dispatch
+
+jobs:
+  ci: &base
+    runs-on: ubuntu-slim
+
+    steps:
+    - name: Test
+      run: echo 'Test'
+
+  ci-1: *base
