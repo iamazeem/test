@@ -36,6 +36,18 @@ jobs:
       id: upload
       uses: actions/upload-pages-artifact@v4
 
+    - name: Download Github Pages artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: github-pages
+
+    - name: Upload release artifact
+      if: ${{ github.event_name == 'release' && github.action == 'published' }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        gh release upload '${{ github.ref_name }}' 'github-pages'
+
     - name: Deploy to GitHub Pages
       id: deploy
       uses: actions/deploy-pages@v4
