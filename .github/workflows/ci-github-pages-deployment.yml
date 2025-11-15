@@ -6,16 +6,10 @@ on:
   release:
     types: [published]
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'version'
-        type: string
-        default: '0.0.0'
-        required: false
 
 jobs:
   ci:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
 
     permissions:
       pages: write
@@ -27,27 +21,25 @@ jobs:
 
     steps:
     - name: Create site
-      env:
-        INDEX: |
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <title>Test | ${{ github.event_name }}</title>
-          </head>
-          <body>
-            <h1>Test</h1>
-            <ul>
-              <li><code>version: ${{ github.event_name == 'workflow_dispatch' && inputs.version || '1.2.3' }}</code></li>
-              <li><code>github.sha: ${{ github.sha }}</code></li>
-              <li><code>github.ref: ${{ github.ref }}</code></li>
-              <li><code>github.ref_name: ${{ github.ref_name }}</code></li>
-            </ul>
-          </body>
-          </html>
       run: |
         mkdir site
         cd site
-        echo "$INDEX" >index.html
+        cat > index.html <<EOF
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>GiHub Pages Test</title>
+          </head>
+          <body>
+            <ul>
+              <li><code>github.event_name: ${{ github.event_name }}</code></li>
+              <li><code>github.ref_name:   ${{ github.ref_name }}</code></li>
+              <li><code>github.sha:        ${{ github.sha }}</code></li>
+              <li><code>date:              $(date --utc)</code></li>
+            </ul>
+          </body>
+          </html>
+        EOF
 
     - name: Upload GitHub Pages artifacts
       uses: actions/upload-pages-artifact@v4
