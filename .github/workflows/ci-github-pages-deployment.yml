@@ -41,3 +41,7 @@ jobs:
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
+
+    - name: Verify
+      run: |
+        curl -s '${{ steps.deployment.outputs.page_url }}' | jq .
