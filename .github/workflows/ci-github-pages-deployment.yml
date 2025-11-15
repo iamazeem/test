@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  ci:
+  deploy:
     runs-on: ubuntu-slim
 
     permissions:
@@ -23,8 +23,7 @@ jobs:
     - name: Setup
       run: |
         mkdir site
-        cd site
-        cat >index.html <<EOF
+        cat >"site/index.html" <<EOF
         {
           "date": "$(date --utc)",
           "github.event_name": "${{ github.event_name }}",
@@ -33,7 +32,7 @@ jobs:
         }
         EOF
 
-    - name: Upload GitHub Pages artifacts
+    - name: Upload GitHub Pages artifact
       uses: actions/upload-pages-artifact@v4
       with:
         path: site
