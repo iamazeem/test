@@ -37,12 +37,13 @@ jobs:
       uses: actions/upload-pages-artifact@v4
 
     - name: Download Github Pages artifact
+      if: ${{ github.event_name == 'release' }}  
       uses: actions/download-artifact@v4
       with:
         name: github-pages
 
     - name: Upload release artifact
-      if: ${{ github.event_name == 'release' && github.action == 'published' }}
+      if: ${{ github.event_name == 'release' }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
