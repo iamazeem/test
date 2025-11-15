@@ -32,7 +32,7 @@ jobs:
           <!DOCTYPE html>
           <html>
           <head>
-            <title>Test</title>
+            <title>Test | ${{ github.event_name }}</title>
           </head>
           <body>
             <h1>Test</h1>
