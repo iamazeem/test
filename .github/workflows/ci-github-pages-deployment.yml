@@ -17,7 +17,7 @@ jobs:
 
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deploy.outputs.page_url }}
 
     steps:
     - name: Setup
@@ -33,17 +33,23 @@ jobs:
         EOF
 
     - name: Upload GitHub Pages artifact
+      id: upload
       uses: actions/upload-pages-artifact@v4
 
     - name: Deploy to GitHub Pages
-      id: deployment
+      id: deploy
       uses: actions/deploy-pages@v4
 
     - name: Verify
       env:
-        URL: ${{ steps.deployment.outputs.page_url }}
+        ARTIFACT_ID: ${{ steps.upload.outputs.artifact_id }}
+        URL: ${{ steps.deploy.outputs.page_url }}
       run: |
         {
+          echo "ARTIFACT_ID: $ARTIFACT_ID"
+          echo
+          echo "OUTPUT (curl):"
+          echo
           echo '```json'
           curl -s "$URL" | jq .
           echo '```'
