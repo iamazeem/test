@@ -20,25 +20,17 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-    - name: Create site
+    - name: Setup
       run: |
         mkdir site
         cd site
         cat > index.html <<EOF
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <title>GiHub Pages Test</title>
-          </head>
-          <body>
-            <ul>
-              <li><code>github.event_name: ${{ github.event_name }}</code></li>
-              <li><code>github.ref_name:   ${{ github.ref_name }}</code></li>
-              <li><code>github.sha:        ${{ github.sha }}</code></li>
-              <li><code>date:              $(date --utc)</code></li>
-            </ul>
-          </body>
-          </html>
+        {
+          "date": "$(date --utc)",
+          "github.event_name": "${{ github.event_name }}",
+          "github.ref_name": "${{ github.ref_name }}",
+          "github.sha": "${{ github.sha }}"
+        }
         EOF
 
     - name: Upload GitHub Pages artifacts
