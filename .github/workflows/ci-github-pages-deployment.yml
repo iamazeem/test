@@ -38,7 +38,7 @@ jobs:
 
     - name: Deploy to GitHub Pages
       id: deploy
-      uses: iamazeem/deploy-pages@383-fix
+      uses: actions/deploy-pages@v4
 
     - name: Verify
       env:
