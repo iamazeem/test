@@ -37,18 +37,20 @@ jobs:
       uses: actions/upload-pages-artifact@v4
 
     - name: Download Github Pages artifact
-      if: ${{ github.event_name == 'release' }}
+      # if: ${{ github.event_name == 'release' }}
       uses: actions/download-artifact@v4
       with:
         name: github-pages
 
     - name: Upload release artifact
-      if: ${{ github.event_name == 'release' }}
+      # if: ${{ github.event_name == 'release' }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         zip github-pages artifact.tar
-        gh release upload '${{ github.ref_name }}' github-pages
+        ls -l
+        # gh release upload '${{ github.ref_name }}' github-pages
+        gh release upload 'v1.2.3-ghp-1' github-pages
 
     - name: Deploy to GitHub Pages
       id: deploy
