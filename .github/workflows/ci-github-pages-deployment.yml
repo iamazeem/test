@@ -48,7 +48,7 @@ jobs:
     - name: Upload release artifact
       # if: ${{ github.event_name == 'release' }}
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         zip github-pages artifact.tar
         cp github-pages.zip github-pages
