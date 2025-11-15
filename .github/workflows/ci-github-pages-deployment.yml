@@ -24,7 +24,7 @@ jobs:
       run: |
         mkdir site
         cd site
-        cat > index.html <<EOF
+        cat >index.html <<EOF
         {
           "date": "$(date --utc)",
           "github.event_name": "${{ github.event_name }}",
@@ -43,5 +43,11 @@ jobs:
       uses: actions/deploy-pages@v4
 
     - name: Verify
+      env:
+        URL: ${{ steps.deployment.outputs.page_url }}
       run: |
-        curl -s '${{ steps.deployment.outputs.page_url }}' | jq .
+        {
+          echo '```json'
+          curl -s "$URL" | jq .
+          echo '```'
+        } | tee -a "$GITHUB_STEP_SUMMARY"
