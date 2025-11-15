@@ -51,7 +51,7 @@ jobs:
         cp github-pages.zip github-pages
         ls -l
         # gh release upload '${{ github.ref_name }}' github-pages
-        gh release upload 'v1.2.3-ghp-1' github-pages
+        gh --repo '${{ github.repository }}' release upload 'v1.2.3-ghp-1' github-pages
 
     - name: Deploy to GitHub Pages
       id: deploy
