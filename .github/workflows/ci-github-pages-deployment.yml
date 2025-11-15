@@ -46,10 +46,8 @@ jobs:
         URL: ${{ steps.deploy.outputs.page_url }}
       run: |
         {
-          echo "ARTIFACT_ID: $ARTIFACT_ID"
-          echo
-          echo "OUTPUT (curl):"
-          echo
+          echo "### \`artifact_id\`: \`$ARTIFACT_ID\`"
+          echo "### curl output:"
           echo '```json'
           curl -s "$URL" | jq .
           echo '```'
