@@ -23,6 +23,7 @@ jobs:
     env:
       VAULT_ADDR: http://0.0.0.0:8200
       VAULT_DEV_ROOT_TOKEN_ID: my-root-token
+      VAULT_FORMAT: json
 
     steps:
       - name: Wait for Vault to be ready
@@ -39,9 +40,7 @@ jobs:
         run: vault login "$VAULT_DEV_ROOT_TOKEN_ID"
 
       - name: Set
-        run: |
-          vault secrets list -detailed
-          vault kv put secret/docker-config image=alpine:latest
+        run: vault kv put secret/docker-config image=alpine:latest
 
       - name: Get
         run: vault kv get secret/docker-config
