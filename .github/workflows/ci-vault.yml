@@ -5,11 +5,6 @@ on:
     branches: [main]
   workflow_dispatch:
 
-env:
-  VAULT_DEV_LISTEN_ADDRESS: 0.0.0.0:8200
-  VAULT_ADDR: http://localhost:8200
-  VAULT_DEV_ROOT_TOKEN_ID: my-root-token
-
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -19,12 +14,19 @@ jobs:
         image: hashicorp/vault:latest
         ports:
           - 8200:8200
+        env:
+          VAULT_DEV_LISTEN_ADDRESS: 0.0.0.0:8200
+          VAULT_DEV_ROOT_TOKEN_ID: my-root-token
         options: >-
           --cap-add IPC_LOCK
           --health-cmd "vault status -sealed || exit 1"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+
+    env:
+      VAULT_ADDR: http://localhost:8200
+      VAULT_DEV_ROOT_TOKEN_ID: my-root-token
 
     steps:
       - name: Login
