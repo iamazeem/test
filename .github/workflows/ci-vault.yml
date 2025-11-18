@@ -43,4 +43,4 @@ jobs:
         run: vault kv put secret/docker-config image=alpine:latest
 
       - name: Get
-        run: vault kv get secret/docker-config
+        run: vault kv get -field=data secret/docker-config
