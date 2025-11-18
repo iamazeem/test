@@ -32,6 +32,13 @@ jobs:
             sleep 5
           done
 
+      - name: Install vault CLI
+        run: |
+          # https://developer.hashicorp.com/vault/install#linux
+          wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+          sudo apt update && sudo apt install -y vault
+
       - name: Login
         run: vault login "$VAULT_DEV_ROOT_TOKEN_ID"
 
