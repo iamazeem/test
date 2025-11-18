@@ -43,7 +43,9 @@ jobs:
         run: vault login "$VAULT_DEV_ROOT_TOKEN_ID"
 
       - name: Set
-        run: vault kv put docker/config image=alpine:latest
+        run: |
+          vault secrets list -detailed
+          vault kv put secret/docker-config image=alpine:latest
 
       - name: Get
-        run: vault kv get docker/config
+        run: vault kv get secret/docker-config
