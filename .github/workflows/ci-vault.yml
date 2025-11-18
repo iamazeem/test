@@ -21,7 +21,7 @@ jobs:
           --cap-add IPC_LOCK
           --health-cmd "vault status -sealed || exit 1"
           --health-interval 10s
-          --health-timeout 5s
+          --health-timeout 60s
           --health-retries 10
 
     env:
