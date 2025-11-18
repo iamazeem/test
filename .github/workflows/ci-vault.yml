@@ -8,6 +8,7 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
 
     services:
       vault:
@@ -17,18 +18,20 @@ jobs:
         env:
           VAULT_DEV_LISTEN_ADDRESS: 0.0.0.0:8200
           VAULT_DEV_ROOT_TOKEN_ID: my-root-token
-        options: >-
-          --cap-add IPC_LOCK
-          --health-cmd "curl -f http://0.0.0.0:8200/v1/sys/health || exit 1"
-          --health-interval 20s
-          --health-timeout 60s
-          --health-retries 50
+        options: --cap-add IPC_LOCK
 
     env:
       VAULT_ADDR: http://0.0.0.0:8200
       VAULT_DEV_ROOT_TOKEN_ID: my-root-token
 
     steps:
+      - name: Wait for Vault to be ready
+        run: |
+          until curl -s "$VAULT_ADDR/v1/sys/health" | grep -q '"sealed":false'; do
+            echo "Waiting for Vault to unseal..."
+            sleep 5
+          done
+
       - name: Login
         run: vault login "$VAULT_DEV_ROOT_TOKEN_ID"
 
