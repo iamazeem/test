@@ -1,6 +1,9 @@
 name: vault
 
-on: workflow_dispatch
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
 
 env:
   VAULT_DEV_LISTEN_ADDRESS: 0.0.0.0:8200
@@ -17,6 +20,7 @@ jobs:
         ports:
           - 8200:8200
         options: >-
+          --cap-add IPC_LOCK
           --health-cmd "vault status -sealed || exit 1"
           --health-interval 10s
           --health-timeout 5s
