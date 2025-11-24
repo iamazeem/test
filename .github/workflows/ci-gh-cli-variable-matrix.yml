@@ -18,7 +18,7 @@ jobs:
       VAL: ${{ format('["{0}/tag1", "{0}/tag2"]', matrix.repo) }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - run: gh auth status
       - run: gh variable delete "$VAR" || true
@@ -34,7 +34,7 @@ jobs:
     #     value: ${{ fromJson(toJson(vars)) }}
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     # - run: sleep 2
     - run: gh auth status
