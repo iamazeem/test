@@ -11,6 +11,8 @@ jobs:
       uses: awalsh128/cache-apt-pkgs-action@latest
       with:
         packages: mingw-w64
+        execute_install_scripts: true
 
     - name: Check
       run: x86_64-w64-mingw32-gcc --version
+
