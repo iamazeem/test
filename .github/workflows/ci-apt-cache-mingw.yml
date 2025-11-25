@@ -13,6 +13,9 @@ jobs:
         packages: mingw-w64
         execute_install_scripts: true
 
-    - name: Check
+    - name: Check mingw-w64 in installed pacakges
+      run: apt list --installed | grep mingw-w64
+
+    - name: Check version
       run: x86_64-w64-mingw32-gcc --version
 
