@@ -1,0 +1,16 @@
+name: apt_cache_mingw
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install
+      uses: awalsh128/cache-apt-pkgs-action@latest
+      with:
+        packages: mingw-w64
+
+    - name: Check
+      run: x86_64-w64-mingw32-gcc --version
