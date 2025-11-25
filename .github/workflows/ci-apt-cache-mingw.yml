@@ -14,7 +14,10 @@ jobs:
         execute_install_scripts: true
 
     - name: Check mingw-w64 in installed pacakges
-      run: apt list --installed | grep mingw-w64
+      run: |
+        echo "$PATH"
+        which x86_64-w64-mingw32-gcc
+        apt list --installed 2>/dev/null | grep mingw-w64
 
     - name: Check version
       run: x86_64-w64-mingw32-gcc --version
