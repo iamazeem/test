@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Cache JDK
         id: cache-jdk
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ env.JAVA_HOME_17_X64 }}
           key: ${{ runner.os }}-jdk-17
