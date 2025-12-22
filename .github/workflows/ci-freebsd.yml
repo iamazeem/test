@@ -3,7 +3,7 @@ name: freebsd
 on: workflow_dispatch
 
 jobs:
-  ci:
+  freebsd-30:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,6 +16,10 @@ jobs:
           echo "HOST: $HOST"
           hostname
 
+  freebsd-31:
+    runs-on: ubuntu-latest
+
+    steps:
     - uses: cross-platform-actions/action@v0.31.0
       with:
         operating_system: freebsd
@@ -25,6 +29,10 @@ jobs:
           echo "HOST: $HOST"
           hostname
 
+  freebsd-32:
+    runs-on: ubuntu-latest
+
+    steps:
     - uses: cross-platform-actions/action@v0.32.0
       with:
         operating_system: freebsd
