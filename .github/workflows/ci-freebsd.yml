@@ -1,0 +1,18 @@
+name: freebsd
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: FreeBSD
+      uses: cross-platform-actions/action@v0.32.0
+      with:
+        operating_system: freebsd
+        version: '13.2'
+        shell: sh
+        run: |
+          echo "HOST: $HOST"
+          hostname
