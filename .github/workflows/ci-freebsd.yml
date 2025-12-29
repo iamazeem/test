@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: cross-platform-actions/action@v0.30.0
+    - uses: cross-platform-actions/action@v0.32.0
       with:
         operating_system: freebsd
         version: '13.2'
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: cross-platform-actions/action@v0.31.0
+    - uses: cross-platform-actions/action@v0.32.0
       with:
         operating_system: freebsd
         version: '13.2'
