@@ -38,7 +38,7 @@ jobs:
 
     - name: Upload GitHub Pages artifact
       id: upload
-      uses: actions/upload-pages-artifact@v4
+      uses: actions/upload-pages-artifact@v5
 
     - name: Download Github Pages artifact
       if: ${{ github.event_name == 'release' }}
