@@ -37,9 +37,9 @@ jobs:
         make afl-build
         echo "=== Running afl-cmin ==="
         mkdir -p afl/optimized
-        afl-cmin -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz || true
+        afl-cmin -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz @@ || true
         echo "=== Running afl-cmin.bash ==="
-        afl-cmin.bash -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz || true
+        afl-cmin.bash -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz @@ || true
         # echo "=== Running afl-fuzz ==="
         # ./afl/fuzz < ./afl/corpus/filtered/2tsv-2.csv
         # echo "=== Running afl-showmap ==="
