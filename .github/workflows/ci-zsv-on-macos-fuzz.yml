@@ -28,28 +28,29 @@ jobs:
         brew update
         brew install coreutils tree afl++
 
+    - name: config
+      run: sudo afl-system-config
+
     - name: Run fuzzing
       env:
         AFL_DEBUG: 1
       run: |
-        sudo afl-system-config
-
         cd fuzz
-        make afl-build
+        make afl-run
 
-        mkdir -p afl/{filtered,optimized}
-        cp ../data/test/2tsv-2.csv afl/filtered/
+        # mkdir -p afl/{filtered,optimized}
+        # cp ../data/test/2tsv-2.csv afl/filtered/
+
+        # # echo
+        # # echo "=== Running afl-cmin.bash ==="
+        # # AFL_NO_FORKSRV=1 afl-cmin.bash -e -i ./afl/filtered/ -o ./afl/optimized -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
 
         # echo
-        # echo "=== Running afl-cmin.bash ==="
-        # AFL_NO_FORKSRV=1 afl-cmin.bash -e -i ./afl/filtered/ -o ./afl/optimized -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
+        # echo "=== Running afl-cmin ==="
+        # AFL_NO_FORKSRV=1 afl-cmin -e -i ./afl/filtered/ -o ./afl/optimized -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
 
-        echo
-        echo "=== Running afl-cmin ==="
-        AFL_NO_FORKSRV=1 afl-cmin -e -i ./afl/filtered/ -o ./afl/optimized -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
-
-        echo
-        tree ./afl
+        # echo
+        # tree ./afl
 
         # echo "=== afl-run ==="
         # make afl-run
