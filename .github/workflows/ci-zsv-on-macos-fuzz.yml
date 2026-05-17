@@ -1,6 +1,8 @@
 name: zsv_on_macos_fuzz
 
-on: workflow_dispatch
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   ci:
@@ -28,5 +30,5 @@ jobs:
         cd fuzz
         make run || true
         ./zsvfuzz < ./corpus-generated/filtered/2tsv-2.csv
-        ./afl-showmap -o /dev/null -- ./zsvfuzz < ./corpus-generated/filtered/2tsv-2.csv
+        afl-showmap -o /dev/null -- ./zsvfuzz < ./corpus-generated/filtered/2tsv-2.csv
 
