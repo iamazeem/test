@@ -42,7 +42,7 @@ jobs:
         echo
         echo "=== Running afl-showmap ==="
         # afl-showmap -e -m none -t 5000 -o /dev/null -Z -- ./afl/fuzz < ../data/test/2tsv-2.csv
-        afl-showmap -e -m none -t 5000 -o /dev/null -Z -- ./afl/fuzz <
+        afl-showmap -e -m none -t 5000 -o /dev/null -Z -- ./afl/fuzz
 
         echo
         echo "=== Running ./afl/fuzz with 2tsv-2.csv ==="
