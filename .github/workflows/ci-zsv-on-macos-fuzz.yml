@@ -43,9 +43,13 @@ jobs:
     - name: Run fuzzing
       env:
         AFL_DEBUG: 1
-        AFL_MAP_SIZE: 65536
+        # AFL_MAP_SIZE: 65536
       run: |
         cd fuzz
+        make afl-run
+
+        echo "=== --- --- --- ==="
+
         mkdir -p afl/optimized
         # make afl-build
         sed 's/__ZSV_EXTRAS__DEFINE__//' < ../include/zsv.h.in > ../include/zsv.h
