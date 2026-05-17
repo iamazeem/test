@@ -23,7 +23,9 @@ jobs:
         ref: underflow-fix-v2
 
     - name: Install deps
-      run: brew install coreutils afl++
+      run: |
+        brew update
+        brew install coreutils afl++
 
     # - name: Configure macOS Shared Memory for AFL++
     #   run: |
