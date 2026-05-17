@@ -1,0 +1,28 @@
+name: zsv_on_macos_fuzz
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: macos-latest
+
+    env:
+      TAG: "0.0.0"
+      ARM64_MACOSX_GCC: arm64-macosx-gcc
+      ARTIFACT_DIR: .artifacts
+      ARTIFACT_RETENTION_DAYS: 5
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6
+      with:
+        repository: liquidaty/zsv
+
+    - name: Install deps
+      run: |
+        brew install coreutils tree autoconf automake libtool afl++
+
+    - name: Run fuzzing
+      run: |
+        cd fuzz
+        make run
