@@ -32,6 +32,7 @@ jobs:
       env:
         AFL_DEBUG: 1
       run: |
+        set -eux
         sudo afl-system-config
 
         cd fuzz
@@ -46,16 +47,16 @@ jobs:
         # echo "=== afl-run ==="
         # make afl-run
 
-        # echo "=== --- --- --- ==="
+        echo "=== --- --- --- ==="
 
         mkdir -p afl/optimized
 
         echo "=== Running afl-cmin.bash ==="
-        afl-cmin.bash -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz || true
+        afl-cmin.bash -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
 
         echo "=== Running afl-cmin ==="
-        afl-cmin -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz || true
+        afl-cmin -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
 
         echo "=== Running afl-fuzz ==="
         mkdir -p afl/out
-        afl-fuzz -u -i ../data/test/2tsv-2.csv -x csv.dict -o ./afl/out -- ./afl/fuzz
+        afl-fuzz -u -i ../data/test -x csv.dict -o ./afl/out -- ./afl/fuzz
