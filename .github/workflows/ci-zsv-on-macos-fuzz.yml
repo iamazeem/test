@@ -42,8 +42,13 @@ jobs:
 
         echo
         echo "=== Running afl-cmin.bash ==="
-        afl-cmin.bash -e -i ./afl/filtered/ -o ./afl/optimized -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
+        AFL_NO_FORKSRV=1 afl-cmin.bash -e -i ./afl/filtered/ -o ./afl/optimized -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
 
+        echo
+        echo "=== Running afl-cmin ==="
+        AFL_NO_FORKSRV=1 afl-cmin -e -i ./afl/filtered/ -o ./afl/optimized -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
+
+        echo
         tree ./afl
 
         # echo "=== afl-run ==="
