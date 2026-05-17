@@ -40,9 +40,9 @@ jobs:
         mkdir -p afl/{filtered,optimized}
         cp ../data/test/2tsv-2.csv afl/filtered/
 
-        echo
-        echo "=== Running afl-cmin.bash ==="
-        AFL_NO_FORKSRV=1 afl-cmin.bash -e -i ./afl/filtered/ -o ./afl/optimized -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
+        # echo
+        # echo "=== Running afl-cmin.bash ==="
+        # AFL_NO_FORKSRV=1 afl-cmin.bash -e -i ./afl/filtered/ -o ./afl/optimized -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
 
         echo
         echo "=== Running afl-cmin ==="
