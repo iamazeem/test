@@ -28,3 +28,5 @@ jobs:
         cd fuzz
         make run || true
         ./zsvfuzz < ./corpus-generated/filtered/2tsv-2.csv
+        ./afl-showmap -o /dev/null -- ./zsvfuzz < ./corpus-generated/filtered/2tsv-2.csv
+
