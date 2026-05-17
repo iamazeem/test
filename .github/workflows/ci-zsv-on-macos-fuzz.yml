@@ -40,7 +40,7 @@ jobs:
     - name: Run fuzzing
       env:
         AFL_DEBUG: 1
-        AFL_MAP_SIZE: 65536
+        AFL_MAP_SIZE: 2093
       run: |
         cd fuzz
         mkdir -p afl/optimized
@@ -52,7 +52,7 @@ jobs:
         ./afl/fuzz < ../data/test/2tsv-2.csv
 
         echo "=== Running afl-cmin.bash ==="
-        AFL_MAP_SIZE=65536 afl-cmin.bash -e -i ../data/test -o ./afl/optimized -- ./afl/fuzz
+        afl-cmin.bash -e -i ../data/test -o ./afl/optimized -- ./afl/fuzz
 
         echo "=== Running afl-run ==="
         make afl-run
