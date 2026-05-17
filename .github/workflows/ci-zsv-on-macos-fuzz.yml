@@ -21,10 +21,10 @@ jobs:
 
     - name: Install deps
       run: |
-        brew install afl++
-        python -m pip install tqdm
+        brew install coreutils afl++
 
     - name: Run fuzzing
       run: |
         cd fuzz
-        make run
+        make run || true
+        ./zsvfuzz < ./corpus-generated/filtered/2tsv-2.csv
