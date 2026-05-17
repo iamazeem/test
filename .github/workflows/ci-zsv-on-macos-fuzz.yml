@@ -36,6 +36,12 @@ jobs:
         sudo afl-system-config
 
         cd fuzz
+        make afl-build
+
+        echo "=== Running afl-showmap ==="
+        afl-showmap -o /dev/null -- ./afl/fuzz < ../data/test/2tsv-2.csv
+
+        echo "=== afl-run ==="
         make afl-run
 
         echo "=== --- --- --- ==="
@@ -45,8 +51,6 @@ jobs:
         sed 's/__ZSV_EXTRAS__DEFINE__//' < ../include/zsv.h.in > ../include/zsv.h
         afl-clang-fast -g3 -O2 -march=native -fsigned-char -DZSV_VERSION=\"fuzz\" -DNDEBUG -DNO_UTF8_CHECK -DHAVE_MEMMEM -DHAVE___BUILTIN_EXPECT -I ../include fuzz.c -o ./afl/fuzz
 
-        echo "=== Running afl-showmap ==="
-        afl-showmap -o /dev/null -- ./afl/fuzz < ../data/test/2tsv-2.csv
 
         echo "=== Running ./afl/fuzz with 2tsv-2.csv ==="
         ./afl/fuzz < ../data/test/2tsv-2.csv
