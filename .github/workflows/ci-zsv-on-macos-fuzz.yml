@@ -32,8 +32,8 @@ jobs:
       run: sudo afl-system-config
 
     - name: Run fuzzing
-      env:
-        AFL_DEBUG: 1
+      # env:
+      #   AFL_DEBUG: 1
       run: |
         cd fuzz
         make afl-run
