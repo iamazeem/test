@@ -17,6 +17,7 @@ jobs:
       uses: actions/checkout@v6
       with:
         repository: liquidaty/zsv
+        ref: underflow-fix-v2
 
     - name: Install deps
       run: |
