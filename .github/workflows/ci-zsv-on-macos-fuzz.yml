@@ -32,14 +32,18 @@ jobs:
       env:
         AFL_DEBUG: 1
       run: |
-        set -eux
         sudo afl-system-config
 
         cd fuzz
         make afl-build
 
+        mkdir -p afl/optimized
+
         echo "=== Running afl-showmap ==="
-        afl-showmap -o /dev/null -- ./afl/fuzz < ../data/test/2tsv-2.csv
+        afl-showmap -e -o /dev/null -- ./afl/fuzz < ../data/test/2tsv-2.csv
+
+        echo "=== Running afl-showmap 2 ==="
+        afl-showmap -e -m none -t 5000 -o /dev/null -Z -- ./afl/fuzz
 
         echo "=== Running ./afl/fuzz with 2tsv-2.csv ==="
         ./afl/fuzz < ../data/test/2tsv-2.csv
@@ -47,16 +51,12 @@ jobs:
         # echo "=== afl-run ==="
         # make afl-run
 
-        echo "=== --- --- --- ==="
-
-        mkdir -p afl/optimized
-
         echo "=== Running afl-cmin.bash ==="
         afl-cmin.bash -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
 
         echo "=== Running afl-cmin ==="
         afl-cmin -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
 
-        echo "=== Running afl-fuzz ==="
-        mkdir -p afl/out
-        afl-fuzz -u -i ../data/test -x csv.dict -o ./afl/out -- ./afl/fuzz
+        # echo "=== Running afl-fuzz ==="
+        # mkdir -p afl/out
+        # afl-fuzz -u -i ../data/test -x csv.dict -o ./afl/out -- ./afl/fuzz
