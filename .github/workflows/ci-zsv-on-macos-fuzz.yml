@@ -52,10 +52,10 @@ jobs:
         # make afl-run
 
         echo "=== Running afl-cmin.bash ==="
-        afl-cmin.bash -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
+        AFL_DISABLE_LLVM_INSTRUMENTATION=1 afl-cmin.bash -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
 
         echo "=== Running afl-cmin ==="
-        afl-cmin -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
+        AFL_DISABLE_LLVM_INSTRUMENTATION=1 afl-cmin -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
 
         # echo "=== Running afl-fuzz ==="
         # mkdir -p afl/out
