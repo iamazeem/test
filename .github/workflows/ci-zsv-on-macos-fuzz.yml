@@ -11,6 +11,7 @@ defaults:
 jobs:
   ci:
     strategy:
+      fail-fast: false
       matrix:
         os: [macos-latest, macos-15-intel]
     runs-on: ${{ matrix.os }}
@@ -42,7 +43,7 @@ jobs:
     - name: Run fuzzing
       env:
         AFL_DEBUG: 1
-        # AFL_MAP_SIZE: 65536
+        AFL_MAP_SIZE: 65536
       run: |
         cd fuzz
         mkdir -p afl/optimized
@@ -55,6 +56,10 @@ jobs:
 
         echo "=== Running ./afl/fuzz with 2tsv-2.csv ==="
         ./afl/fuzz < ../data/test/2tsv-2.csv
+
+        echo "=== Running afl-fuzz ==="
+        mkdir -p afl/out
+        afl-fuzz -u -i ../data/test/2tsv-2.csv -x csv.dict -o ./afl/out -- ./afl/fuzz
 
         echo "=== Running afl-cmin.bash ==="
         afl-cmin.bash -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz
