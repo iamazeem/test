@@ -21,8 +21,8 @@ jobs:
 
     - name: Install deps
       run: |
-        brew install afl++ pipx
-        pipx install tqdm
+        brew install afl++
+        python -m pip install tqdm
 
     - name: Run fuzzing
       run: |
