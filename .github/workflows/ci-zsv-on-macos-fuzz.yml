@@ -28,23 +28,13 @@ jobs:
         brew update
         brew install coreutils afl++
 
-    # - name: Configure macOS Shared Memory for AFL++
-    #   run: |
-    #     echo "=== Before configuration ==="
-    #     sysctl kern.sysv.shmmax kern.sysv.shmall
-        
-    #     # Apply the required shared memory updates
-    #     sudo sysctl -w kern.sysv.shmmax=67108864
-    #     sudo sysctl -w kern.sysv.shmall=16384
-        
-    #     echo "=== After configuration ==="
-    #     sysctl kern.sysv.shmmax kern.sysv.shmall
-
     - name: Run fuzzing
       env:
         AFL_DEBUG: 1
         AFL_MAP_SIZE: 65536
       run: |
+        sudo afl-system-config
+
         cd fuzz
         make afl-run
 
