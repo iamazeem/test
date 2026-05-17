@@ -32,6 +32,8 @@ jobs:
     #     sysctl kern.sysv.shmmax kern.sysv.shmall
 
     - name: Run fuzzing
+      env:
+        AFL_DEBUG: 1
       run: |
         cd fuzz
         make afl-build
