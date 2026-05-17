@@ -52,10 +52,18 @@ jobs:
         # make afl-run
 
         echo "=== Running afl-cmin.bash ==="
-        AFL_DISABLE_LLVM_INSTRUMENTATION=0 afl-cmin.bash -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz < ../data/test/2tsv-2.csv && echo "[SUCCESS]" || echo "[FAILURE]"
+        unset AFL_DISABLE_LLVM_INSTRUMENTATION
+        afl-cmin.bash -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz < ../data/test/2tsv-2.csv && echo "[SUCCESS]" || echo "[FAILURE]"
 
         echo "=== Running afl-cmin ==="
-        AFL_DISABLE_LLVM_INSTRUMENTATION=0 afl-cmin -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz < ../data/test/2tsv-2.csv && echo "[SUCCESS]" || echo "[FAILURE]"
+        unset AFL_DISABLE_LLVM_INSTRUMENTATION
+        afl-cmin -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz < ../data/test/2tsv-2.csv && echo "[SUCCESS]" || echo "[FAILURE]"
+
+        echo "=== Running afl-cmin.bash 2 ==="
+        afl-cmin.bash -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
+
+        echo "=== Running afl-cmin 2 ==="
+        afl-cmin -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
 
         # echo "=== Running afl-fuzz ==="
         # mkdir -p afl/out
