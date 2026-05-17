@@ -6,7 +6,7 @@ on:
 
 jobs:
   ci:
-    runs-on: macos-latest
+    runs-on: [macos-latest, macos-15-intel]
 
     steps:
     - name: Checkout
