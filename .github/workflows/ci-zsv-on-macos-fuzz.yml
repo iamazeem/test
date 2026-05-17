@@ -19,8 +19,7 @@ jobs:
         ref: underflow-fix-v2
 
     - name: Install deps
-      run: |
-        brew install coreutils afl++
+      run: brew install coreutils afl++
 
     - name: Configure macOS Shared Memory for AFL++
       run: |
@@ -48,7 +47,7 @@ jobs:
         ./afl/fuzz < ../data/test/2tsv-2.csv
 
         echo "=== Running afl-cmin ==="
-        afl-cmin -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz || true
+        afl-cmin.bash -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz || true
 
         # echo "=== Running afl-cmin.bash ==="
         # afl-cmin.bash -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz || true
