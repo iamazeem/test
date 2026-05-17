@@ -41,7 +41,8 @@ jobs:
 
         echo
         echo "=== Running afl-showmap ==="
-        afl-showmap -e -m none -t 5000 -o /dev/null -Z -- ./afl/fuzz < ../data/test/2tsv-2.csv
+        # afl-showmap -e -m none -t 5000 -o /dev/null -Z -- ./afl/fuzz < ../data/test/2tsv-2.csv
+        afl-showmap -e -m none -t 5000 -o /dev/null -Z -- ./afl/fuzz <
 
         echo
         echo "=== Running ./afl/fuzz with 2tsv-2.csv ==="
@@ -49,6 +50,7 @@ jobs:
 
         echo
         echo "=== Running afl-cmin.bash ==="
+        unset AFL_DISABLE_LLVM_INSTRUMENTATION
         afl-cmin.bash -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
 
         # echo "=== afl-run ==="
