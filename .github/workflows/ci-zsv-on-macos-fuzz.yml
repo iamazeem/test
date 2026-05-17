@@ -43,7 +43,7 @@ jobs:
     - name: Run fuzzing
       env:
         AFL_DEBUG: 1
-        # AFL_MAP_SIZE: 65536
+        AFL_MAP_SIZE: 65536
       run: |
         cd fuzz
         make afl-run
