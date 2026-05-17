@@ -50,11 +50,11 @@ jobs:
         echo "=== Running afl-fuzz with 2tsv-2.csv ==="
         ./afl/fuzz < ../data/test/2tsv-2.csv
 
-        echo "=== Running afl-cmin ==="
+        echo "=== Running afl-cmin.bash ==="
         afl-cmin.bash -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz || true
 
-        # echo "=== Running afl-cmin.bash ==="
-        # afl-cmin.bash -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz || true
-        # echo "=== Running afl-fuzz ==="
-        # echo "=== Running afl-showmap ==="
-        # afl-showmap -o /dev/null -- ./afl/fuzz < ./afl/corpus/filtered/2tsv-2.csv
+        # echo "=== Running afl-cmin ==="
+        # afl-cmin -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz || true
+
+        echo "=== Running afl-showmap ==="
+        afl-showmap -o /dev/null -- ./afl/fuzz < ../data/test/2tsv-2.csv
