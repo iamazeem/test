@@ -41,7 +41,7 @@ jobs:
         sed 's/__ZSV_EXTRAS__DEFINE__//' < ../include/zsv.h.in > ../include/zsv.h
         afl-clang-fast -g3 -O2 -march=native -fsigned-char -DZSV_VERSION=\"fuzz\" -DNDEBUG -DNO_UTF8_CHECK -DHAVE_MEMMEM -DHAVE___BUILTIN_EXPECT -I ../include fuzz.c -o ./afl/fuzz
         echo "=== Running afl-fuzz with 2tsv-2.csv ==="
-        ./afl/fuzz < ./afl/corpus/filtered/2tsv-2.csv
+        ./afl/fuzz < ../data/test/2tsv-2.csv
         echo "=== Running afl-cmin ==="
         afl-cmin -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz || true
         echo "=== Running afl-cmin.bash ==="
