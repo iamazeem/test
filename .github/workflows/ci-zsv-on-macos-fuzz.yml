@@ -21,7 +21,8 @@ jobs:
 
     - name: Install deps
       run: |
-        brew install coreutils tree autoconf automake libtool afl++
+        brew install afl++
+        pip3 install tqdm
 
     - name: Run fuzzing
       run: |
