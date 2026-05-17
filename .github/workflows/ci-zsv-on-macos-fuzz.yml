@@ -35,6 +35,7 @@ jobs:
       run: |
         cd fuzz
         make afl-run || true
-        ./zsvfuzz < ./corpus-generated/filtered/2tsv-2.csv
-        afl-showmap -o /dev/null -- ./zsvfuzz < ./corpus-generated/filtered/2tsv-2.csv
-
+        echo "=== Running afl-fuzz ==="
+        ./afl/fuzz < ./afl/corpus/filtered/2tsv-2.csv
+        echo "=== Running afl-showmap ==="
+        afl-showmap -o /dev/null -- ./afl/fuzz < ./afl/corpus/filtered/2tsv-2.csv
