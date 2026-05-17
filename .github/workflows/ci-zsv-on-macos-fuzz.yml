@@ -36,7 +36,9 @@ jobs:
         AFL_DEBUG: 1
       run: |
         cd fuzz
-        make afl-build
+        # make afl-build
+        sed 's/__ZSV_EXTRAS__DEFINE__//' < ../include/zsv.h.in > ../include/zsv.h
+        afl-clang-fast -g3 -O2 -march=native -fsigned-char -DZSV_VERSION=\"fuzz\" -DNDEBUG -DNO_UTF8_CHECK -DHAVE_MEMMEM -DHAVE___BUILTIN_EXPECT -I ../include fuzz.c -o ./afl/fuzz
         echo "=== Running afl-cmin ==="
         mkdir -p afl/optimized
         afl-cmin -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz || true
