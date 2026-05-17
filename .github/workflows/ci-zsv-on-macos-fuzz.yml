@@ -52,7 +52,10 @@ jobs:
         ./afl/fuzz < ../data/test/2tsv-2.csv
 
         echo "=== Running afl-cmin.bash ==="
-        afl-cmin.bash -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz || true
+        afl-cmin.bash -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz
+
+        echo "=== Running afl-run ==="
+        make afl-run
 
         # echo "=== Running afl-cmin ==="
         # afl-cmin -e -i ../data/test -o ./afl/optimized -T "all" -- ./afl/fuzz || true
