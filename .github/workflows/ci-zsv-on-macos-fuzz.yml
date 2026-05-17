@@ -21,8 +21,7 @@ jobs:
 
     - name: Install deps
       run: |
-        brew install afl++
-        pip3 install tqdm
+        brew install afl++ tqdm
 
     - name: Run fuzzing
       run: |
