@@ -13,7 +13,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, ubuntu-latest]
+        # os: [macos-latest, ubuntu-latest]
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 90
 
@@ -29,12 +30,14 @@ jobs:
         if [[ "$RUNNER_OS" == "Linux" ]]; then
           eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
           {
-            echo "/home/linuxbrew/.linuxbrew/bin/"
+            echo "/home/linuxbrew/.linuxbrew/bin"
             echo "/home/linuxbrew/.linuxbrew/opt/coreutils/libexec/gnubin"
           } >> "$GITHUB_PATH"
         fi
         brew update
         brew install coreutils afl++
+        whereis afl-fuzz
+        whereis afl-system-config
 
     - name: Config system for afl
       run: sudo afl-system-config
