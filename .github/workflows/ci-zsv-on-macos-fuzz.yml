@@ -48,7 +48,7 @@ jobs:
     - name: Run fuzzing
       id: fuzz
       env:
-        AFL_DEBUG: 1
+        # AFL_DEBUG: 1
         AFL_NO_FORKSRV: 1
       run: |
         cd fuzz
