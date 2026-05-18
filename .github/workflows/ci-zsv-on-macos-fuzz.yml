@@ -28,9 +28,13 @@ jobs:
       run: |
         if [[ "$RUNNER_OS" == "Linux" ]]; then
           eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          {
+            echo "/home/linuxbrew/.linuxbrew/bin/"
+            echo "/home/linuxbrew/.linuxbrew/opt/coreutils/libexec/gnubin"
+          } >> "$GITHUB_PATH"
         fi
         brew update
-        brew install coreutils tree afl++
+        brew install coreutils afl++
 
     - name: Config system for afl
       run: sudo afl-system-config
@@ -39,7 +43,7 @@ jobs:
       id: fuzz
       run: |
         cd fuzz
-        make afl-run-parallel JOBS=4 STOP_ON_CRASH=1 TIMEOUT_SECONDS=3600
+        make afl-run-parallel STOP_ON_CRASH=1 TIMEOUT_SECONDS=3600
 
     - name: Collect afl crashes
       if: ${{ steps.fuzz.outcome == 'failure' }}
