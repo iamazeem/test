@@ -49,10 +49,13 @@ jobs:
       id: fuzz
       env:
         AFL_DEBUG: 1
+        AFL_NO_FORKSRV: 1
       run: |
         cd fuzz
         make afl-build
+        echo "=== Running ./afl/fuzz ==="
         ./afl/fuzz < ../data/test/2tsv-2.csv
+        echo "=== Running afl-run-parallel ==="
         make afl-run-parallel STOP_ON_CRASH=1 TIMEOUT_SECONDS=3600
 
     - name: Collect afl crashes
