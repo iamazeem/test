@@ -47,6 +47,8 @@ jobs:
 
     - name: Run fuzzing
       id: fuzz
+      env:
+        AFL_DEBUG: 1
       run: |
         cd fuzz
         make afl-run-parallel STOP_ON_CRASH=1 TIMEOUT_SECONDS=3600
