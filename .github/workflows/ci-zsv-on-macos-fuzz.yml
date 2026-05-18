@@ -36,11 +36,14 @@ jobs:
         fi
         brew update
         brew install coreutils afl++
-        whereis afl-fuzz
-        whereis afl-system-config
 
     - name: Config system for afl
-      run: sudo afl-system-config
+      run: |
+        if [[ "$RUNNER_OS" == "Linux" ]]; then
+          sudo /home/linuxbrew/.linuxbrew/bin/afl-system-config
+        else
+          sudo afl-system-config
+        fi
 
     - name: Run fuzzing
       id: fuzz
