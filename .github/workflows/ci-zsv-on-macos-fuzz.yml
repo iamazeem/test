@@ -14,9 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-latest, ubuntu-latest]
-        # os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 90
 
     steps:
     - name: Checkout
@@ -52,22 +50,24 @@ jobs:
         AFL_NO_FORKSRV: 1
       run: |
         cd fuzz
-        make afl-run-parallel STOP_ON_CRASH=1 TIMEOUT_SECONDS=3600
+        make afl-run-parallel STOP_ON_CRASH=1 TIMEOUT_SECONDS=10800
+        make afl-show-progress-summary ALL=1
 
     - name: Collect afl crashes
-      if: ${{ steps.fuzz.outcome == 'failure' }}
+      if: always()
       id: crashes
       run: |
         cd fuzz
         make afl-list-crashes | tee -a "$GITHUB_STEP_SUMMARY"
         {
+          echo "CRASH_COUNT=$(make afl-list-crashes | wc -l)"
           echo "CRASH_FILES<<EOF
           $(make afl-list-crashes)
           echo "EOF"
         } >>"$GITHUB_OUTPUT"
 
     - name: Upload artifacts
-      if: ${{ steps.fuzz.outcome == 'failure' }}
+      if: ${{ steps.crashes.outputs.CRASH_COUNT != '0' }}
       uses: actions/upload-artifact@v7
       with:
         name: afl-crashes-${{ matrix.os }}
