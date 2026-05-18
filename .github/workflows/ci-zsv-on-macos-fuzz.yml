@@ -26,6 +26,9 @@ jobs:
 
     - name: Install deps
       run: |
+        if [[ "$RUNNER_OS" == "Linux" ]]; then
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+        fi
         brew update
         brew install coreutils tree afl++
 
@@ -33,12 +36,13 @@ jobs:
       run: sudo afl-system-config
 
     - name: Run fuzzing
+      id: fuzz
       run: |
         cd fuzz
         make afl-run-parallel JOBS=4 STOP_ON_CRASH=1 TIMEOUT_SECONDS=3600
 
     - name: Collect afl crashes
-      if: failure()
+      if: ${{ steps.fuzz.outcome == 'failure' }}
       id: crashes
       run: |
         cd fuzz
@@ -50,7 +54,7 @@ jobs:
         } >>"$GITHUB_OUTPUT"
 
     - name: Upload artifacts
-      if: failure()
+      if: ${{ steps.fuzz.outcome == 'failure' }}
       uses: actions/upload-artifact@v7
       with:
         name: afl-crashes-${{ matrix.os }}
