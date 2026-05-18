@@ -13,8 +13,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, macos-15-intel]
+        os: [macos-latest, ubuntu-latest]
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 90
 
     steps:
     - name: Checkout
@@ -28,33 +29,30 @@ jobs:
         brew update
         brew install coreutils tree afl++
 
-    - name: config
+    - name: Config system for afl
       run: sudo afl-system-config
 
     - name: Run fuzzing
-      # env:
-      #   AFL_DEBUG: 1
       run: |
         cd fuzz
-        make afl-run
+        make afl-run-parallel JOBS=4 STOP_ON_CRASH=1 TIMEOUT_SECONDS=3600
 
-        # mkdir -p afl/{filtered,optimized}
-        # cp ../data/test/2tsv-2.csv afl/filtered/
+    - name: Collect afl crashes
+      if: failure()
+      id: crashes
+      run: |
+        cd fuzz
+        make afl-list-crashes | tee -a "$GITHUB_STEP_SUMMARY"
+        {
+          echo "CRASH_FILES<<EOF
+          $(make afl-list-crashes)
+          echo "EOF"
+        } >>"$GITHUB_OUTPUT"
 
-        # # echo
-        # # echo "=== Running afl-cmin.bash ==="
-        # # AFL_NO_FORKSRV=1 afl-cmin.bash -e -i ./afl/filtered/ -o ./afl/optimized -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
-
-        # echo
-        # echo "=== Running afl-cmin ==="
-        # AFL_NO_FORKSRV=1 afl-cmin -e -i ./afl/filtered/ -o ./afl/optimized -- ./afl/fuzz && echo "[SUCCESS]" || echo "[FAILURE]"
-
-        # echo
-        # tree ./afl
-
-        # echo "=== afl-run ==="
-        # make afl-run
-
-        # echo "=== Running afl-fuzz ==="
-        # mkdir -p afl/out
-        # afl-fuzz -u -i ../data/test -x csv.dict -o ./afl/out -- ./afl/fuzz
+    - name: Upload artifacts
+      if: failure()
+      uses: actions/upload-artifact@v7
+      with:
+        name: afl-crashes-${{ matrix.os }}
+        path: |
+          ${{ steps.crashes.outputs.CRASH_FILES }}
