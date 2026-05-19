@@ -43,33 +43,38 @@ jobs:
           sudo afl-system-config
         fi
 
-    - name: Run fuzzing
-      id: fuzz
-      env:
-        # AFL_DEBUG: 1
-        AFL_NO_FORKSRV: 1
+    - name: Repro crash
       run: |
         cd fuzz
-        make afl-run-parallel STOP_ON_CRASH=1 TIMEOUT_SECONDS=10800
-        make afl-show-progress-summary ALL=1
+        make afl-repro-crash CRASH_FILE=./misc/id:000000,sig:06,src:001129,time:1545512,execs:22534629,op:havoc,rep:15
 
-    - name: Collect afl crashes
-      if: always()
-      id: crashes
-      run: |
-        cd fuzz
-        make afl-list-crashes | tee -a "$GITHUB_STEP_SUMMARY"
-        {
-          echo "CRASH_COUNT=$(make afl-list-crashes | wc -l)"
-          echo "CRASH_FILES<<EOF
-          $(make afl-list-crashes)
-          echo "EOF"
-        } >>"$GITHUB_OUTPUT"
+    # - name: Run fuzzing
+    #   id: fuzz
+    #   env:
+    #     # AFL_DEBUG: 1
+    #     AFL_NO_FORKSRV: 1
+    #   run: |
+    #     cd fuzz
+    #     make afl-run-parallel STOP_ON_CRASH=1 TIMEOUT_SECONDS=10800
+    #     make afl-show-progress-summary ALL=1
 
-    - name: Upload artifacts
-      if: ${{ steps.crashes.outputs.CRASH_COUNT != '0' }}
-      uses: actions/upload-artifact@v7
-      with:
-        name: afl-crashes-${{ matrix.os }}
-        path: |
-          ${{ steps.crashes.outputs.CRASH_FILES }}
+    # - name: Collect afl crashes
+    #   if: always()
+    #   id: crashes
+    #   run: |
+    #     cd fuzz
+    #     make afl-list-crashes | tee -a "$GITHUB_STEP_SUMMARY"
+    #     {
+    #       echo "CRASH_COUNT=$(make afl-list-crashes | wc -l)"
+    #       echo "CRASH_FILES<<EOF
+    #       $(make afl-list-crashes)
+    #       echo "EOF"
+    #     } >>"$GITHUB_OUTPUT"
+
+    # - name: Upload artifacts
+    #   if: ${{ steps.crashes.outputs.CRASH_COUNT != '0' }}
+    #   uses: actions/upload-artifact@v7
+    #   with:
+    #     name: afl-crashes-${{ matrix.os }}
+    #     path: |
+    #       ${{ steps.crashes.outputs.CRASH_FILES }}
