@@ -19,11 +19,15 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v6
+      with:
+        sparse-checkout: |
+          misc/id:000000,sig:06,src:001129,time:1545512,execs:22534629,op:havoc,rep:15
 
     - name: Checkout [liquidaty/zsv]
       uses: actions/checkout@v6
       with:
         repository: liquidaty/zsv
+        path: zsv
         ref: underflow-fix-v2
 
     - name: Install deps
@@ -50,7 +54,7 @@ jobs:
       env:
         CRASH_FILE: ${{ github.workspace }}/misc/id:000000,sig:06,src:001129,time:1545512,execs:22534629,op:havoc,rep:15
       run: |
-        cd zsv/fuzz
+        cd fuzz
         make afl-repro-crash CRASH_FILE="$CRASH_FILE"
 
     # - name: Run fuzzing
@@ -59,7 +63,7 @@ jobs:
     #     # AFL_DEBUG: 1
     #     AFL_NO_FORKSRV: 1
     #   run: |
-    #     cd fuzz
+    #     cd zsv/fuzz
     #     make afl-run-parallel STOP_ON_CRASH=1 TIMEOUT_SECONDS=10800
     #     make afl-show-progress-summary ALL=1
 
@@ -71,7 +75,7 @@ jobs:
     #     make afl-list-crashes | tee -a "$GITHUB_STEP_SUMMARY"
     #     {
     #       echo "CRASH_COUNT=$(make afl-list-crashes | wc -l)"
-    #       echo "CRASH_FILES<<EOF
+    #       echo "CRASH_FILES<<EOF"
     #       $(make afl-list-crashes)
     #       echo "EOF"
     #     } >>"$GITHUB_OUTPUT"
