@@ -54,7 +54,7 @@ jobs:
       env:
         CRASH_FILE: ${{ github.workspace }}/misc/id:000000,sig:06,src:001129,time:1545512,execs:22534629,op:havoc,rep:15
       run: |
-        cd fuzz
+        cd zsv/fuzz
         make afl-repro-crash CRASH_FILE="$CRASH_FILE"
 
     # - name: Run fuzzing
@@ -71,7 +71,7 @@ jobs:
     #   if: always()
     #   id: crashes
     #   run: |
-    #     cd fuzz
+    #     cd zsv/fuzz
     #     make afl-list-crashes | tee -a "$GITHUB_STEP_SUMMARY"
     #     {
     #       echo "CRASH_COUNT=$(make afl-list-crashes | wc -l)"
