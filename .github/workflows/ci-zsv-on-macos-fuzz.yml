@@ -19,6 +19,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v6
+
+    - name: Checkout [liquidaty/zsv]
+      uses: actions/checkout@v6
       with:
         repository: liquidaty/zsv
         ref: underflow-fix-v2
@@ -44,9 +47,11 @@ jobs:
         fi
 
     - name: Repro crash
+      env:
+        CRASH_FILE: ${{ github.workspace }}/misc/id:000000,sig:06,src:001129,time:1545512,execs:22534629,op:havoc,rep:15
       run: |
-        cd fuzz
-        make afl-repro-crash CRASH_FILE=./misc/id:000000,sig:06,src:001129,time:1545512,execs:22534629,op:havoc,rep:15
+        cd zsv/fuzz
+        make afl-repro-crash CRASH_FILE="$CRASH_FILE"
 
     # - name: Run fuzzing
     #   id: fuzz
