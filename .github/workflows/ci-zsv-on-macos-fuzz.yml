@@ -57,33 +57,32 @@ jobs:
         cd zsv/fuzz
         make afl-repro-crash CRASH_FILE="$CRASH_FILE"
 
-    # - name: Run fuzzing
-    #   id: fuzz
-    #   env:
-    #     # AFL_DEBUG: 1
-    #     AFL_NO_FORKSRV: 1
-    #   run: |
-    #     cd zsv/fuzz
-    #     make afl-run-parallel STOP_ON_CRASH=1 TIMEOUT_SECONDS=10800
-    #     make afl-show-progress-summary ALL=1
+    - name: Run fuzzing
+      id: fuzz
+      # env:
+      #   AFL_DEBUG: 1
+      run: |
+        cd zsv/fuzz
+        make afl-run-parallel STOP_ON_CRASH=1 TIMEOUT_SECONDS=10800
+        make afl-show-progress-summary ALL=1
 
-    # - name: Collect afl crashes
-    #   if: always()
-    #   id: crashes
-    #   run: |
-    #     cd zsv/fuzz
-    #     make afl-list-crashes | tee -a "$GITHUB_STEP_SUMMARY"
-    #     {
-    #       echo "CRASH_COUNT=$(make afl-list-crashes | wc -l)"
-    #       echo "CRASH_FILES<<EOF"
-    #       $(make afl-list-crashes)
-    #       echo "EOF"
-    #     } >>"$GITHUB_OUTPUT"
+    - name: Collect afl crashes
+      if: always()
+      id: crashes
+      run: |
+        cd zsv/fuzz
+        make afl-list-crashes | tee -a "$GITHUB_STEP_SUMMARY"
+        {
+          echo "CRASH_COUNT=$(make afl-list-crashes | wc -l)"
+          echo "CRASH_FILES<<EOF"
+          $(make afl-list-crashes)
+          echo "EOF"
+        } >>"$GITHUB_OUTPUT"
 
-    # - name: Upload artifacts
-    #   if: ${{ steps.crashes.outputs.CRASH_COUNT != '0' }}
-    #   uses: actions/upload-artifact@v7
-    #   with:
-    #     name: afl-crashes-${{ matrix.os }}
-    #     path: |
-    #       ${{ steps.crashes.outputs.CRASH_FILES }}
+    - name: Upload artifacts
+      if: ${{ steps.crashes.outputs.CRASH_COUNT != '0' }}
+      uses: actions/upload-artifact@v7
+      with:
+        name: afl-crashes-${{ matrix.os }}
+        path: |
+          ${{ steps.crashes.outputs.CRASH_FILES }}
