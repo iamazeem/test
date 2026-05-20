@@ -65,7 +65,8 @@ jobs:
         cd zsv/fuzz
         make afl-build
         unset AFL_NO_FORKSRV
-        afl-cmin -e -i ./afl/corpus/filtered -o ./afl/corpus/optimized -T "all" -- ./afl/fuzz -
+        mkdir -p ./afl/corpus/optimized
+        afl-cmin -e -i ../data/test -o ./afl/corpus/optimized -T "all" -- ./afl/fuzz -
 
         # make afl-run-parallel STOP_ON_CRASH=1 TIMEOUT_SECONDS=10800
         # make afl-show-progress-summary ALL=1
