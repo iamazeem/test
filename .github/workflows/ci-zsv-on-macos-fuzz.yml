@@ -63,12 +63,7 @@ jobs:
       #   AFL_DEBUG: 1
       run: |
         cd zsv/fuzz
-        # make afl-build
-        # unset AFL_NO_FORKSRV
-        # mkdir -p ./afl/corpus/optimized
-        # afl-cmin.bash -e -i ../data/test -o ./afl/corpus/optimized -T "all" -- ./afl/fuzz -
-
-        make afl-run-parallel HARNESS=libfuzzer TIMEOUT_SECONDS=60
+        make afl-run-parallel HARNESS=libfuzzer SAND_MODE=1 TIMEOUT_SECONDS=3600
         make afl-show-progress-summary ALL=1
 
     # - name: Collect afl crashes
