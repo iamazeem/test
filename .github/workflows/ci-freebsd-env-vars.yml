@@ -1,0 +1,35 @@
+name: freebsd_env_vars
+
+on: workflow_dispatch
+
+env:
+  VAR_WORKFLOW: var_workflow
+
+jobs:
+  freebsd:
+    runs-on: ubuntu-latest
+
+    env:
+      VAR_JOB: var_job
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6
+
+    - name: Set up FreeBSD
+      uses: iamazeem/cross-platform-actions-action@145-propagate-env-vars
+      with:
+        operating_system: freebsd
+        version: '13.2'
+        shell: sh
+
+    - name: Check with cap.sh
+      env:
+        VAR_STEP: var_step
+      shell: cpa.sh {0}
+      run: |
+        env | sort
+
+    - name: Check without cap.sh
+      run: |
+        env | sort
