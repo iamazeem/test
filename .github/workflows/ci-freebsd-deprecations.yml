@@ -2,15 +2,15 @@ name: freebsd_deprecations
 
 on: workflow_dispatch
 
-env:
-  TEST: test123
+# env:
+#   TEST: test123
 
 jobs:
   freebsd:
     runs-on: ubuntu-latest
 
-    env:
-      VAR_1: var_1
+    # env:
+    #   VAR_1: var_1
 
     steps:
     - name: Checkout
@@ -22,18 +22,27 @@ jobs:
         operating_system: freebsd
         version: '13.2'
         shell: sh
-        environment_variables: TEST ENV_VAR_1 VAR_1
+        # environment_variables: TEST ENV_VAR_1 VAR_1
 
-    - name: Run
-      env:
-        ENV_VAR_1: env_var_1
+    # - name: Run
+    #   env:
+    #     ENV_VAR_1: env_var_1
+    #   shell: cpa.sh {0}
+    #   run: |
+    #     echo "TEST: $TEST"
+    #     echo "ENV_VAR_1: $ENV_VAR_1"
+    #     echo "VAR_1: $VAR_1"
+
+    # - name: Run script
+    #   shell: cpa.sh {0}
+    #   run: |
+    #     ./scripts/print-env-var.sh
+
+    - name: Set
       shell: cpa.sh {0}
       run: |
-        echo "TEST: $TEST"
-        echo "ENV_VAR_1: $ENV_VAR_1"
-        echo "VAR_1: $VAR_1"
+        echo "TEST_VAR=test_123" >> "$GITHUB_ENV"
 
-    - name: Run script
-      shell: cpa.sh {0}
+    - name: Get
       run: |
-        ./scripts/print-env-var.sh
+        echo "TEST_VAR=$TEST_VAR"
