@@ -26,7 +26,7 @@ jobs:
     - name: Check with cap.sh
       env:
         VAR_STEP: var_step
-        VAR_STEP_MULTILINE: |
+        VAR_STEP_MULTILINE: |-
           Hello,
           World!
       shell: cpa.sh {0}
@@ -35,8 +35,3 @@ jobs:
         echo "VAR_JOB: $VAR_JOB"
         echo "VAR_STEP: $VAR_STEP"
         echo "VAR_STEP_MULTILINE: $VAR_STEP_MULTILINE"
-        env
-
-    - name: Check without cap.sh
-      run: |
-        env
