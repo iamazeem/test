@@ -25,3 +25,8 @@ jobs:
       run: |
         echo "TEST: $TEST"
         echo "ENV_VAR_1: $ENV_VAR_1"
+
+    - name: Run script
+      shell: cpa.sh {0}
+      run: |
+        ./scripts/print-env-var.sh
