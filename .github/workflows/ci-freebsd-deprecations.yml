@@ -16,7 +16,7 @@ jobs:
         operating_system: freebsd
         version: '13.2'
         shell: sh
-        environment_variables: TEST
+        environment_variables: TEST ENV_VAR_1
 
     - name: Run
       env:
