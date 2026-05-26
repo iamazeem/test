@@ -35,8 +35,8 @@ jobs:
         echo "VAR_JOB: $VAR_JOB"
         echo "VAR_STEP: $VAR_STEP"
         echo "VAR_STEP_MULTILINE: $VAR_STEP_MULTILINE"
-        env | sort
+        env
 
     - name: Check without cap.sh
       run: |
-        env | sort
+        env
