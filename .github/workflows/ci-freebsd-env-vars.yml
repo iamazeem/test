@@ -26,10 +26,13 @@ jobs:
     - name: Check with cap.sh
       env:
         VAR_STEP: var_step
+        VAR_STEP_MULTILINE: |
+          Hello,
+          World!
       shell: cpa.sh {0}
       run: |
-        env | sort
+        env | grep VAR_
 
     - name: Check without cap.sh
       run: |
-        env | sort
+        env | grep VAR_
