@@ -54,3 +54,10 @@ jobs:
         cat "$GITHUB_ENV"
         echo "==="
         cat "$GITHUB_ENV" | jq .
+
+    - name: Env
+      env:
+        TEST_VAR_1: test_var_1
+        TEST_VAR_2: test_var_2
+      run: |
+        env
