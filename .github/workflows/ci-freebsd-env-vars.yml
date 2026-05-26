@@ -31,14 +31,10 @@ jobs:
           World!
       shell: cpa.sh {0}
       run: |
-        {
-          echo "```"
-          echo "VAR_WORKFLOW: $VAR_WORKFLOW"
-          echo "VAR_JOB: $VAR_JOB"
-          echo "VAR_STEP: $VAR_STEP"
-          echo "VAR_STEP_MULTILINE: $VAR_STEP_MULTILINE"
-          echo "```"
-        } | tee -a "$GITHUB_STEP_SUMMARY"
+        echo "VAR_WORKFLOW: $VAR_WORKFLOW"
+        echo "VAR_JOB: $VAR_JOB"
+        echo "VAR_STEP: $VAR_STEP"
+        echo "VAR_STEP_MULTILINE: $VAR_STEP_MULTILINE"
         env | sort
 
     - name: Check without cap.sh
