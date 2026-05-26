@@ -38,7 +38,7 @@ jobs:
           echo "VAR_STEP: $VAR_STEP"
           echo "VAR_STEP_MULTILINE: $VAR_STEP_MULTILINE"
           echo "```"
-        } | tee -a "$GITHUB_SUMMARY"
+        } | tee -a "$GITHUB_STEP_SUMMARY"
         env | sort
 
     - name: Check without cap.sh
