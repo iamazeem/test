@@ -1,0 +1,26 @@
+name: freebsd_deprecations
+
+on: workflow_dispatch
+
+env:
+  TEST: test123
+
+jobs:
+  freebsd-30:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up FreeBSD
+      uses: cross-platform-actions/action@v1.1.0
+      with:
+        operating_system: freebsd
+        version: '13.2'
+        shell: sh
+
+    - name: Run
+      env:
+        ENV_VAR_1: env_var_1
+      shell: cpa.sh {0}
+      run: |
+        echo "TEST: $TEST"
+        echo "ENV_VAR_1: $ENV_VAR_1"
