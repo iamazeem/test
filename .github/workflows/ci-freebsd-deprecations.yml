@@ -6,7 +6,7 @@ env:
   TEST: test123
 
 jobs:
-  freebsd-30:
+  freebsd:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,6 +16,7 @@ jobs:
         operating_system: freebsd
         version: '13.2'
         shell: sh
+        environment_variables: TEST
 
     - name: Run
       env:
