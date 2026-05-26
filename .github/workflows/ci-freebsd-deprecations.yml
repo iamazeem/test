@@ -46,3 +46,11 @@ jobs:
     - name: Get
       run: |
         echo "TEST_VAR=$TEST_VAR"
+
+    - name: Check
+      run: |
+        echo "GITHUB_ENV: $GITHUB_ENV"
+        echo "==="
+        cat "$GITHUB_ENV"
+        echo "==="
+        cat "$GITHUB_ENV" | jq .
