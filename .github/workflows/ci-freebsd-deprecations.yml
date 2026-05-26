@@ -15,11 +15,13 @@ jobs:
 
     - name: Set up FreeBSD
       uses: cross-platform-actions/action@v1.1.0
+      env:
+        VAR_1: var_1
       with:
         operating_system: freebsd
         version: '13.2'
         shell: sh
-        environment_variables: TEST ENV_VAR_1
+        environment_variables: TEST ENV_VAR_1 VAR_1
 
     - name: Run
       env:
@@ -28,6 +30,7 @@ jobs:
       run: |
         echo "TEST: $TEST"
         echo "ENV_VAR_1: $ENV_VAR_1"
+        echo "VAR_1: $VAR_1"
 
     - name: Run script
       shell: cpa.sh {0}
