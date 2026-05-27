@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v6
 
     - name: Set up FreeBSD
-      uses: iamazeem/cross-platform-actions-action@145-propagate-env-vars-2
+      uses: iamazeem/cross-platform-actions-action@145-propagate-env-vars
       with:
         operating_system: freebsd
         version: '13.2'
