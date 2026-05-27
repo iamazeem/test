@@ -30,7 +30,7 @@ jobs:
           Hello,
           World!
         TEST_VAR: test_var
-      shell: cpa.sh {0} --env-vars "VAR_*  TEST_VAR  "
+      shell: cpa.sh {0} --env-vars "VAR_* TEST_VAR"
       run: |
         echo "VAR_WORKFLOW: $VAR_WORKFLOW"
         echo "VAR_JOB: $VAR_JOB"
