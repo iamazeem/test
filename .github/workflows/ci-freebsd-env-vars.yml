@@ -14,7 +14,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Set up FreeBSD
       uses: iamazeem/cross-platform-actions-action@145-propagate-env-vars
