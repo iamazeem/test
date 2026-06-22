@@ -18,13 +18,13 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         sparse-checkout: |
           misc/id:000000,sig:06,src:001129,time:1545512,execs:22534629,op:havoc,rep:15
 
     - name: Checkout [liquidaty/zsv]
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         repository: liquidaty/zsv
         path: zsv

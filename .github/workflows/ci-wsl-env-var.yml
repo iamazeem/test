@@ -27,7 +27,7 @@ jobs:
         additional-packages: jq
 
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Check
       shell: wsl-bash {0}
