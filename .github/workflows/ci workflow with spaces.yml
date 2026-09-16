@@ -1,0 +1,11 @@
+name: workflow_with_spaces
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-slim
+
+    steps:
+    - name: Test
+      run: echo "Testing..."
