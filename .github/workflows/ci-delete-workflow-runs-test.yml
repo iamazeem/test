@@ -7,6 +7,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout
+      uses: actions/chekcout@v7
+
     - name: Delete
       uses: iamazeem/delete-workflow-runs-action@4-fix-word-splitting-in-args
       with:
