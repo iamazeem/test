@@ -1,0 +1,14 @@
+name: delete_workflow_runs_action_test
+
+on: workflow_dispatch
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Delete
+      uses: iamazeem/delete-workflow-runs-action@4-fix-word-splitting-in-args
+      with:
+        workflow: ci workflow with spaces.yml
+        keep: 1
